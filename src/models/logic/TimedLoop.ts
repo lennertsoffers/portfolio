@@ -17,6 +17,18 @@ export default class TimedLoop extends EventEmitter {
         window.requestAnimationFrame(() => this.tick());
     }
 
+    public get currentTime(): number {
+        return this._currentTime;
+    }
+
+    public get elapsedTime(): number {
+        return this._elapsedTime;
+    }
+
+    public get deltaTime(): number {
+        return this._deltaTime;
+    }
+
     public tick(): void {
         const currentTime = Date.now();
         this._deltaTime = currentTime - this._currentTime;

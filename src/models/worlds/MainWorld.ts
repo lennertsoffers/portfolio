@@ -1,9 +1,9 @@
-import { Mesh, MeshBasicMaterial } from "three";
+import { MeshBasicMaterial } from "three";
 import GltfUtils from "../../utils/GltfUtils";
 import World from "./World";
 
 export default class MainWorld extends World {
-    public createWorld(): void {
+    public loadWorld(): void {
         const rocks1Texture = this.application.resourceManager.getLoadedResource("rocks_1").getTexture();
         const rocks2Texture = this.application.resourceManager.getLoadedResource("rocks_2").getTexture();
         const rocks3Texture = this.application.resourceManager.getLoadedResource("rocks_3").getTexture();

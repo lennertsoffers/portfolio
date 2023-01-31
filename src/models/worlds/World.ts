@@ -11,5 +11,5 @@ export default abstract class World {
         return this._application;
     }
 
-    public abstract createWorld(): void;
+    public abstract loadWorld(): void;
 }

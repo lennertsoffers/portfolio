@@ -1,7 +1,8 @@
 import { CineonToneMapping, PCFSoftShadowMap, sRGBEncoding, WebGLRenderer } from "three";
 import Application from "../../Application";
+import Tickable from "../../types/Tickable";
 
-export default class Renderer {
+export default class Renderer implements Tickable {
     private _application: Application;
     private _instance: WebGLRenderer;
 
@@ -29,7 +30,7 @@ export default class Renderer {
         this._instance.setPixelRatio(Math.min(this._application.dimensions.pixelRatio, 2));
     }
 
-    public update(): void {
+    public tick(): void {
         this._instance.render(this._application.scene, this._application.camera.instance);
     }
 }
