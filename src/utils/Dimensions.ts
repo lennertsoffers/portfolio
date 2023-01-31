@@ -20,11 +20,13 @@ export default class Dimensions extends EventEmitter {
     }
 
     private updateOnResize(): void {
-        this._width = window.innerWidth;
-        this._height = window.innerHeight;
-        this._pixelRatio = Math.min(window.devicePixelRatio, 2);
+        window.addEventListener("resize", () => {
+            this._width = window.innerWidth;
+            this._height = window.innerHeight;
+            this._pixelRatio = Math.min(window.devicePixelRatio, 2);
 
-        this.trigger("resize");
+            this.trigger("resize");
+        });
     }
 
     public get width(): number {
