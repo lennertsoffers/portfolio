@@ -1,7 +1,7 @@
 import Application from "../../Application";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { PerspectiveCamera } from "three";
-import Tickable from "../../types/Tickable";
+import Tickable from "../../types/interfaces/Tickable";
 
 export default class Camera implements Tickable {
     private _application: Application;

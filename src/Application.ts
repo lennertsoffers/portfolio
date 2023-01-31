@@ -1,4 +1,4 @@
-import { Scene } from "three";
+import { AmbientLight, PointLight, Scene } from "three";
 import TimedLoop from "./models/logic/TimedLoop";
 import Dimensions from "./utils/Dimensions";
 import Renderer from "./models/three/Renderer";
@@ -6,10 +6,12 @@ import Camera from "./models/three/Camera";
 import ResourceManager from "./models/three/ResourceManager";
 import MainWorld from "./models/worlds/MainWorld";
 import Player from "./models/player/Player";
-import Tickable from "./types/Tickable";
+import Tickable from "./types/interfaces/Tickable";
+import Debug from "./utils/Debug";
 
 export default class Application implements Tickable {
     private _canvas: HTMLCanvasElement;
+    private _debug: Debug;
     private _resourceManager: ResourceManager;
     private _dimensions: Dimensions;
     private _timedLoop: TimedLoop;
@@ -20,6 +22,7 @@ export default class Application implements Tickable {
 
     constructor(canvas: HTMLCanvasElement) {
         this._canvas = canvas;
+        this._debug = new Debug();
         this._resourceManager = new ResourceManager();
         this._dimensions = new Dimensions();
         this._timedLoop = new TimedLoop();
@@ -33,10 +36,21 @@ export default class Application implements Tickable {
         this._timedLoop.addEventListener("tick", () => this.tick());
 
         this._resourceManager.startLoading();
+
+        // TODO - Remove lights
+        const light = new PointLight(0xffffff, 100, 0);
+        light.position.set(5, 5, 5);
+        this._scene.add(light);
+        const sun = new AmbientLight(0xffffff, 0.5);
+        this._scene.add(sun);
     }
 
     public get canvas(): HTMLCanvasElement {
         return this._canvas;
+    }
+
+    public get debug(): Debug {
+        return this._debug;
     }
 
     public get resourceManager(): ResourceManager {

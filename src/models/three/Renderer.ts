@@ -1,6 +1,6 @@
 import { CineonToneMapping, PCFSoftShadowMap, sRGBEncoding, WebGLRenderer } from "three";
 import Application from "../../Application";
-import Tickable from "../../types/Tickable";
+import Tickable from "../../types/interfaces/Tickable";
 
 export default class Renderer implements Tickable {
     private _application: Application;
