@@ -1,0 +1,30 @@
+import EventEmitter from "../../utils/EventEmitter";
+
+export default class TimedLoop extends EventEmitter {
+    private _startTime: number;
+    private _currentTime: number;
+    private _elapsedTime: number;
+    private _deltaTime: number;
+
+    constructor() {
+        super();
+
+        this._startTime = Date.now();
+        this._currentTime = this._startTime;
+        this._elapsedTime = 0;
+        this._deltaTime = 1;
+
+        window.requestAnimationFrame(() => this.tick());
+    }
+
+    public tick(): void {
+        const currentTime = Date.now();
+        this._deltaTime = currentTime - this._currentTime;
+        this._currentTime = currentTime;
+        this._elapsedTime = this._currentTime - this._startTime;
+
+        this.trigger("tick");
+
+        window.requestAnimationFrame(() => this.tick());
+    }
+}

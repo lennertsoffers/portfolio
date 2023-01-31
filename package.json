@@ -1,7 +1,7 @@
 {
     "name": "portfolio-lennert-soffers",
     "version": "1.0.0",
-    "description": "",
+    "description": "My immersive personal portfolio build with Three.js ",
     "main": "index.js",
     "scripts": {
         "build": "webpack --config ./bundler/webpack.prod.js",
