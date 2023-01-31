@@ -2,9 +2,7 @@ import LoadCycleEntry from "./types/LoadCycleEntry";
 
 const sources: LoadCycleEntry[] = [
     {
-        index: 1,
-        name: "scene 1 textures",
-        displayName: "textures",
+        name: "world 1 textures",
         sourceEntries: [
             {
                 name: "rocks_1",
@@ -35,16 +33,9 @@ const sources: LoadCycleEntry[] = [
                 name: "iron",
                 type: "texture",
                 path: "textures/terrain/baked_iron-min.jpg"
-            }
-        ]
-    },
-    {
-        index: 1,
-        name: "scene 1 models",
-        displayName: "3d objects",
-        sourceEntries: [
+            },
             {
-                name: "world 1",
+                name: "world_1",
                 type: "gltf",
                 path: "models/world1.glb"
             },
@@ -53,6 +44,11 @@ const sources: LoadCycleEntry[] = [
                 type: "gltf",
                 path: "models/character.glb"
             }
+        ]
+    },
+    {
+        name: "world 2 textures",
+        sourceEntries: [
         ]
     }
 ];
