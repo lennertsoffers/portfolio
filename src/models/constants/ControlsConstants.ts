@@ -6,4 +6,5 @@ export default class ControlConstants {
     public static PLAYER_ROTATION_DAMPING = 1;
 
     public static ORBIT_Y_LIMIT = Math.PI / 2 - 0.1;
+    public static ORBIT_SENSITIVITY = 5;
 }

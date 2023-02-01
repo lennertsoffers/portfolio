@@ -18,6 +18,10 @@ export default abstract class AttachedMovable implements Movable, Attachable, Ti
         this._toPosition = new Vector3();
     }
 
+    public get distanceModifier(): number {
+        return AttachableConstants.DISTANCE + this._distanceModifier;
+    }
+
     public set toPosition(value: Vector3) {
         this._toPosition = value;
     }
@@ -35,6 +39,7 @@ export default abstract class AttachedMovable implements Movable, Attachable, Ti
     }
 
     public resumeAttachment(): void {
+        this._distanceModifier = 1;
         this._pausedAttachment = false;
     }
 
@@ -54,7 +59,7 @@ export default abstract class AttachedMovable implements Movable, Attachable, Ti
 
         const attachedPosition = this._attachedTo.getPosition();
         const direction = this._attachedTo.getDirectionY().normalize();
-        this._toPosition = new Vector3().subVectors(attachedPosition, direction.clone().multiplyScalar(AttachableConstants.DISTANCE + this._distanceModifier).setY(attachedPosition.y + AttachableConstants.HEIGHT).multiplyScalar(-1));
+        this._toPosition = new Vector3().subVectors(attachedPosition, direction.clone().multiplyScalar(this.distanceModifier).setY(attachedPosition.y + AttachableConstants.HEIGHT).multiplyScalar(-1));
     }
 
     abstract getRotation(): Vector3;

@@ -7,32 +7,33 @@ import PlayerModel from "./PlayerModel";
 
 export default class PlayerControls implements Tickable {
     private _player: Player;
+    private _loaded: boolean;
+
+    // Keyboard controls
     private _keysDown: Set<string>;
     private _toPosition: Vector3;
     private _toRotation: Vector3;
-    private _loaded: boolean;
-    private _mouseControlsActive: boolean;
+
+    // Orbit controls
+    private _orbitControlsActive: boolean;
+    private _dragging: boolean;
     private _orbitPosition: Vector3;
     private _initialRotationY: number;
-    private _x;
-    private _y;
-    private _z;
+    private _orbitMovement: Vector3;
 
     constructor(player: Player) {
         this._player = player;
-        this._keysDown = new Set<string>;
+        this._loaded = false;
 
+        this._keysDown = new Set<string>;
         this._toPosition = new Vector3();
         this._toRotation = new Vector3();
 
-        this._loaded = false;
-        this._mouseControlsActive = false;
-
+        this._orbitControlsActive = false;
+        this._dragging = false;
         this._orbitPosition = new Vector3();
         this._initialRotationY = 0;
-        this._x = 0;
-        this._y = 0;
-        this._z = 0;
+        this._orbitMovement = new Vector3();
     }
 
     public get character(): PlayerModel {
@@ -46,30 +47,30 @@ export default class PlayerControls implements Tickable {
     public tick(deltaTime: number, _elapsedTime: number): void {
         if (!this._loaded) return;
 
-        if (this._keysDown.has("w")) {
-            this.camera.resumeAttachment();
-
-            if (this._keysDown.has("shift")) {
-                this._toPosition.add(this.character.getDirectionY().multiplyScalar(-ControlConstants.PLAYER_RUN_SPEED / 100));
-            } else {
-                this._toPosition.add(this.character.getDirectionY().multiplyScalar(-ControlConstants.PLAYER_WALK_SPEED / 100));
+        this._keysDown.forEach((key) => {
+            switch (key) {
+                case "w":
+                case "arrowup":
+                    this.moveForwards();
+                    break;
+                case "s":
+                case "arrowdown":
+                    this.moveBackwards();
+                    break;
+                case "a":
+                case "arrowleft":
+                    this.moveLeft();
+                    break;
+                case "d":
+                case "arrowright":
+                    this.moveRight();
+                    break;
+                default:
+                    return;
             }
-        }
 
-        if (this._keysDown.has("s")) {
-            this.camera.resumeAttachment();
-            this._toPosition.add(this.character.getDirectionY().multiplyScalar(ControlConstants.PLAYER_WALK_SPEED / 100));
-        }
-
-        if (this._keysDown.has("a")) {
-            this.camera.resumeAttachment();
-            this._toRotation.add(new Vector3(0, ControlConstants.PLAYER_ROTATION_SPEED / 10, 0));
-        }
-
-        if (this._keysDown.has("d")) {
-            this.camera.resumeAttachment();
-            this._toRotation.add(new Vector3(0, -ControlConstants.PLAYER_ROTATION_SPEED / 10, 0));
-        }
+            this.stopOrbiting();
+        });
 
         const movementVec = this._toPosition.clone().add(this.character.getPosition().multiplyScalar(-1));
         this.character.move(movementVec.multiplyScalar(deltaTime * 0.01 / ControlConstants.PLAYER_MOVEMENT_DAMPING));
@@ -82,7 +83,7 @@ export default class PlayerControls implements Tickable {
         this._toPosition = this.character.getPosition();
         this._toRotation = this.character.getRotation();
 
-        this.enableMouseControls();
+        this.enableOrbitControls();
         this.enableKeyboardControls();
 
         this.camera.attach(this.character);
@@ -90,38 +91,65 @@ export default class PlayerControls implements Tickable {
         this._loaded = true;
     }
 
-    private enableMouseControls(): void {
+    // Orbit controls
+    private enableOrbitControls(): void {
         window.addEventListener("wheel", (event) => {
             this.camera.zoom(Math.sign(event.deltaY) * 0.1);
+
+            if (this._orbitControlsActive) this.updateOrbitControls();
         });
 
         window.addEventListener("pointerdown", () => {
-            if (!this._mouseControlsActive) {
-                this.camera.pauseAttachment();
-                this._orbitPosition = this._player.playerModel.getCenterPosition();
-                this._initialRotationY = this._player.playerModel.getRotation().y + Math.PI;
-            }
+            if (!this._orbitControlsActive) this.startOrbiting();
 
-            this._mouseControlsActive = true;
+            this._orbitControlsActive = true;
+            this._dragging = true;
         });
 
         window.addEventListener("pointerup", () => {
-            this._mouseControlsActive = false;
+            this._dragging = false;
         });
 
         window.addEventListener("pointermove", (event) => {
-            if (!this._mouseControlsActive) return;
+            if (!this._dragging || !this._orbitControlsActive) return;
 
-            const relativeMovementX = -event.movementX / this._player.application.dimensions.width;
-            const relativeMovementY = event.movementY / this._player.application.dimensions.height;
-
-            this._x += relativeMovementX * 3;
-            this._y = Math.min(Math.max(this._y + relativeMovementY * 3, -ControlConstants.ORBIT_Y_LIMIT), ControlConstants.ORBIT_Y_LIMIT);
-            this._z += relativeMovementX * 3;
-            this.camera.toPosition = new Vector3(this._orbitPosition.x + Math.sin(this._x + this._initialRotationY) * Math.cos(this._y), this._orbitPosition.y + Math.sin(this._y), this._orbitPosition.z + Math.cos(this._z + this._initialRotationY) * Math.cos(this._y));
+            this.updateOrbitValues(event);
+            this.updateOrbitControls();
         });
     }
 
+    private startOrbiting(): void {
+        this.camera.pauseAttachment();
+        this._orbitPosition = this._player.playerModel.getCenterPosition();
+        this._initialRotationY = this._player.playerModel.getRotation().y + Math.PI;
+        this._orbitMovement.setScalar(0);
+    }
+
+    private stopOrbiting(): void {
+        if (this._orbitControlsActive) this.camera.resumeAttachment();
+        this._orbitControlsActive = false;
+    }
+
+    private updateOrbitValues(event: PointerEvent): void {
+        const relativeMovementX = -event.movementX / this._player.application.dimensions.width;
+        const relativeMovementY = event.movementY / this._player.application.dimensions.height;
+
+        this._orbitMovement.x += relativeMovementX * ControlConstants.ORBIT_SENSITIVITY;
+        this._orbitMovement.y = Math.min(Math.max(this._orbitMovement.y + relativeMovementY * ControlConstants.ORBIT_SENSITIVITY, -ControlConstants.ORBIT_Y_LIMIT), ControlConstants.ORBIT_Y_LIMIT);
+        this._orbitMovement.z += relativeMovementX * ControlConstants.ORBIT_SENSITIVITY;
+    }
+
+    private updateOrbitControls(): void {
+        const distanceModifier = this.camera.distanceModifier;
+
+        this.camera.toPosition = new Vector3(
+            this._orbitPosition.x + Math.sin(this._orbitMovement.x + this._initialRotationY) * Math.cos(this._orbitMovement.y) * distanceModifier,
+            this._orbitPosition.y + Math.sin(this._orbitMovement.y) * distanceModifier,
+            this._orbitPosition.z + Math.cos(this._orbitMovement.z + this._initialRotationY) * Math.cos(this._orbitMovement.y) * distanceModifier
+        );
+    }
+
+    // Keyboard controls
     private enableKeyboardControls(): void {
         window.addEventListener("keydown", (event) => {
             this._keysDown.add(event.key.toLowerCase());
@@ -130,5 +158,25 @@ export default class PlayerControls implements Tickable {
         window.addEventListener("keyup", (event) => {
             this._keysDown.delete(event.key.toLowerCase());
         });
+    }
+
+    private moveForwards(): void {
+        if (this._keysDown.has("shift")) {
+            this._toPosition.add(this.character.getDirectionY().multiplyScalar(-ControlConstants.PLAYER_RUN_SPEED / 100));
+        } else {
+            this._toPosition.add(this.character.getDirectionY().multiplyScalar(-ControlConstants.PLAYER_WALK_SPEED / 100));
+        }
+    }
+
+    private moveBackwards(): void {
+        this._toPosition.add(this.character.getDirectionY().multiplyScalar(ControlConstants.PLAYER_WALK_SPEED / 100));
+    }
+
+    private moveLeft(): void {
+        this._toRotation.add(new Vector3(0, ControlConstants.PLAYER_ROTATION_SPEED / 10, 0));
+    }
+
+    private moveRight(): void {
+        this._toRotation.add(new Vector3(0, -ControlConstants.PLAYER_ROTATION_SPEED / 10, 0));
     }
 }
