@@ -44,7 +44,7 @@ export default class AnimationManager implements Tickable, Debugable {
         animationCharacterFolder.close();
     }
 
-    public play(animationName: string): void {
+    public play(animationName: string): number {
         const animationActionEntry = this._animationActions.find((animationActionEntry) => animationActionEntry.name === animationName);
 
         if (!animationActionEntry) throw new AnimationNotFoundError(animationName, this._model.name, this._animationActions.map((animationActionEntry) => animationActionEntry.name));
@@ -52,15 +52,17 @@ export default class AnimationManager implements Tickable, Debugable {
         const newAction = animationActionEntry.action;
         newAction.reset();
         newAction.play();
-        if (this._currentAction) newAction.crossFadeFrom(this._currentAction, 1, false);
+        if (this._currentAction) newAction.crossFadeFrom(this._currentAction, 0.2, false);
 
         this._currentAction = newAction;
+
+        return animationActionEntry.duration * 1000;
     }
 
     private addAnimations(): void {
         this._clips.forEach((animation) => {
             const action = this._mixer.clipAction(animation);
-            this._animationActions.push({ name: animation.name, action: action });
+            this._animationActions.push({ name: animation.name, action: action, duration: animation.duration });
         });
     }
 }

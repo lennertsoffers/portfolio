@@ -1,6 +1,7 @@
 import { Object3D, Vector3 } from "three";
 import Tickable from "../../types/interfaces/Tickable";
 import AnimationManager from "../animation/AnimationManager";
+import AnimationMappings from "../constants/AnimationMappings";
 import ModelConstants from "../constants/ModelConstants";
 import MovableObject3D from "../three/MovableObject3D";
 import Player from "./Player";
@@ -41,6 +42,37 @@ export default class PlayerModel extends MovableObject3D implements Tickable {
     }
 
     public tick(deltaTime: number, elapsedTime: number): void {
-        this._animationManager?.tick(deltaTime, elapsedTime);
+        if (!this._animationManager) return;
+
+        this._animationManager.tick(deltaTime, elapsedTime);
+    }
+
+    public toIdle(): void {
+        if (!this._animationManager) return;
+        this._animationManager.play(AnimationMappings.PlayerAnimations.IDLE);
+    }
+
+    public toWalking(): void {
+        if (!this._animationManager) return;
+        this._animationManager.play(AnimationMappings.PlayerAnimations.WALK);
+    }
+
+    public toRunning(): void {
+        if (!this._animationManager) return;
+        this._animationManager.play(AnimationMappings.PlayerAnimations.RUN);
+    }
+
+    public async wave(): Promise<void> {
+        if (!this._animationManager) return;
+        const duration = this._animationManager.play(AnimationMappings.PlayerAnimations.WAVE);
+
+        return new Promise((resolve) => {
+            setTimeout(resolve, duration);
+        });
+    }
+
+    public jump(): void {
+        if (!this._animationManager) return;
+        this._animationManager.play(AnimationMappings.PlayerAnimations.JUMP);
     }
 }
