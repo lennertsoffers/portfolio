@@ -8,14 +8,26 @@ import MovableObject3D from "./MovableObject3D";
 export default abstract class AttachedMovable implements Movable, Attachable, Tickable {
     private _attachedTo: MovableObject3D | null;
     private _pausedAttachment: boolean;
+    private _distanceModifier: number;
+    private _toPosition: Vector3;
 
     constructor() {
         this._attachedTo = null;
         this._pausedAttachment = false;
+        this._distanceModifier = 1;
+        this._toPosition = new Vector3();
+    }
+
+    public set toPosition(value: Vector3) {
+        this._toPosition = value;
     }
 
     public attach(object: MovableObject3D): void {
         this._attachedTo = object;
+    }
+
+    public zoom(zoomAmount: number): void {
+        this._distanceModifier = Math.max(Math.min(this._distanceModifier + zoomAmount, AttachableConstants.MAX_ZOOM), AttachableConstants.MIN_ZOOM);
     }
 
     public pauseAttachment(): void {
@@ -27,17 +39,22 @@ export default abstract class AttachedMovable implements Movable, Attachable, Ti
     }
 
     public tick(deltaTime: number, _elapsedTime: number): void {
-        if (!this._attachedTo || this._pausedAttachment) return;
+        if (!this._attachedTo) return;
+        if (!this._pausedAttachment) this.setToPositionAttached();
 
         const fromPosition = this.getPosition();
-        const attachedPosition = this._attachedTo.getPosition();
-        const direction = this._attachedTo.getDirectionY().normalize();
-        const toPosition = new Vector3().subVectors(attachedPosition, direction.clone().multiplyScalar(AttachableConstants.DISTANCE).setY(attachedPosition.y + AttachableConstants.HEIGHT).multiplyScalar(-1));
 
-        const movementVec = new Vector3().subVectors(toPosition, fromPosition);
-
+        const movementVec = new Vector3().subVectors(this._toPosition, fromPosition);
         this.move(movementVec.multiplyScalar(deltaTime * 0.01));
         this.lookAt(this._attachedTo.getCenterPosition());
+    }
+
+    private setToPositionAttached(): void {
+        if (!this._attachedTo) return;
+
+        const attachedPosition = this._attachedTo.getPosition();
+        const direction = this._attachedTo.getDirectionY().normalize();
+        this._toPosition = new Vector3().subVectors(attachedPosition, direction.clone().multiplyScalar(AttachableConstants.DISTANCE + this._distanceModifier).setY(attachedPosition.y + AttachableConstants.HEIGHT).multiplyScalar(-1));
     }
 
     abstract getRotation(): Vector3;

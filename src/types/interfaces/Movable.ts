@@ -1,4 +1,4 @@
-import { Object3D, Vector3 } from "three";
+import { Vector3 } from "three";
 
 export default interface Movable {
     getRotation(): Vector3;

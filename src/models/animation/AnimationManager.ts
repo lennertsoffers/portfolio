@@ -23,8 +23,6 @@ export default class AnimationManager implements Tickable, Debugable {
         this.addAnimations();
 
         if (this._application.debug.active) this.addDebugProperties();
-
-        this.play("Character|Idle");
     }
 
     public tick(deltaTime: number, elapsedTime: number): void {
