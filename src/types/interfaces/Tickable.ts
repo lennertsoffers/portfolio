@@ -1,3 +1,3 @@
 export default interface Tickable {
-    tick(): void;
+    tick(deltaTime: number, elapsedTime: number): void;
 }

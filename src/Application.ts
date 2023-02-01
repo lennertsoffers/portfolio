@@ -33,7 +33,7 @@ export default class Application implements Tickable {
 
         this._resourceManager.addEventListener("loadCycleEntryLoaded", () => this.onLoadCycleEntryLoaded());
         this._dimensions.addEventListener("resize", () => this.resize());
-        this._timedLoop.addEventListener("tick", () => this.tick());
+        this._timedLoop.addEventListener("tick", () => this.tick(this._timedLoop.deltaTime, this._timedLoop.elapsedTime));
 
         this._resourceManager.startLoading();
 
@@ -73,10 +73,10 @@ export default class Application implements Tickable {
         return this._camera;
     }
 
-    public tick(): void {
-        this._camera.tick();
-        this._renderer.tick();
-        this._player.tick();
+    public tick(deltaTime: number, elapsedTime: number): void {
+        this._camera.tick(deltaTime, elapsedTime);
+        this._renderer.tick(deltaTime, elapsedTime);
+        this._player.tick(deltaTime, elapsedTime);
     }
 
     private resize(): void {
@@ -85,8 +85,8 @@ export default class Application implements Tickable {
     }
 
     private createWorld(): void {
-        // const mainWorld = new MainWorld(this);
-        // mainWorld.loadWorld();
+        const mainWorld = new MainWorld(this);
+        mainWorld.loadWorld();
         this._player.loadPlayer();
     }
 

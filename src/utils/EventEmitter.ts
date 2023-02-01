@@ -1,4 +1,4 @@
-import EventEntry from "../types/EventEntry";
+import EventEntry from "../types/entries/EventEntry";
 
 export default class EventEmitter {
     private _eventRegistry: EventEntry[] = [];

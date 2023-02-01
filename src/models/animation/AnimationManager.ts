@@ -27,8 +27,8 @@ export default class AnimationManager implements Tickable, Debugable {
         this.play("Character|Idle");
     }
 
-    public tick(): void {
-        this._mixer.update(this._application.timedLoop.deltaTime * 0.001);
+    public tick(deltaTime: number, elapsedTime: number): void {
+        this._mixer.update(deltaTime * 0.001);
     }
 
     public addDebugProperties(): void {
@@ -41,6 +41,9 @@ export default class AnimationManager implements Tickable, Debugable {
             availableActions[animation.name] = () => this.play(animation.name);
         });
         Object.keys(availableActions).forEach((actionName) => animationCharacterFolder.add(availableActions, actionName));
+
+        animationFolder.close();
+        animationCharacterFolder.close();
     }
 
     public play(animationName: string): void {

@@ -1,4 +1,4 @@
-import LoadCycleEntry from "./types/LoadCycleEntry";
+import LoadCycleEntry from "./types/entries/LoadCycleEntry";
 
 const sources: LoadCycleEntry[] = [
     {

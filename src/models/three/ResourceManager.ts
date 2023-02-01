@@ -1,11 +1,11 @@
 import sources from "../../sources";
-import LoadCycleEntry from "../../types/LoadCycleEntry";
+import LoadCycleEntry from "../../types/entries/LoadCycleEntry";
 import Loaders from "../../types/Loaders";
 import EventEmitter from "../../utils/EventEmitter";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { sRGBEncoding, TextureLoader } from "three";
-import SourceEntry from "../../types/SourceEntry";
+import SourceEntry from "../../types/entries/SourceEntry";
 import LoadedResourceEntry from "./LoadedResourceEntry";
 import ResourceNotLoadedError from "../error/ResourceNotLoadedError";
 

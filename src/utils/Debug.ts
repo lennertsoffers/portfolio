@@ -12,6 +12,7 @@ export default class Debug {
 
         if (this._active) {
             this._ui = new GUI();
+            this._ui.close();
         }
     }
 
