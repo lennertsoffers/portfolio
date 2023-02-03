@@ -1,6 +1,7 @@
 import { Vector3 } from "three";
 import Tickable from "../../types/interfaces/Tickable";
 import ControlConstants from "../constants/ControlsConstants";
+import KeyType from "../enum/KeyType";
 import PlayerState from "../enum/PlayerState";
 import Camera from "../three/Camera";
 import Player from "./Player";
@@ -15,6 +16,7 @@ export default class PlayerControls implements Tickable {
     private _toPosition: Vector3;
     private _toRotation: Vector3;
     private _keyboardControlsEnabled: boolean;
+    private _pressedKeyType: KeyType;
 
     // Orbit controls
     private _orbitControlsActive: boolean;
@@ -31,6 +33,7 @@ export default class PlayerControls implements Tickable {
         this._toPosition = new Vector3();
         this._toRotation = new Vector3();
         this._keyboardControlsEnabled = true;
+        this._pressedKeyType = KeyType.NONE;
 
         this._orbitControlsActive = false;
         this._dragging = false;
@@ -54,42 +57,7 @@ export default class PlayerControls implements Tickable {
     public tick(deltaTime: number, _elapsedTime: number): void {
         if (!this._loaded || !this._keyboardControlsEnabled) return;
 
-        let pressedKey = false;
-
-        this._keysDown.forEach((key) => {
-            switch (key) {
-                case "w":
-                case "arrowup":
-                    this.moveForwards();
-                    break;
-                case "s":
-                case "arrowdown":
-                    this.moveBackwards();
-                    break;
-                case "a":
-                case "arrowleft":
-                    this.moveLeft();
-                    break;
-                case "d":
-                case "arrowright":
-                    this.moveRight();
-                    break;
-                case "e":
-                    this.wave();
-                    break;
-                default:
-                    return;
-            }
-
-            pressedKey = true;
-        });
-
-        if (pressedKey) {
-            // TODO - Don't stop orbiting after wave
-            this.stopOrbiting();
-        } else {
-            this._player.setPlayerState(PlayerState.IDLE);
-        }
+        this.handlePressedKeys();
 
         const movementVec = this._toPosition.clone().add(this.character.getPosition().multiplyScalar(-1));
         this.character.move(movementVec.multiplyScalar(deltaTime * 0.01 / ControlConstants.PLAYER_MOVEMENT_DAMPING));
@@ -177,6 +145,60 @@ export default class PlayerControls implements Tickable {
         window.addEventListener("keyup", (event) => {
             this._keysDown.delete(event.key.toLowerCase());
         });
+    }
+
+    private handlePressedKeys(): void {
+        this.resetPressedKeyType();
+
+        this._keysDown.forEach((key) => {
+            switch (key) {
+                case "w":
+                case "arrowup":
+                    if (this._pressedKeyType === KeyType.MOVE) return;
+
+                    this.moveForwards();
+                    this._pressedKeyType = KeyType.MOVE;
+                    return;
+
+                case "s":
+                case "arrowdown":
+                    if (this._pressedKeyType === KeyType.MOVE) return;
+
+                    this._pressedKeyType = KeyType.MOVE;
+                    this.moveBackwards();
+                    return;
+
+                case "a":
+                case "arrowleft":
+                    this.moveLeft();
+                    return;
+
+                case "d":
+                case "arrowright":
+                    this.moveRight();
+                    return;
+
+                case "e":
+                    this._pressedKeyType = KeyType.EMOTE;
+                    this.wave();
+                    return;
+
+                default:
+                    return;
+            }
+        });
+
+        if (this._pressedKeyType === KeyType.MOVE) {
+            this.stopOrbiting();
+        } else if (this._pressedKeyType === KeyType.EMOTE) {
+
+        } else {
+            this._player.setPlayerState(PlayerState.IDLE);
+        }
+    }
+
+    private resetPressedKeyType(): void {
+        this._pressedKeyType = KeyType.NONE;
     }
 
     private moveForwards(): void {
