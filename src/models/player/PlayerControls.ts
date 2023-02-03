@@ -13,8 +13,6 @@ export default class PlayerControls implements Tickable {
 
     // Keyboard controls
     private _keysDown: Set<string>;
-    private _toPosition: Vector3;
-    private _toRotation: Vector3;
     private _keyboardControlsEnabled: boolean;
     private _pressedKeyType: KeyType;
 
@@ -30,8 +28,6 @@ export default class PlayerControls implements Tickable {
         this._loaded = false;
 
         this._keysDown = new Set<string>;
-        this._toPosition = new Vector3();
-        this._toRotation = new Vector3();
         this._keyboardControlsEnabled = true;
         this._pressedKeyType = KeyType.NONE;
 
@@ -54,22 +50,13 @@ export default class PlayerControls implements Tickable {
         this._keyboardControlsEnabled = value;
     }
 
-    public tick(deltaTime: number, _elapsedTime: number): void {
+    public tick(_deltaTime: number, _elapsedTime: number): void {
         if (!this._loaded || !this._keyboardControlsEnabled) return;
 
         this.handlePressedKeys();
-
-        const movementVec = this._toPosition.clone().add(this.character.getPosition().multiplyScalar(-1));
-        this.character.move(movementVec.multiplyScalar(deltaTime * 0.01 / ControlConstants.PLAYER_MOVEMENT_DAMPING));
-
-        const rotationVec = this._toRotation.clone().add(this.character.getRotation().multiplyScalar(-1));
-        this.character.addRotation(rotationVec.multiplyScalar(deltaTime * 0.01 / ControlConstants.PLAYER_ROTATION_DAMPING));
     }
 
     public loadControls(): void {
-        this._toPosition = this.character.getPosition();
-        this._toRotation = this.character.getRotation();
-
         this.enableOrbitControls();
         this.enableKeyboardControls();
 
@@ -178,6 +165,11 @@ export default class PlayerControls implements Tickable {
                     this.moveRight();
                     return;
 
+                case "q":
+                    this._pressedKeyType = KeyType.EMOTE;
+                    this.jump();
+                    return;
+
                 case "e":
                     this._pressedKeyType = KeyType.EMOTE;
                     this.wave();
@@ -204,24 +196,28 @@ export default class PlayerControls implements Tickable {
     private moveForwards(): void {
         if (this._keysDown.has("shift")) {
             this._player.setPlayerState(PlayerState.RUNNING);
-            this._toPosition.add(this.character.getDirectionY().multiplyScalar(-ControlConstants.PLAYER_RUN_SPEED / 100));
+            this._player.futurePosition = this._player.currentPosition.add(this.character.getDirectionY().multiplyScalar(-ControlConstants.PLAYER_RUN_SPEED / 10));
         } else {
             this._player.setPlayerState(PlayerState.WALKING);
-            this._toPosition.add(this.character.getDirectionY().multiplyScalar(-ControlConstants.PLAYER_WALK_SPEED / 100));
+            this._player.futurePosition = this._player.currentPosition.add(this.character.getDirectionY().multiplyScalar(-ControlConstants.PLAYER_WALK_SPEED / 10));
         }
     }
 
     private moveBackwards(): void {
         this._player.setPlayerState(PlayerState.WALKING);
-        this._toPosition.add(this.character.getDirectionY().multiplyScalar(ControlConstants.PLAYER_WALK_SPEED / 100));
+        this._player.futurePosition = this._player.currentPosition.add(this.character.getDirectionY().multiplyScalar(ControlConstants.PLAYER_WALK_SPEED / 10));
     }
 
     private moveLeft(): void {
-        this._toRotation.add(new Vector3(0, ControlConstants.PLAYER_ROTATION_SPEED / 10, 0));
+        this._player.futureRotation = this._player.currentRotation.add(new Vector3(0, ControlConstants.PLAYER_ROTATION_SPEED, 0));
     }
 
     private moveRight(): void {
-        this._toRotation.add(new Vector3(0, -ControlConstants.PLAYER_ROTATION_SPEED / 10, 0));
+        this._player.futureRotation = this._player.currentRotation.add(new Vector3(0, -ControlConstants.PLAYER_ROTATION_SPEED, 0));
+    }
+
+    private jump(): void {
+        this._player.setPlayerState(PlayerState.JUMPING);
     }
 
     private wave(): void {

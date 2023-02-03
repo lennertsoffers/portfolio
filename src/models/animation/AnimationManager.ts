@@ -44,19 +44,20 @@ export default class AnimationManager implements Tickable, Debugable {
         animationCharacterFolder.close();
     }
 
-    public play(animationName: string): number {
+    public play(animationName: string, speed: number = 1): number {
         const animationActionEntry = this._animationActions.find((animationActionEntry) => animationActionEntry.name === animationName);
 
         if (!animationActionEntry) throw new AnimationNotFoundError(animationName, this._model.name, this._animationActions.map((animationActionEntry) => animationActionEntry.name));
 
         const newAction = animationActionEntry.action;
+        newAction.timeScale = speed;
         newAction.reset();
         newAction.play();
         if (this._currentAction) newAction.crossFadeFrom(this._currentAction, 0.2, false);
 
         this._currentAction = newAction;
 
-        return animationActionEntry.duration * 1000;
+        return animationActionEntry.duration * 1000 / speed;
     }
 
     private addAnimations(): void {

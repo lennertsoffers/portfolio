@@ -1,4 +1,4 @@
-import { Object3D, Vector3 } from "three";
+import { Object3D } from "three";
 import Tickable from "../../types/interfaces/Tickable";
 import AnimationManager from "../animation/AnimationManager";
 import AnimationMappings from "../constants/AnimationMappings";
@@ -44,35 +44,61 @@ export default class PlayerModel extends MovableObject3D implements Tickable {
     public tick(deltaTime: number, elapsedTime: number): void {
         if (!this._animationManager) return;
 
+        this.updatePositionRotation();
+
         this._animationManager.tick(deltaTime, elapsedTime);
     }
 
     public toIdle(): void {
         if (!this._animationManager) return;
-        this._animationManager.play(AnimationMappings.PlayerAnimations.IDLE);
+        this._animationManager.play(
+            AnimationMappings.PlayerAnimations.NAME_IDLE,
+            AnimationMappings.PlayerAnimations.SPEED_IDLE
+        );
     }
 
     public toWalking(): void {
         if (!this._animationManager) return;
-        this._animationManager.play(AnimationMappings.PlayerAnimations.WALK);
+        this._animationManager.play(
+            AnimationMappings.PlayerAnimations.NAME_WALK,
+            AnimationMappings.PlayerAnimations.SPEED_WALK
+        );
     }
 
     public toRunning(): void {
         if (!this._animationManager) return;
-        this._animationManager.play(AnimationMappings.PlayerAnimations.RUN);
+        this._animationManager.play(
+            AnimationMappings.PlayerAnimations.NAME_RUN,
+            AnimationMappings.PlayerAnimations.SPEED_RUN
+        );
     }
 
     public async wave(): Promise<void> {
         if (!this._animationManager) return;
-        const duration = this._animationManager.play(AnimationMappings.PlayerAnimations.WAVE);
+        const duration = this._animationManager.play(
+            AnimationMappings.PlayerAnimations.NAME_WAVE,
+            AnimationMappings.PlayerAnimations.SPEED_WAVE
+        );
 
         return new Promise((resolve) => {
             setTimeout(resolve, duration);
         });
     }
 
-    public jump(): void {
+    public async jump(): Promise<void> {
         if (!this._animationManager) return;
-        this._animationManager.play(AnimationMappings.PlayerAnimations.JUMP);
+        const duration = this._animationManager.play(
+            AnimationMappings.PlayerAnimations.NAME_JUMP,
+            AnimationMappings.PlayerAnimations.SPEED_JUMP
+        );
+
+        return new Promise((resolve) => {
+            setTimeout(resolve, duration);
+        });
+    }
+
+    private updatePositionRotation(): void {
+        this.character.position.copy(this._player.currentPosition);
+        this.character.rotation.setFromVector3(this._player.currentRotation);
     }
 }
