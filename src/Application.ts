@@ -8,6 +8,7 @@ import MainWorld from "./models/worlds/MainWorld";
 import Player from "./models/player/Player";
 import Tickable from "./types/interfaces/Tickable";
 import Debug from "./utils/Debug";
+import World from "./models/worlds/World";
 
 export default class Application implements Tickable {
     private _canvas: HTMLCanvasElement;
@@ -19,6 +20,7 @@ export default class Application implements Tickable {
     private _camera: Camera;
     private _renderer: Renderer;
     private _player: Player;
+    private _world: World | null;
 
     constructor(canvas: HTMLCanvasElement) {
         this._canvas = canvas;
@@ -30,6 +32,7 @@ export default class Application implements Tickable {
         this._camera = new Camera(this);
         this._renderer = new Renderer(this);
         this._player = new Player(this);
+        this._world = null;
 
         this._resourceManager.addEventListener("loadCycleEntryLoaded", () => this.onLoadCycleEntryLoaded());
         this._dimensions.addEventListener("resize", () => this.resize());
@@ -73,6 +76,10 @@ export default class Application implements Tickable {
         return this._camera;
     }
 
+    public get world(): World | null {
+        return this._world;
+    }
+
     public tick(deltaTime: number, elapsedTime: number): void {
         this._camera.tick(deltaTime, elapsedTime);
         this._renderer.tick(deltaTime, elapsedTime);
@@ -85,8 +92,8 @@ export default class Application implements Tickable {
     }
 
     private createWorld(): void {
-        const mainWorld = new MainWorld(this);
-        mainWorld.loadWorld();
+        this._world = new MainWorld(this);
+        this._world.loadWorld();
         this._player.loadPlayer();
     }
 

@@ -76,5 +76,12 @@ export default class MainWorld extends World {
             poleLightMesh,
             textLightMesh
         );
+
+        const boundingBoxGltf = this.application.resourceManager.getLoadedResource("bounding_box").getGltf();
+        const boundingBoxWallsMesh = GltfUtils.getChildAsMesh("bounding_box_walls", boundingBoxGltf);
+        const boundingBoxFloorMesh = GltfUtils.getChildAsMesh("bounding_box_floor", boundingBoxGltf);
+
+        this.addWallsCollisionMeshes(boundingBoxWallsMesh);
+        this.addFloorCollisionMeshes(boundingBoxFloorMesh);
     }
 }

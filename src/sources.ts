@@ -43,6 +43,11 @@ const sources: LoadCycleEntry[] = [
                 name: "character",
                 type: "gltf",
                 path: "models/character.glb"
+            },
+            {
+                name: "bounding_box",
+                type: "gltf",
+                path: "models/bounding_box.glb"
             }
         ]
     },
