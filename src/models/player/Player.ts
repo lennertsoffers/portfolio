@@ -19,6 +19,9 @@ export default class Player {
     private _futureRotation: Vector3;
     private _velocity: Vector3;
 
+    private _jumpTime: number;
+    private _jumpStartHeight: number;
+
     constructor(application: Application) {
         this._application = application;
 
@@ -31,6 +34,9 @@ export default class Player {
         this._currentRotation = ModelConstants.PLAYER_INITIAL_ROTATION;
         this._futureRotation = ModelConstants.PLAYER_INITIAL_ROTATION;
         this._velocity = new Vector3();
+
+        this._jumpTime = 0;
+        this._jumpStartHeight = 0;
     }
 
     public get application(): Application {
@@ -50,7 +56,7 @@ export default class Player {
     }
 
     public get velocity(): Vector3 {
-        return this._velocity;
+        return this._velocity.clone();
     }
 
     public set futurePosition(value: Vector3) {
@@ -68,16 +74,14 @@ export default class Player {
         // Use controls to update possible movement
         this._playerControls.tick(deltaTime, elapsedTime);
 
+        // Update position due to jump state
+        this.updateJumpPosition(deltaTime);
+
         // Calculate the to be executed movement and set the position of the player
-        const movementVec = this._futurePosition.clone().add(this.currentPosition.multiplyScalar(-1));
-        this._currentPosition.add(movementVec.multiplyScalar(deltaTime * 0.01 / ControlConstants.PLAYER_MOVEMENT_DAMPING));
-        const rotationVec = this._futureRotation.clone().add(this.currentRotation.multiplyScalar(-1));
-        this._currentRotation.add(rotationVec.multiplyScalar(deltaTime * 0.01 / ControlConstants.PLAYER_ROTATION_DAMPING));
+        this.movePlayer(deltaTime);
 
         // Draw the player on the correct position
         this._playerModel.tick(deltaTime, elapsedTime);
-
-        console.log(this._velocity.length());
     }
 
     public loadPlayer() {
@@ -110,8 +114,33 @@ export default class Player {
                 return;
             case PlayerState.JUMPING:
                 this._playerControls.keyboardControlsEnabled = false;
+                this._jumpStartHeight = this.currentPosition.y;
+                this._jumpTime = 0;
                 this.playerModel.jump().then(() => this._playerControls.keyboardControlsEnabled = true);
                 return;
+        }
+    }
+
+    private movePlayer(deltaTime: number): void {
+        const movementVec = this._futurePosition.clone().add(this.currentPosition.multiplyScalar(-1));
+        this._currentPosition.add(movementVec.multiplyScalar(deltaTime * 0.01 / ControlConstants.PLAYER_MOVEMENT_DAMPING));
+        const rotationVec = this._futureRotation.clone().add(this.currentRotation.multiplyScalar(-1));
+        this._currentRotation.add(rotationVec.multiplyScalar(deltaTime * 0.01 / ControlConstants.PLAYER_ROTATION_DAMPING));
+    }
+
+    private updateJumpPosition(deltaTime: number): void {
+        if (this._playerState !== PlayerState.JUMPING) return;
+
+        this._jumpTime += deltaTime / 1000;
+
+        const jumpHeight = Math.max(-Math.pow(2 * this._jumpTime - 1.3, 2) + 0.3, 0);
+        const currentY = this._jumpStartHeight + jumpHeight;
+
+        this._futurePosition.setY(currentY);
+
+        if (jumpHeight > 0) {
+            const directionY = this._playerModel.getDirectionY().divideScalar(-deltaTime * 5).setY(0);
+            this._futurePosition.add(directionY);
         }
     }
 
