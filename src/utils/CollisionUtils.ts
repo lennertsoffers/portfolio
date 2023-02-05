@@ -2,7 +2,7 @@ import { Mesh, Raycaster, Vector3 } from "three";
 import CollisionConstants from "../models/constants/CollisionConstants";
 
 export default class CollisionUtils {
-    public static isMovementAllowed(originPosition: Vector3, movementVector: Vector3, collisionMeshes: Mesh[]): boolean {
+    public static hasCollisionInMovement(originPosition: Vector3, movementVector: Vector3, collisionMeshes: Mesh[]): boolean {
         const ray = new Raycaster(originPosition, movementVector.clone().normalize());
         const intersections = ray.intersectObjects(collisionMeshes);
         const toDistance = movementVector.length();

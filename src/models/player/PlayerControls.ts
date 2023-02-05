@@ -57,10 +57,13 @@ export default class PlayerControls implements Tickable {
     }
 
     public loadControls(): void {
+        if (!this._player.application.world) return;
+
         this.enableOrbitControls();
         this.enableKeyboardControls();
 
         this.camera.attach(this.character);
+        this.camera.collisionMeshes = this._player.application.world.cameraCollisionMeshes;
 
         this._loaded = true;
     }

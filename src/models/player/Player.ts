@@ -10,6 +10,7 @@ import PlayerModel from "./PlayerModel";
 
 export default class Player {
     private _application: Application;
+    private _loaded: boolean;
 
     private _playerModel: PlayerModel;
     private _playerControls: PlayerControls;
@@ -26,6 +27,7 @@ export default class Player {
 
     constructor(application: Application) {
         this._application = application;
+        this._loaded = false;
 
         this._playerModel = new PlayerModel(this);
         this._playerControls = new PlayerControls(this);
@@ -43,6 +45,10 @@ export default class Player {
 
     public get application(): Application {
         return this._application;
+    }
+
+    public get loaded(): boolean {
+        return this._loaded;
     }
 
     public get playerModel(): PlayerModel {
@@ -89,6 +95,8 @@ export default class Player {
     public loadPlayer() {
         this._playerModel.loadModel();
         this._playerControls.loadControls();
+
+        this._loaded = true;
     }
 
     public getCurrentState(): PlayerState {
@@ -142,7 +150,7 @@ export default class Player {
         const movementVec = new Vector3().subVectors(this._futurePosition, this.currentPosition);
 
         // Don't execute movement if future position will collide with walls
-        if (CollisionUtils.isMovementAllowed(this._currentPosition, movementVec, this._application.world.wallsCollisionMeshes)) return;
+        if (CollisionUtils.hasCollisionInMovement(this._currentPosition, movementVec, this._application.world.wallsCollisionMeshes)) return;
         this._currentPosition.add(movementVec.multiplyScalar(deltaTime * 0.01 / ControlConstants.PLAYER_MOVEMENT_DAMPING));
     }
 

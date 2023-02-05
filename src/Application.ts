@@ -81,6 +81,8 @@ export default class Application implements Tickable {
     }
 
     public tick(deltaTime: number, elapsedTime: number): void {
+        if (!this._world || !this._world.loaded || !this._player.loaded) return;
+
         this._camera.tick(deltaTime, elapsedTime);
         this._renderer.tick(deltaTime, elapsedTime);
         this._player.tick(deltaTime, elapsedTime);

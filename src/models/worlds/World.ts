@@ -5,11 +5,15 @@ export default abstract class World {
     private _application: Application;
     private _wallsCollisionMeshes: Mesh[];
     private _floorCollisionMeshes: Mesh[];
+    private _cameraCollisionMeshes: Mesh[];
+    protected _loaded: boolean;
 
     constructor(application: Application) {
         this._application = application;
         this._wallsCollisionMeshes = [];
         this._floorCollisionMeshes = [];
+        this._cameraCollisionMeshes = [];
+        this._loaded = false;
     }
 
     public get application(): Application {
@@ -24,12 +28,24 @@ export default abstract class World {
         return this._floorCollisionMeshes;
     }
 
+    public get cameraCollisionMeshes(): Mesh[] {
+        return this._cameraCollisionMeshes;
+    }
+
+    public get loaded(): boolean {
+        return this._loaded;
+    }
+
     public addWallsCollisionMeshes(...meshes: Mesh[]) {
         this._wallsCollisionMeshes = this._wallsCollisionMeshes.concat(meshes);
     }
 
     public addFloorCollisionMeshes(...meshes: Mesh[]) {
         this._floorCollisionMeshes = this._floorCollisionMeshes.concat(meshes);
+    }
+
+    public addCameraCollisionMeshes(...meshes: Mesh[]) {
+        this._cameraCollisionMeshes = this._cameraCollisionMeshes.concat(meshes);
     }
 
     public abstract loadWorld(): void;

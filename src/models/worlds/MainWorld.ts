@@ -80,8 +80,12 @@ export default class MainWorld extends World {
         const boundingBoxGltf = this.application.resourceManager.getLoadedResource("bounding_box").getGltf();
         const boundingBoxWallsMesh = GltfUtils.getChildAsMesh("bounding_box_walls", boundingBoxGltf);
         const boundingBoxFloorMesh = GltfUtils.getChildAsMesh("bounding_box_floor", boundingBoxGltf);
+        const boundingBoxCameraMesh = GltfUtils.getChildAsMesh("bounding_box_camera", boundingBoxGltf);
 
         this.addWallsCollisionMeshes(boundingBoxWallsMesh);
         this.addFloorCollisionMeshes(boundingBoxFloorMesh);
+        this.addCameraCollisionMeshes(boundingBoxCameraMesh);
+
+        this._loaded = true;
     }
 }
