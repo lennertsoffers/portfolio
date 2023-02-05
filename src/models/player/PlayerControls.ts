@@ -116,7 +116,7 @@ export default class PlayerControls implements Tickable {
     private updateOrbitControls(): void {
         const distanceModifier = this.camera.distanceModifier;
 
-        this.camera.toPosition = new Vector3(
+        this.camera.futurePosition = new Vector3(
             this._orbitPosition.x + Math.sin(this._orbitMovement.x + this._initialRotationY) * Math.cos(this._orbitMovement.y) * distanceModifier,
             this._orbitPosition.y + Math.sin(this._orbitMovement.y) * distanceModifier,
             this._orbitPosition.z + Math.cos(this._orbitMovement.z + this._initialRotationY) * Math.cos(this._orbitMovement.y) * distanceModifier

@@ -1,5 +1,6 @@
 import { Raycaster, Vector3 } from "three";
 import Application from "../../Application";
+import CollisionUtils from "../../utils/CollisionUtils";
 import CollisionConstants from "../constants/CollisionConstants";
 import ControlConstants from "../constants/ControlsConstants";
 import ModelConstants from "../constants/ModelConstants";
@@ -125,36 +126,23 @@ export default class Player {
     private movePlayer(deltaTime: number): void {
         if (!this._application.world) return;
 
-        const rotationVec = this._futureRotation.clone().add(this.currentRotation.multiplyScalar(-1));
+        // Rotation
+        const rotationVec = new Vector3().subVectors(this._futureRotation, this.currentRotation);
         this._currentRotation.add(rotationVec.multiplyScalar(deltaTime * 0.01 / ControlConstants.PLAYER_ROTATION_DAMPING));
 
-        let collision = false;
 
+        // Height
         if (this._playerState !== PlayerState.JUMPING) {
-            const rayFloor = new Raycaster(this._futurePosition.clone().setY(this._futurePosition.y + 1), new Vector3(0, -1, 0));
-            const intersectionsFloor = rayFloor.intersectObjects(this._application.world.floorCollisionMeshes);
-            if (intersectionsFloor.length > 0) {
-                const heightDiff = Math.min(...intersectionsFloor.map((intersection) => intersection.distance));
-                this._futurePosition.y += 1 - heightDiff;
-            }
+            this._futurePosition.y += CollisionUtils.getHeightDifference(this._futurePosition, this._application.world.floorCollisionMeshes);
         }
 
         this._futurePosition.y += ModelConstants.PLAYER_HEIGHT_MODIFIER;
 
-        const movementVec = this._futurePosition.clone().add(this.currentPosition.multiplyScalar(-1));
+        // Position
+        const movementVec = new Vector3().subVectors(this._futurePosition, this.currentPosition);
 
-        const ray = new Raycaster(this._currentPosition, movementVec.clone().normalize());
-        const intersections = ray.intersectObjects(this._application.world.wallsCollisionMeshes);
-        const toDistance = this.currentPosition.sub(this._futurePosition).length();
-
-        intersections.forEach((intersection) => {
-            if (intersection.distance - CollisionConstants.COLLISION_DISTANCE <= toDistance) {
-                if (!intersection.object.name.startsWith("wood")) collision = true;
-            }
-        });
-
-
-        if (collision) return;
+        // Don't execute movement if future position will collide with walls
+        if (CollisionUtils.isMovementAllowed(this._currentPosition, movementVec, this._application.world.wallsCollisionMeshes)) return;
         this._currentPosition.add(movementVec.multiplyScalar(deltaTime * 0.01 / ControlConstants.PLAYER_MOVEMENT_DAMPING));
     }
 
