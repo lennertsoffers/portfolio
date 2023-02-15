@@ -9,10 +9,10 @@ export default class ActionTriggerableWorldEvent extends WorldEvent {
         this._triggerableWorldActionType = triggerableWorldActionType;
     }
 
-    public trigger(): void {
+    public handleTrigger(): void {
         console.log("Trigger " + this._triggerableWorldActionType);
     }
-    public end(): void {
+    public handleEnd(): void {
         console.log("End " + this._triggerableWorldActionType);
     }
 }

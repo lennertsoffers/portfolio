@@ -174,6 +174,10 @@ export default class PlayerControls implements Tickable {
                     return;
 
                 case "e":
+                    this.interact();
+                    return;
+
+                case "f":
                     this._pressedKeyType = KeyType.EMOTE;
                     this.wave();
                     return;
@@ -225,5 +229,10 @@ export default class PlayerControls implements Tickable {
 
     private wave(): void {
         this._player.setPlayerState(PlayerState.WAVING);
+    }
+
+    private interact(): void {
+        if (!this._player.application.world) return;
+        this._player.application.world.worldEventManager.handleInteraction();
     }
 }

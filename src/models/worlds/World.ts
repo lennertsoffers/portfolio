@@ -17,7 +17,7 @@ export default abstract class World {
         this._floorCollisionMeshes = [];
         this._cameraCollisionMeshes = [];
         this._actionCollisionMeshes = [];
-        this._worldEventManager = new WorldEventManager();
+        this._worldEventManager = new WorldEventManager(this._application);
         this._loaded = false;
     }
 

@@ -170,8 +170,8 @@ export default class Player {
 
         const activeZones = forwardsIntersections.filter((intersection) => backwardsIntersections.includes(intersection));
 
-        if (activeZones.length === 0) this._application.world.worldEventManager.updateWorldZone(WorldZone.NONE);
-        else this._application.world.worldEventManager.updateWorldZone(worldZoneValueOf(activeZones[activeZones.length - 1].replace("action_box_", "")));
+        if (activeZones.length === 0) this._application.world.worldEventManager.handleWorldZoneChange(WorldZone.NONE);
+        else this._application.world.worldEventManager.handleWorldZoneChange(worldZoneValueOf(activeZones[activeZones.length - 1].replace("action_box_", "")));
     }
 
     private updateJumpPosition(deltaTime: number): void {

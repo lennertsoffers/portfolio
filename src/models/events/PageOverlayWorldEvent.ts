@@ -1,27 +1,32 @@
 import PageOverlayType from "../enum/PageOverlayType";
+import PageManager from "../pages/PageManager";
 import WorldEvent from "./WorldEvent";
 
 export default class PageOverlayWorldEvent extends WorldEvent {
     private _pageOverlayType: PageOverlayType;
+    private _pageManager: PageManager;
 
-    constructor(pageOverlayType: PageOverlayType) {
+    constructor(pageOverlayType: PageOverlayType, pageManager: PageManager) {
         super();
 
         this._pageOverlayType = pageOverlayType;
+        this._pageManager = pageManager;
+
+        this._pageManager.addEventListener("closePage", () => this.end());
     }
 
-    public trigger(): void {
+    public handleTrigger(): void {
         this.showCorrectPageOverlay();
     }
-    public end(): void {
+    public handleEnd(): void {
         this.hidePageOverlays();
     }
 
     private showCorrectPageOverlay(): void {
-        console.log("Show page overlay of page " + this._pageOverlayType);
+        this._pageManager.showPage(this._pageOverlayType);
     }
 
     private hidePageOverlays(): void {
-        console.log("Close page overlay");
+        this._pageManager.closeAll();
     }
 }

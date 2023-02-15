@@ -9,9 +9,11 @@ import Player from "./models/player/Player";
 import Tickable from "./types/interfaces/Tickable";
 import Debug from "./utils/Debug";
 import World from "./models/worlds/World";
+import PageManager from "./models/pages/PageManager";
 
 export default class Application implements Tickable {
     private _canvas: HTMLCanvasElement;
+    private _pageManager: PageManager;
     private _debug: Debug;
     private _resourceManager: ResourceManager;
     private _dimensions: Dimensions;
@@ -24,6 +26,7 @@ export default class Application implements Tickable {
 
     constructor(canvas: HTMLCanvasElement) {
         this._canvas = canvas;
+        this._pageManager = new PageManager();
         this._debug = new Debug();
         this._resourceManager = new ResourceManager();
         this._dimensions = new Dimensions();
@@ -50,6 +53,10 @@ export default class Application implements Tickable {
 
     public get canvas(): HTMLCanvasElement {
         return this._canvas;
+    }
+
+    public get pageManager(): PageManager {
+        return this._pageManager;
     }
 
     public get debug(): Debug {
