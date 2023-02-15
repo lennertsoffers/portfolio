@@ -105,6 +105,7 @@ export default abstract class AttachedMovable implements Movable, Attachable, Ti
             }
             movementVec = this.calculateMovementVector(deltaTime);
         } else if (Math.round(this._distanceDueToCollision * 100) / 100 !== 0) {
+            // Only zoom out if no collision backwards
             const rayProximityCheck = new Raycaster(this.getPosition(), attachedToThisDirection.clone().normalize());
             const proximityIntersections = rayProximityCheck.intersectObjects(this._collisionMeshes).filter((intersection) => {
                 return intersection.distance <= 0.5;

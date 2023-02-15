@@ -4,6 +4,7 @@ import World from "./World";
 
 export default class MainWorld extends World {
     public loadWorld(): void {
+        // --- TEXTURES --- //
         const rocks1Texture = this.application.resourceManager.getLoadedResource("rocks_1").getTexture();
         const rocks2Texture = this.application.resourceManager.getLoadedResource("rocks_2").getTexture();
         const rocks3Texture = this.application.resourceManager.getLoadedResource("rocks_3").getTexture();
@@ -77,6 +78,7 @@ export default class MainWorld extends World {
             textLightMesh
         );
 
+        // --- BOUNDING BOXES --- //
         const boundingBoxGltf = this.application.resourceManager.getLoadedResource("bounding_box").getGltf();
         const boundingBoxWallsMesh = GltfUtils.getChildAsMesh("bounding_box_walls", boundingBoxGltf);
         const boundingBoxFloorMesh = GltfUtils.getChildAsMesh("bounding_box_floor", boundingBoxGltf);
@@ -85,6 +87,14 @@ export default class MainWorld extends World {
         this.addWallsCollisionMeshes(boundingBoxWallsMesh);
         this.addFloorCollisionMeshes(boundingBoxFloorMesh);
         this.addCameraCollisionMeshes(boundingBoxCameraMesh);
+
+        // --- ACTION BOXES --- //
+        const actionBoxGltf = this.application.resourceManager.getLoadedResource("action_box").getGltf();
+        const actionBoxAboutMe = GltfUtils.getChildAsMesh("action_box_about_me", actionBoxGltf);
+        const actionBoxCv = GltfUtils.getChildAsMesh("action_box_cv", actionBoxGltf);
+        const actionBoxProjects = GltfUtils.getChildAsMesh("action_box_projects", actionBoxGltf);
+
+        this.addActionCollisionMeshes(actionBoxAboutMe, actionBoxCv, actionBoxProjects);
 
         this._loaded = true;
     }

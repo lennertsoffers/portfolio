@@ -1,7 +1,7 @@
 enum KeyType {
-    MOVE,
-    EMOTE,
-    NONE
+    MOVE = "MOVE",
+    EMOTE = "EMOTE",
+    NONE = "NONE"
 }
 
 export default KeyType;

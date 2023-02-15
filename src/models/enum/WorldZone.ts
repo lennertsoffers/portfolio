@@ -1,0 +1,18 @@
+import EnumLiteralDoesNotExistError from "../error/EnumLiteralDoesNotExistError";
+
+enum WorldZone {
+    NONE = "NONE",
+    ABOUT_ME = "ABOUT_ME",
+    CV = "CV",
+    PROJECTS = "PROJECTS"
+}
+
+export const valueOf = (literal: string): WorldZone => {
+    const uppercaseLiteral = literal.toUpperCase();
+
+    if (!Object.keys(WorldZone).includes(uppercaseLiteral)) throw new EnumLiteralDoesNotExistError(literal, "WorldZone");
+
+    return uppercaseLiteral as WorldZone;
+};
+
+export default WorldZone;

@@ -1,10 +1,10 @@
 import { Raycaster, Vector3 } from "three";
 import Application from "../../Application";
 import CollisionUtils from "../../utils/CollisionUtils";
-import CollisionConstants from "../constants/CollisionConstants";
 import ControlConstants from "../constants/ControlsConstants";
 import ModelConstants from "../constants/ModelConstants";
 import PlayerState from "../enum/PlayerState";
+import WorldZone, { valueOf as worldZoneValueOf } from "../enum/WorldZone";
 import PlayerControls from "./PlayerControls";
 import PlayerModel from "./PlayerModel";
 
@@ -90,6 +90,9 @@ export default class Player {
 
         // Draw the player on the correct position
         this._playerModel.tick(deltaTime, elapsedTime);
+
+        // Check if the player is inside an action box
+        this.updateAvailableActions();
     }
 
     public loadPlayer() {
@@ -152,6 +155,23 @@ export default class Player {
         // Don't execute movement if future position will collide with walls
         if (CollisionUtils.hasCollisionInMovement(this._currentPosition, movementVec, this._application.world.wallsCollisionMeshes)) return;
         this._currentPosition.add(movementVec.multiplyScalar(deltaTime * 0.01 / ControlConstants.PLAYER_MOVEMENT_DAMPING));
+    }
+
+    private updateAvailableActions(): void {
+        if (!this._application.world) return;
+
+        const forwardsDirection = new Vector3(-Math.sin(this._currentRotation.y), 0, -Math.cos(this._currentRotation.y));
+
+        const forwardsRay = new Raycaster(this._currentPosition, forwardsDirection);
+        const backwardsRay = new Raycaster(this._currentPosition, forwardsDirection.clone().negate());
+
+        const forwardsIntersections = forwardsRay.intersectObjects(this._application.world.actionCollisionMeshes).map((intersection) => intersection.object.name);
+        const backwardsIntersections = backwardsRay.intersectObjects(this._application.world.actionCollisionMeshes).map((intersection) => intersection.object.name);
+
+        const activeZones = forwardsIntersections.filter((intersection) => backwardsIntersections.includes(intersection));
+
+        if (activeZones.length === 0) this._application.world.worldEventManager.updateWorldZone(WorldZone.NONE);
+        else this._application.world.worldEventManager.updateWorldZone(worldZoneValueOf(activeZones[activeZones.length - 1].replace("action_box_", "")));
     }
 
     private updateJumpPosition(deltaTime: number): void {
