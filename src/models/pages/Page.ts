@@ -1,15 +1,18 @@
+import { Vector3 } from "three";
 import PageConstants from "../constants/PageConstants";
 import PageOverlayType from "../enum/PageOverlayType";
 import PageNotFoundError from "../error/PageNotFoundError";
 
 export default class Page {
     private _pageType: PageOverlayType;
+    private _cameraToPosition: Vector3;
     private _hidden: boolean;
     private _htmlElement: HTMLElement;
     private _onClose: Function;
 
-    constructor(pageType: PageOverlayType, className: string) {
+    constructor(pageType: PageOverlayType, className: string, cameraToPosition: Vector3) {
         this._pageType = pageType;
+        this._cameraToPosition = cameraToPosition;
         this._hidden = true;
 
         const htmlElement = document.querySelector(`.${className}`) as HTMLElement;
@@ -47,9 +50,6 @@ export default class Page {
         const closeButton = this._htmlElement.querySelector(`.${PageConstants.PAGE_OVERLAY_HIDE_BUTTON_CLASS}`) as HTMLElement;
         if (!closeButton) return;
 
-        closeButton.addEventListener("click", () => {
-            this._onClose();
-            console.log("click");
-        });
+        closeButton.addEventListener("click", () => this._onClose());
     }
 }

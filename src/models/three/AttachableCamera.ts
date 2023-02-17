@@ -2,7 +2,7 @@ import Application from "../../Application";
 import { PerspectiveCamera, Vector3 } from "three";
 import AttachedMovable from "./AttachedMovable";
 
-export default class Camera extends AttachedMovable {
+export default class AttachableCamera extends AttachedMovable {
     private _application: Application;
     private _instance: PerspectiveCamera;
 

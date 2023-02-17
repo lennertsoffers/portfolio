@@ -30,7 +30,7 @@ export default class Renderer implements Tickable {
         this._instance.setPixelRatio(Math.min(this._application.dimensions.pixelRatio, 2));
     }
 
-    public tick(deltaTime: number, elapsedTime: number): void {
-        this._instance.render(this._application.scene, this._application.camera.instance);
+    public tick(_deltaTime: number, _elapsedTime: number): void {
+        this._instance.render(this._application.scene, this._application.currentCamera.instance);
     }
 }

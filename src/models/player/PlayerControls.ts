@@ -3,7 +3,7 @@ import Tickable from "../../types/interfaces/Tickable";
 import ControlConstants from "../constants/ControlsConstants";
 import KeyType from "../enum/KeyType";
 import PlayerState from "../enum/PlayerState";
-import Camera from "../three/Camera";
+import AttachableCamera from "../three/AttachableCamera";
 import Player from "./Player";
 import PlayerModel from "./PlayerModel";
 
@@ -42,8 +42,8 @@ export default class PlayerControls implements Tickable {
         return this._player.playerModel;
     }
 
-    public get camera(): Camera {
-        return this._player.application.camera;
+    public get camera(): AttachableCamera {
+        return this._player.application.attachableCamera;
     }
 
     public set keyboardControlsEnabled(value: boolean) {
@@ -232,7 +232,6 @@ export default class PlayerControls implements Tickable {
     }
 
     private interact(): void {
-        if (!this._player.application.world) return;
-        this._player.application.world.worldEventManager.handleInteraction();
+        this._player.interact();
     }
 }

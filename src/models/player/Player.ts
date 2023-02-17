@@ -134,6 +134,11 @@ export default class Player {
         }
     }
 
+    public interact(): void {
+        if (!this.application.world) return;
+        this.application.world.worldEventManager.handleInteraction();
+    }
+
     private movePlayer(deltaTime: number): void {
         if (!this._application.world) return;
 
