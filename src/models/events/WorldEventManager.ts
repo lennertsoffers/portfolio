@@ -36,31 +36,48 @@ export default class WorldEventManager {
 
         switch (this._currentZone) {
             case WorldZone.ABOUT_ME:
-                this._activeTriggerableWorldEvent = new PageOverlayWorldEvent(PageOverlayType.ABOUT_ME, this._application.pageManager);
+                this._activeTriggerableWorldEvent = new PageOverlayWorldEvent(PageOverlayType.ABOUT_ME, this._application);
                 this._activeTriggerableWorldEvent.trigger();
                 break;
             case WorldZone.CV:
+                const attachableCameraPosition = this._application.attachableCamera.getPosition().clone();
                 this._application.useCinematicCamera();
 
                 const cameraPath = new CameraPath(
                     [
-                        this._application.attachableCamera.getPosition(),
-                        new Vector3(2.02, 1, -1.6),
-                        new Vector3(2.02, 0.7, -1.7)
+                        attachableCameraPosition.clone(),
+                        new Vector3(2.008, 1, -1.4),
+                        new Vector3(2.008, 0.3, -1.88)
                     ],
-                    new Vector3(2.02, 0.5, -1.9),
-                    1500
+                    1000
                 );
                 this._application.cinematicCamera.cameraPath = cameraPath;
                 this._application.cinematicCamera.lookAt(new Vector3(2.02, 0.1, -1.9));
+
+                this._activeTriggerableWorldEvent = new PageOverlayWorldEvent(PageOverlayType.CV, this._application, () => {
+                    const zoomOutPath = new CameraPath(
+                        [
+                            new Vector3(2.008, 0.3, -1.88),
+                            new Vector3(2.008, 1, -1.4),
+                            attachableCameraPosition.clone()
+                        ],
+                        1000
+                    );
+                    this._application.cinematicCamera.cameraPath = zoomOutPath;
+                    this._application.cinematicCamera.lookAt(new Vector3(2.02, 0.1, -1.9));
+                    zoomOutPath.start();
+                    zoomOutPath.addEventListener("completed", () => {
+                        this._application.useAttachableCamera();
+                    });
+                });
+
                 cameraPath.start();
                 cameraPath.addEventListener("completed", () => {
-                    // this._activeTriggerableWorldEvent = new PageOverlayWorldEvent(PageOverlayType.CV, this._application.pageManager);
-                    // this._activeTriggerableWorldEvent.trigger();
+                    if (this._activeTriggerableWorldEvent) this._activeTriggerableWorldEvent.trigger();
                 });
                 break;
             case WorldZone.PROJECTS:
-                this._activeTriggerableWorldEvent = new PageOverlayWorldEvent(PageOverlayType.PROJECTS, this._application.pageManager);
+                this._activeTriggerableWorldEvent = new PageOverlayWorldEvent(PageOverlayType.PROJECTS, this._application);
                 this._activeTriggerableWorldEvent.trigger();
                 break;
         }

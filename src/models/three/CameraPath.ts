@@ -1,21 +1,19 @@
-import { Euler, Vector3 } from "three";
+import { Vector3 } from "three";
 import Tickable from "../../types/interfaces/Tickable";
 import EventEmitter from "../../utils/EventEmitter";
 
 export default class CameraPath extends EventEmitter implements Tickable {
     private _positions: Vector3[];
-    private _endPosition: Vector3;
     private _currentPosition: Vector3;
     private _duration: number;
     private _paused: boolean;
     private _completed: boolean;
     private _length: number;
 
-    constructor(intermediatePositions: Vector3[], endPosition: Vector3, duration: number) {
+    constructor(positions: Vector3[], duration: number) {
         super();
 
-        this._positions = intermediatePositions;
-        this._endPosition = endPosition;
+        this._positions = positions;
         this._currentPosition = new Vector3();
 
         this._duration = duration;
@@ -42,28 +40,28 @@ export default class CameraPath extends EventEmitter implements Tickable {
 
     public tick(deltaTime: number, _elapsedTime: number): void {
         if (this._paused) return;
+        if (this._completed) return;
 
         this.updatePosition(deltaTime);
     }
 
     private updatePosition(deltaTime: number): void {
-        if (this._positions.length <= 0 && this.isAtPosition(this._endPosition)) {
-            this._completed = true;
-            this.trigger("completed");
-            return;
-        }
-
         const percentageOfDuration = deltaTime / this._duration;
 
-        const futurePosition = this._positions.length === 0 ? this._endPosition : this._positions[0];
+        const futurePosition = this._positions[0];
 
         const movementVector = new Vector3().subVectors(futurePosition, this._currentPosition).normalize();
         const toMoveLength = this._length * percentageOfDuration;
 
         this._currentPosition.addScaledVector(movementVector, toMoveLength);
 
-        if (this.isAtPosition(futurePosition) && this._positions.length > 0) {
-            this._positions = this._positions.slice(1);
+        if (this.isAtPosition(futurePosition)) {
+            if (this._positions.length > 1) {
+                this._positions = this._positions.slice(1);
+            } else {
+                this._completed = true;
+                this.trigger("completed");
+            }
         }
     }
 
@@ -74,9 +72,11 @@ export default class CameraPath extends EventEmitter implements Tickable {
     private calculatePathLength(): number {
         let length = 0;
 
-        for (let i = 0; i < this._positions.length; i++) {
-            const currentPosition = this._positions[i];
-            const nextPosition = this._positions.length > i + 1 ? this._positions[i + 1] : this._endPosition;
+        if (this._positions.length < 2) return length;
+
+        for (let i = 1; i < this._positions.length; i++) {
+            const currentPosition = this._positions[i - 1];
+            const nextPosition = this._positions[i];
 
             length += new Vector3().subVectors(currentPosition, nextPosition).length();
         }

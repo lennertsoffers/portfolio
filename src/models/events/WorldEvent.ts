@@ -2,7 +2,7 @@ export default abstract class WorldEvent {
     private _ended: boolean;
 
     constructor() {
-        this._ended = true;
+        this._ended = false;
     }
 
     public isEnded(): boolean {

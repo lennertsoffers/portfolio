@@ -56,14 +56,14 @@ export default class Application implements Tickable {
         const sun = new AmbientLight(0xffffff, 0.5);
         this._scene.add(sun);
 
-        const mesh = new Mesh(
-            new BoxGeometry(0.1, 0.1, 0.1),
-            new MeshBasicMaterial({ color: 0x00ff00 })
-        );
-        mesh.position.set(2.02, 0.1, -1.9);
-        this._scene.add(
-            mesh
-        );
+        // const mesh = new Mesh(
+        //     new BoxGeometry(0.1, 0.1, 0.1),
+        //     new MeshBasicMaterial({ color: 0x00ff00 })
+        // );
+        // mesh.position.set(2.02, 0.1, -1.9);
+        // this._scene.add(
+        //     mesh
+        // );
     }
 
     public get canvas(): HTMLCanvasElement {

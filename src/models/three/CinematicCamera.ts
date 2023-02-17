@@ -1,4 +1,4 @@
-import { PerspectiveCamera, Vector3 } from "three";
+import { PerspectiveCamera, Quaternion, Vector3 } from "three";
 import Application from "../../Application";
 import Tickable from "../../types/interfaces/Tickable";
 import CameraPath from "./CameraPath";
