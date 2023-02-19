@@ -5,14 +5,12 @@ import PageNotFoundError from "../error/PageNotFoundError";
 
 export default class Page {
     private _pageType: PageOverlayType;
-    private _cameraToPosition: Vector3;
     private _hidden: boolean;
     private _htmlElement: HTMLElement;
     private _onClose: Function;
 
-    constructor(pageType: PageOverlayType, className: string, cameraToPosition: Vector3) {
+    constructor(pageType: PageOverlayType, className: string) {
         this._pageType = pageType;
-        this._cameraToPosition = cameraToPosition;
         this._hidden = true;
 
         const htmlElement = document.querySelector(`.${className}`) as HTMLElement;

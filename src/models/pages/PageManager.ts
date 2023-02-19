@@ -30,7 +30,7 @@ export default class PageManager extends EventEmitter {
 
     private createPages(): void {
         PageConstants.PAGE_DATA_LIST.forEach((pageDataEntry) => {
-            const page = new Page(pageDataEntry.pageType, pageDataEntry.className, pageDataEntry.cameraToPosition);
+            const page = new Page(pageDataEntry.pageType, pageDataEntry.className);
             page.onClose = () => this.trigger("closePage");
             this._pages.push(page);
         });

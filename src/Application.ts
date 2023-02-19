@@ -1,4 +1,4 @@
-import { AmbientLight, BoxGeometry, Mesh, MeshBasicMaterial, PointLight, Scene } from "three";
+import { AmbientLight, PointLight, Scene } from "three";
 import TimedLoop from "./models/logic/TimedLoop";
 import Dimensions from "./utils/Dimensions";
 import Renderer from "./models/three/Renderer";
@@ -11,22 +11,23 @@ import Debug from "./utils/Debug";
 import World from "./models/worlds/World";
 import PageManager from "./models/pages/PageManager";
 import CinematicCamera from "./models/three/CinematicCamera";
+import LoadingPage from "./models/pages/LoadingPage";
 
 export default class Application implements Tickable {
     private _canvas: HTMLCanvasElement;
     private _pageManager: PageManager;
+    private _loadingPage: LoadingPage;
     private _debug: Debug;
     private _resourceManager: ResourceManager;
     private _dimensions: Dimensions;
     private _timedLoop: TimedLoop;
     private _scene: Scene;
-    // TODO - Switch between cinematic and attachable on renderer
     private _cinematicCamera: CinematicCamera;
     private _attachableCamera: AttachableCamera;
     private _currentCamera: AttachableCamera | CinematicCamera;
     private _renderer: Renderer;
     private _player: Player;
-    private _world: World | null;
+    private _world: World;
 
     constructor(canvas: HTMLCanvasElement) {
         this._canvas = canvas;
@@ -40,13 +41,15 @@ export default class Application implements Tickable {
         this._currentCamera = this._attachableCamera;
         this._renderer = new Renderer(this);
         this._player = new Player(this);
-        this._world = null;
+        this._world = new MainWorld(this);
         this._pageManager = new PageManager(this);
+        this._loadingPage = new LoadingPage(this, () => this.createWorld());
 
         this._resourceManager.addEventListener("loadCycleEntryLoaded", () => this.onLoadCycleEntryLoaded());
         this._dimensions.addEventListener("resize", () => this.resize());
         this._timedLoop.addEventListener("tick", () => this.tick(this._timedLoop.deltaTime, this._timedLoop.elapsedTime));
 
+        this.showLoadingPage();
         this._resourceManager.startLoading();
 
         // TODO - Remove lights
@@ -110,6 +113,10 @@ export default class Application implements Tickable {
         return this._world;
     }
 
+    public showLoadingPage(): void {
+        this._loadingPage.show();
+    }
+
     public tick(deltaTime: number, elapsedTime: number): void {
         if (!this._world || !this._world.loaded || !this._player.loaded) return;
 
@@ -132,14 +139,13 @@ export default class Application implements Tickable {
     }
 
     private createWorld(): void {
-        this._world = new MainWorld(this);
         this._world.loadWorld();
         this._player.loadPlayer();
     }
 
     private onLoadCycleEntryLoaded(): void {
         if (this._resourceManager.loadedCycles === 1) {
-            this.createWorld();
+            this._loadingPage.loaded();
         }
     }
 }

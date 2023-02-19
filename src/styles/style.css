@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Shrikhand&display=swap');
+
 * {
     margin: 0;
     padding: 0;
@@ -19,14 +21,22 @@ body {
 
 .page_overlay {
     z-index: 1;
-
     position: fixed;
     width: 100vw;
     height: 100vh;
-    background-image: url("../assets/book_background.png");
-    color: #fff;
 }
 
 .page_overlay_hidden {
     display: none;
+}
+
+.hidden {
+    display: none;
+}
+
+.page_overlay_loading {
+    background-color: #fff;
+    font-size: 40px;
+    line-height: 50vh;
+    text-align: center;
 }
