@@ -49,7 +49,8 @@ export default class WorldEventManager {
                         new Vector3(2.008, 1, -1.4),
                         new Vector3(2.008, 0.3, -1.88)
                     ],
-                    1000
+                    1000,
+                    1
                 );
                 this._application.cinematicCamera.cameraPath = cameraPath;
                 this._application.cinematicCamera.lookAt(new Vector3(2.02, 0.1, -1.9));
@@ -61,7 +62,8 @@ export default class WorldEventManager {
                             new Vector3(2.008, 1, -1.4),
                             attachableCameraPosition.clone()
                         ],
-                        1000
+                        1000,
+                        1
                     );
                     this._application.cinematicCamera.cameraPath = zoomOutPath;
                     this._application.cinematicCamera.lookAt(new Vector3(2.02, 0.1, -1.9));

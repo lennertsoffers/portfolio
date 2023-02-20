@@ -31,7 +31,7 @@ export default class TimedLoop extends EventEmitter {
 
     public tick(): void {
         const currentTime = Date.now();
-        this._deltaTime = currentTime - this._currentTime;
+        this._deltaTime = Math.min(20, currentTime - this._currentTime);
         this._currentTime = currentTime;
         this._elapsedTime = this._currentTime - this._startTime;
 

@@ -12,11 +12,13 @@ import World from "./models/worlds/World";
 import PageManager from "./models/pages/PageManager";
 import CinematicCamera from "./models/three/CinematicCamera";
 import LoadingPage from "./models/pages/LoadingPage";
+import StartSequence from "./models/startsSquence/StartSequence";
 
 export default class Application implements Tickable {
     private _canvas: HTMLCanvasElement;
     private _pageManager: PageManager;
     private _loadingPage: LoadingPage;
+    private _startSequence: StartSequence;
     private _debug: Debug;
     private _resourceManager: ResourceManager;
     private _dimensions: Dimensions;
@@ -43,7 +45,8 @@ export default class Application implements Tickable {
         this._player = new Player(this);
         this._world = new MainWorld(this);
         this._pageManager = new PageManager(this);
-        this._loadingPage = new LoadingPage(this, () => this.createWorld());
+        this._loadingPage = new LoadingPage(this, () => this.createWorld(), () => this._startSequence.play());
+        this._startSequence = new StartSequence(this);
 
         this._resourceManager.addEventListener("loadCycleEntryLoaded", () => this.onLoadCycleEntryLoaded());
         this._dimensions.addEventListener("resize", () => this.resize());

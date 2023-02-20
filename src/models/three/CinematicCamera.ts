@@ -1,4 +1,4 @@
-import { PerspectiveCamera, Quaternion, Vector3 } from "three";
+import { PerspectiveCamera, Vector3 } from "three";
 import Application from "../../Application";
 import Tickable from "../../types/interfaces/Tickable";
 import CameraPath from "./CameraPath";
@@ -38,7 +38,8 @@ export default class CinematicCamera implements Tickable {
 
         this._cameraPath.tick(deltaTime, elapsedTime);
 
-        this.instance.position.copy(this._cameraPath.currentPosition);
+        const direction = new Vector3().subVectors(this._cameraPath.currentPosition, this._instance.position);
+        this.instance.position.add(direction.multiplyScalar(deltaTime * 0.001));
 
         if (this._lookAt) this.instance.lookAt(this._lookAt);
     }
@@ -46,5 +47,9 @@ export default class CinematicCamera implements Tickable {
     public resize(): void {
         this._instance.aspect = this._application.dimensions.getAspectRatio();
         this._instance.updateProjectionMatrix();
+    }
+
+    public setPosition(position: Vector3): void {
+        this._instance.position.copy(position);
     }
 }

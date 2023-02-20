@@ -41,5 +41,8 @@ export default class LoadingPage {
         continueButton.classList.remove(ClassConstants.HIDDEN);
 
         if (this._onLoaded) this._onLoaded();
+
+        if (this._page) this._page.classList.add(PageConstants.PAGE_OVERLAY_HIDDEN_CLASS);
+        if (this._onContinue) this._onContinue();
     }
 }
