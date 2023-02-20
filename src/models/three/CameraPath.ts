@@ -14,6 +14,7 @@ export default class CameraPath extends EventEmitter implements Tickable {
     private _totalPathLength: number;
     private _duration: number;
     private _paused: boolean;
+    private _canComplete: boolean;
     private _completed: boolean;
 
     private _publishSpeed: number;
@@ -34,6 +35,7 @@ export default class CameraPath extends EventEmitter implements Tickable {
 
         this._duration = duration;
         this._paused = true;
+        this._canComplete = false;
         this._completed = false;
 
         this._publishSpeed = publishSpeed;
@@ -64,6 +66,17 @@ export default class CameraPath extends EventEmitter implements Tickable {
         this.publishPosition();
     }
 
+    public tryComplete(currentPosition: Vector3): void {
+        if (!this._canComplete) return;
+
+        if (Math.abs(currentPosition.x - this._currentPublishedPosition.x) > 0.05) return;
+        if (Math.abs(currentPosition.y - this._currentPublishedPosition.y) > 0.05) return;
+        if (Math.abs(currentPosition.z - this._currentPublishedPosition.z) > 0.05) return;
+
+        this._completed = true;
+        this.trigger("completed");
+    }
+
     public tick(deltaTime: number, _elapsedTime: number): void {
         if (this._paused) return;
         if (this._completed) return;
@@ -81,7 +94,10 @@ export default class CameraPath extends EventEmitter implements Tickable {
     }
 
     private updatePosition(toMoveLength: number): void {
-        if (!this._nextWaypoint) return;
+        if (!this._nextWaypoint) {
+            this._canComplete = true;
+            return;
+        };
 
         const remainingMovementInStep = new Vector3().subVectors(this._currentPosition, this._nextWaypoint);
         const remainingLength = remainingMovementInStep.length();

@@ -36,6 +36,7 @@ export default class CinematicCamera implements Tickable {
         if (!this._cameraPath) return;
         if (this._cameraPath.completed) return;
 
+        this._cameraPath.tryComplete(this._instance.position);
         this._cameraPath.tick(deltaTime, elapsedTime);
 
         const direction = new Vector3().subVectors(this._cameraPath.currentPosition, this._instance.position);

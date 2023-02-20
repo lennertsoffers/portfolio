@@ -116,6 +116,10 @@ export default class Application implements Tickable {
         return this._world;
     }
 
+    public get player(): Player | null {
+        return this._player;
+    }
+
     public showLoadingPage(): void {
         this._loadingPage.show();
     }
