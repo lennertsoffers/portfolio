@@ -16,19 +16,30 @@ export default class StartSequence {
     }
 
     public play(): void {
+        this.setupPlayer();
+        this.playAnimation();
+    }
+
+    private setupPlayer(): void {
         this._player.futureRotation = new Vector3(0, 0, 0);
         this._player.playerModel.toIdle();
+    }
+
+    private playAnimation(): void {
         this._application.useCinematicCamera();
         this._application.cinematicCamera.setPosition(new Vector3(15, 7, 8));
+        this._application.cinematicCamera.lookAt(new Vector3());
 
         const cameraPath = new CameraPath(
             [
                 new Vector3(15, 7, 8),
-                new Vector3(12, 6, 17),
-                new Vector3(10, 5.5, 18),
-                new Vector3(4, 5, 17),
-                new Vector3(2, 3, 15),
-                new Vector3(1, 1.5, 12),
+                new Vector3(14, 6, 17),
+                new Vector3(12, 5.5, 17),
+                new Vector3(9, 5, 18),
+                new Vector3(5, 4, 17),
+                new Vector3(4, 3, 16),
+                new Vector3(0.2, 2, 15.5),
+                new Vector3(0, 1, 10.5),
                 new Vector3(-0.32, 0, 10),
             ],
             3000,
@@ -36,13 +47,32 @@ export default class StartSequence {
         );
 
         cameraPath.addEventListener("completed", async () => {
-            await this._player.playerModel.wave();
-            this._player.playerModel.toIdle();
+            await Promise.all([this.playWave(), this.playDialog()]);
+            this.resumeControls();
         });
 
         this._application.cinematicCamera.cameraPath = cameraPath;
-        this._application.cinematicCamera.lookAt(new Vector3());
 
         cameraPath.start();
+    }
+
+    private async playWaveAndDialog(): Promise<void> {
+        this.playWave();
+    }
+
+    private async playWave(): Promise<void> {
+        await this._player.playerModel.wave();
+        this._player.playerModel.toIdle();
+    }
+
+    private async playDialog(): Promise<void> {
+        this._application.hud.dialog.show();
+        await this._application.hud.dialog.writeText("Hello, my name is Lennert Soffers and welcome to my portfolio!", "I will give you a short introduction now.");
+    }
+
+    private resumeControls(): void {
+        this._player.futureRotation = new Vector3(0, Math.PI, 0);
+        this._application.attachableCamera.resumeAttachment();
+        this._application.useAttachableCamera();
     }
 }

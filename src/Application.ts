@@ -13,11 +13,13 @@ import PageManager from "./models/pages/PageManager";
 import CinematicCamera from "./models/three/CinematicCamera";
 import LoadingPage from "./models/pages/LoadingPage";
 import StartSequence from "./models/startsSquence/StartSequence";
+import Hud from "./models/hud/Hud";
 
 export default class Application implements Tickable {
     private _canvas: HTMLCanvasElement;
     private _pageManager: PageManager;
     private _loadingPage: LoadingPage;
+    private _hud: Hud;
     private _startSequence: StartSequence;
     private _debug: Debug;
     private _resourceManager: ResourceManager;
@@ -33,6 +35,7 @@ export default class Application implements Tickable {
 
     constructor(canvas: HTMLCanvasElement) {
         this._canvas = canvas;
+        this._hud = new Hud(this);
         this._debug = new Debug();
         this._resourceManager = new ResourceManager();
         this._dimensions = new Dimensions();
@@ -74,6 +77,10 @@ export default class Application implements Tickable {
 
     public get canvas(): HTMLCanvasElement {
         return this._canvas;
+    }
+
+    public get hud(): Hud {
+        return this._hud;
     }
 
     public get pageManager(): PageManager {
