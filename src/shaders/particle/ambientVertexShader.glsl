@@ -103,7 +103,7 @@ void main() {
     vec4 projectionPosition = projectionMatrix * viewPosition;
 
     gl_Position = projectionPosition;
-    gl_PointSize = aSize / -viewPosition.z * 10.0;
+    gl_PointSize = (aSize / (-viewPosition.z / 2.0)) * 10.0;
 
     vPercentageOfLifeTime = percentageOfLifeTime;
     vColour = uColour;

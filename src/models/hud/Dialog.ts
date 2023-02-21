@@ -14,8 +14,8 @@ export default class Dialog extends EventEmitter {
         this._hud = hud;
         this._textQueue = [];
 
-        const element = document.querySelector(`.${ClassConstants.HUD_CLASS_NAME}`) as HTMLElement;
-        if (!element) throw new ElementNotFoundError(ClassConstants.HUD_CLASS_NAME);
+        const element = document.querySelector(`.${ClassConstants.DIALOG_CLASS_NAME}`) as HTMLElement;
+        if (!element) throw new ElementNotFoundError(ClassConstants.DIALOG_CLASS_NAME);
         this._element = element;
     }
 

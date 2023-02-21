@@ -4,7 +4,6 @@ import CollisionUtils from "../../utils/CollisionUtils";
 import MathUtils from "../../utils/MathUtils";
 import ControlConstants from "../constants/ControlsConstants";
 import ModelConstants from "../constants/ModelConstants";
-import ParticleAnimationType from "../enum/ParticleAnimationType";
 import PlayerState from "../enum/PlayerState";
 import WorldZone, { valueOf as worldZoneValueOf } from "../enum/WorldZone";
 import PlayerControls from "./PlayerControls";
@@ -136,32 +135,46 @@ export default class Player {
         }
     }
 
-    public async teleport(): Promise<void> {
+    public async teleport(toPosition: Vector3, toRotation: Vector3): Promise<void> {
+        await this.playTeleportAnimation();
+
+        this._currentPosition = toPosition;
+        this._futurePosition = toPosition;
+        this._currentRotation = toRotation;
+        this._futureRotation = toRotation;
+        this._playerControls.stopOrbiting();
+
+        await this.playTeleportAnimation(true);
+    }
+
+    private async playTeleportAnimation(backwards: boolean = false): Promise<void> {
         const center = this.currentPosition;
         const angleY = this._currentRotation.y;
 
         let angleYLeft = angleY - Math.PI / 2;
         let angleYRight = angleY + Math.PI / 2;
 
-        for (let i = 0; i < 1; i += 0.01) {
+        const loopStartValue = backwards ? 0.8 : 0;
+        const loopCondition = (num: number) => backwards ? num > 0 : num < 0.8;
+        const loopIncrement = (num: number) => backwards ? num -= 0.02 : num += 0.02;
+
+        for (let i = loopStartValue; loopCondition(i); i = loopIncrement(i)) {
             const radius = 0.4 * Math.pow(1 - i, 1 / 2);
             const positionLeft = center.clone().add(MathUtils.directionFromAngleY(angleYLeft).multiplyScalar(radius)).add(new Vector3(0, i, 0));
             const positionRight = center.clone().add(MathUtils.directionFromAngleY(angleYRight).multiplyScalar(radius)).add(new Vector3(0, i, 0));
 
-            this._application.particleManager.spawnParticleExplosion(positionLeft, 10, 1000, new Color(0x0000ff));
-            this._application.particleManager.spawnParticleExplosion(positionRight, 10, 1000, new Color(0x0000ff));
+            this._application.particleManager.spawnParticleExplosion(positionLeft, 2, 1000, new Color(0xb3e595), 4);
+            this._application.particleManager.spawnParticleExplosion(positionRight, 2, 1000, new Color(0xb3e595), 4);
 
-            angleYLeft += 0.1;
-            angleYRight += 0.1;
+            angleYLeft += 0.2;
+            angleYRight += 0.2;
 
-            await new Promise((resolve) => setTimeout(resolve, 1));
+            await new Promise((resolve) => setTimeout(resolve, 20));
         }
     }
 
     public interact(): void {
         if (!this._application.world) return;
-
-        this.teleport();
 
         this._application.world.worldEventManager.handleInteraction();
     }

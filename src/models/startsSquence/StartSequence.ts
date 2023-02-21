@@ -18,13 +18,13 @@ export default class StartSequence {
     public play(): void {
         // TODO - Enable startup animation
         this.resumeControls();
-        // this.setupPlayer();
-        // this.playAnimation();
-
-        this._application.particleManager.spawnAmbientParticles(new Vector3(0, 0, 0), 100, 10000, new Color(0x00ff00), 10);
+        this.setupPlayer();
+        this.playAnimation();
+        this._application.hud.menu.show();
+        this._application.particleManager.spawnAmbientParticles(new Vector3(0, 0, 0), 10, 10000, new Color(0xf0d441), 13);
         setInterval(() => {
-            this._application.particleManager.spawnAmbientParticles(new Vector3(0, 0, 0), 100, 10000, new Color(0x00ff00), 10);
-        }, 5000);
+            this._application.particleManager.spawnAmbientParticles(new Vector3(0, 0, 0), 10, 10000, new Color(0xf0d441), 13);
+        }, 1000);
     }
 
     private setupPlayer(): void {

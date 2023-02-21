@@ -32,7 +32,7 @@ export default class ParticleManager implements Tickable {
 
         for (let i = 0; i < count * 3; i += 3) {
             particlePositions[i + 0] = centerPosition.x + MathUtils.randomGaussian(-offset, offset);
-            particlePositions[i + 1] = centerPosition.y + MathUtils.randomGaussian(-offset, offset);
+            particlePositions[i + 1] = centerPosition.y + MathUtils.randomGaussian(-offset / 2, offset / 2);
             particlePositions[i + 2] = centerPosition.z + MathUtils.randomGaussian(-offset, offset);
 
             particleSizes[i / 3] = 1.0 + Math.random() * this._application.dimensions.pixelRatio;

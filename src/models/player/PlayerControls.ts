@@ -102,7 +102,7 @@ export default class PlayerControls implements Tickable {
         this._orbitMovement.setScalar(0);
     }
 
-    private stopOrbiting(): void {
+    public stopOrbiting(): void {
         if (this._orbitControlsActive) this.camera.resumeAttachment();
         this._orbitControlsActive = false;
     }
