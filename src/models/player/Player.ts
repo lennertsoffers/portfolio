@@ -1,8 +1,10 @@
-import { Raycaster, Vector3 } from "three";
+import { Color, Raycaster, Vector3 } from "three";
 import Application from "../../Application";
 import CollisionUtils from "../../utils/CollisionUtils";
+import MathUtils from "../../utils/MathUtils";
 import ControlConstants from "../constants/ControlsConstants";
 import ModelConstants from "../constants/ModelConstants";
+import ParticleAnimationType from "../enum/ParticleAnimationType";
 import PlayerState from "../enum/PlayerState";
 import WorldZone, { valueOf as worldZoneValueOf } from "../enum/WorldZone";
 import PlayerControls from "./PlayerControls";
@@ -134,9 +136,34 @@ export default class Player {
         }
     }
 
+    public async teleport(): Promise<void> {
+        const center = this.currentPosition;
+        const angleY = this._currentRotation.y;
+
+        let angleYLeft = angleY - Math.PI / 2;
+        let angleYRight = angleY + Math.PI / 2;
+
+        for (let i = 0; i < 1; i += 0.01) {
+            const radius = 0.4 * Math.pow(1 - i, 1 / 2);
+            const positionLeft = center.clone().add(MathUtils.directionFromAngleY(angleYLeft).multiplyScalar(radius)).add(new Vector3(0, i, 0));
+            const positionRight = center.clone().add(MathUtils.directionFromAngleY(angleYRight).multiplyScalar(radius)).add(new Vector3(0, i, 0));
+
+            this._application.particleManager.spawnParticleExplosion(positionLeft, 10, 1000, new Color(0x0000ff));
+            this._application.particleManager.spawnParticleExplosion(positionRight, 10, 1000, new Color(0x0000ff));
+
+            angleYLeft += 0.1;
+            angleYRight += 0.1;
+
+            await new Promise((resolve) => setTimeout(resolve, 1));
+        }
+    }
+
     public interact(): void {
-        if (!this.application.world) return;
-        this.application.world.worldEventManager.handleInteraction();
+        if (!this._application.world) return;
+
+        this.teleport();
+
+        this._application.world.worldEventManager.handleInteraction();
     }
 
     private movePlayer(deltaTime: number): void {
@@ -165,7 +192,7 @@ export default class Player {
     private updateAvailableActions(): void {
         if (!this._application.world) return;
 
-        const forwardsDirection = new Vector3(-Math.sin(this._currentRotation.y), 0, -Math.cos(this._currentRotation.y));
+        const forwardsDirection = MathUtils.directionFromAngleY(this._currentRotation.y);
 
         const forwardsRay = new Raycaster(this._currentPosition, forwardsDirection);
         const backwardsRay = new Raycaster(this._currentPosition, forwardsDirection.clone().negate());

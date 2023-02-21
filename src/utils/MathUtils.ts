@@ -16,4 +16,8 @@ export default class MathUtils {
             (beginVelocity * Math.cos(theta) + t * Math.cos(phi))
         );
     }
+
+    public static directionFromAngleY(angleY: number): Vector3 {
+        return new Vector3(-Math.sin(angleY), 0, -Math.cos(angleY));
+    }
 }

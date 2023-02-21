@@ -16,8 +16,10 @@ export default class StartSequence {
     }
 
     public play(): void {
-        this.setupPlayer();
-        this.playAnimation();
+        // TODO - Enable startup animation
+        this.resumeControls();
+        // this.setupPlayer();
+        // this.playAnimation();
     }
 
     private setupPlayer(): void {
@@ -55,10 +57,6 @@ export default class StartSequence {
         this._application.cinematicCamera.cameraPath = cameraPath;
 
         cameraPath.start();
-    }
-
-    private async playWaveAndDialog(): Promise<void> {
-        this.playWave();
     }
 
     private async playWave(): Promise<void> {

@@ -41,52 +41,98 @@ export default class WorldEventManager {
                 this._activeTriggerableWorldEvent.trigger();
                 break;
             case WorldZone.CV:
-                const attachableCameraPosition = this._application.attachableCamera.getPosition().clone();
-
-                this._application.cinematicCamera.setPosition(attachableCameraPosition);
-                this._application.useCinematicCamera();
-
-                const cameraPath = new CameraPath(
-                    [
-                        attachableCameraPosition.clone(),
-                        new Vector3(2.008, 1.5, -1.4),
-                        new Vector3(2.008, 0.3, -1.88)
-                    ],
-                    1000,
-                    1
-                );
-                this._application.cinematicCamera.cameraPath = cameraPath;
-                this._application.cinematicCamera.lookAt(new Vector3(2.02, 0.1, -1.9));
-
-                this._activeTriggerableWorldEvent = new PageOverlayWorldEvent(PageOverlayType.CV, this._application, () => {
-                    const zoomOutPath = new CameraPath(
-                        [
-                            new Vector3(2.008, 0.3, -1.88),
-                            new Vector3(2.008, 1.5, -1.4),
-                            attachableCameraPosition.clone()
-                        ],
-                        1000,
-                        1
-                    );
-                    this._application.cinematicCamera.cameraPath = zoomOutPath;
-                    this._application.cinematicCamera.lookAt(new Vector3(2.02, 0.1, -1.9));
-                    zoomOutPath.start();
-                    zoomOutPath.addEventListener("completed", () => {
-                        this._application.useAttachableCamera();
-                    });
-                });
-
-                cameraPath.start();
-                cameraPath.addEventListener("completed", () => {
-                    if (this._activeTriggerableWorldEvent) this._activeTriggerableWorldEvent.trigger();
-                });
+                this.triggerCv();
                 break;
             case WorldZone.PROJECTS:
-                this._activeTriggerableWorldEvent = new PageOverlayWorldEvent(PageOverlayType.PROJECTS, this._application);
-                this._activeTriggerableWorldEvent.trigger();
+                this.triggerProjects();
                 break;
         }
+    }
 
+    private triggerCv(): void {
+        const attachableCameraPosition = this._application.attachableCamera.getPosition().clone();
+
+        this._application.cinematicCamera.setPosition(attachableCameraPosition);
+        this._application.useCinematicCamera();
+
+        const cameraPath = new CameraPath(
+            [
+                attachableCameraPosition.clone(),
+                new Vector3(2.008, 1.5, -1.4),
+                new Vector3(2.008, 0.3, -1.88)
+            ],
+            1000,
+            1
+        );
+        this._application.cinematicCamera.cameraPath = cameraPath;
+        this._application.cinematicCamera.lookAt(new Vector3(2.02, 0.1, -1.9));
+
+        this._activeTriggerableWorldEvent = new PageOverlayWorldEvent(PageOverlayType.CV, this._application, () => {
+            const zoomOutPath = new CameraPath(
+                [
+                    new Vector3(2.008, 0.3, -1.88),
+                    new Vector3(2.008, 1.5, -1.4),
+                    attachableCameraPosition.clone()
+                ],
+                1000,
+                1
+            );
+            this._application.cinematicCamera.cameraPath = zoomOutPath;
+            this._application.cinematicCamera.lookAt(new Vector3(2.02, 0.1, -1.9));
+            zoomOutPath.start();
+            zoomOutPath.addEventListener("completed", () => {
+                this._application.useAttachableCamera();
+            });
+        });
+
+        cameraPath.start();
+        cameraPath.addEventListener("completed", () => {
+            if (this._activeTriggerableWorldEvent) this._activeTriggerableWorldEvent.trigger();
+        });
+    }
+
+    private triggerProjects(): void {
+        const attachableCameraPosition = this._application.attachableCamera.getPosition().clone();
+
+        this._application.cinematicCamera.setPosition(attachableCameraPosition);
+        this._application.useCinematicCamera();
+
+        const cameraPath = new CameraPath(
+            [
+                attachableCameraPosition.clone(),
+                new Vector3(-1.2, 0.8, -4.9),
+                new Vector3(-1.25, 1, -4.96),
+                new Vector3(-1.25, -0.42, -4.96)
+            ],
+            1000,
+            1
+        );
+        this._application.cinematicCamera.cameraPath = cameraPath;
+        this._application.cinematicCamera.lookAt(new Vector3(-1.25, -0.7, -4.96));
+
+        this._activeTriggerableWorldEvent = new PageOverlayWorldEvent(PageOverlayType.CV, this._application, () => {
+            const zoomOutPath = new CameraPath(
+                [
+                    new Vector3(-1.25, -0.42, -4.96),
+                    new Vector3(-1.25, 1, -4.96),
+                    new Vector3(-1.2, 0.8, -4.9),
+                    attachableCameraPosition.clone()
+                ],
+                1000,
+                1
+            );
+            this._application.cinematicCamera.cameraPath = zoomOutPath;
+            this._application.cinematicCamera.lookAt(new Vector3(-1.25, -0.7, -4.96));
+            zoomOutPath.start();
+            zoomOutPath.addEventListener("completed", () => {
+                this._application.useAttachableCamera();
+            });
+        });
+
+        cameraPath.start();
+        cameraPath.addEventListener("completed", () => {
+            if (this._activeTriggerableWorldEvent) this._activeTriggerableWorldEvent.trigger();
+        });
     }
 
     private zoneChanged(): void {

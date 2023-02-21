@@ -1,4 +1,4 @@
-import { AmbientLight, PointLight, Scene } from "three";
+import { AmbientLight, BoxGeometry, Mesh, MeshBasicMaterial, PointLight, Scene } from "three";
 import TimedLoop from "./models/logic/TimedLoop";
 import Dimensions from "./utils/Dimensions";
 import Renderer from "./models/three/Renderer";
@@ -14,6 +14,7 @@ import CinematicCamera from "./models/three/CinematicCamera";
 import LoadingPage from "./models/pages/LoadingPage";
 import StartSequence from "./models/startsSquence/StartSequence";
 import Hud from "./models/hud/Hud";
+import ParticleManager from "./models/animation/ParticleManager";
 
 export default class Application implements Tickable {
     private _canvas: HTMLCanvasElement;
@@ -23,6 +24,7 @@ export default class Application implements Tickable {
     private _startSequence: StartSequence;
     private _debug: Debug;
     private _resourceManager: ResourceManager;
+    private _particleManager: ParticleManager;
     private _dimensions: Dimensions;
     private _timedLoop: TimedLoop;
     private _scene: Scene;
@@ -48,6 +50,7 @@ export default class Application implements Tickable {
         this._player = new Player(this);
         this._world = new MainWorld(this);
         this._pageManager = new PageManager(this);
+        this._particleManager = new ParticleManager(this);
         this._loadingPage = new LoadingPage(this, () => this.createWorld(), () => this._startSequence.play());
         this._startSequence = new StartSequence(this);
 
@@ -69,7 +72,7 @@ export default class Application implements Tickable {
         //     new BoxGeometry(0.1, 0.1, 0.1),
         //     new MeshBasicMaterial({ color: 0x00ff00 })
         // );
-        // mesh.position.set(2.02, 0.1, -1.9);
+        // mesh.position.set(-2, 0, -3);
         // this._scene.add(
         //     mesh
         // );
@@ -127,6 +130,10 @@ export default class Application implements Tickable {
         return this._player;
     }
 
+    public get particleManager(): ParticleManager {
+        return this._particleManager;
+    }
+
     public showLoadingPage(): void {
         this._loadingPage.show();
     }
@@ -137,6 +144,7 @@ export default class Application implements Tickable {
         this._currentCamera.tick(deltaTime, elapsedTime);
         this._renderer.tick(deltaTime, elapsedTime);
         this._player.tick(deltaTime, elapsedTime);
+        this._particleManager.tick(deltaTime, elapsedTime);
     }
 
     public useAttachableCamera(): void {
