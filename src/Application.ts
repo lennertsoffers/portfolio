@@ -171,3 +171,6 @@ export default class Application implements Tickable {
         }
     }
 }
+
+// TODO - Fix max zoom bug
+// Zooming in is capped by minimum while zooming out isn't

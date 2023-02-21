@@ -1,4 +1,4 @@
-import { Vector3 } from "three";
+import { Color, Vector3 } from "three";
 import Application from "../../Application";
 import ApplicationNotLoadedError from "../error/ApplicationNotLoadedError";
 import Player from "../player/Player";
@@ -20,6 +20,11 @@ export default class StartSequence {
         this.resumeControls();
         // this.setupPlayer();
         // this.playAnimation();
+
+        this._application.particleManager.spawnAmbientParticles(new Vector3(0, 0, 0), 100, 10000, new Color(0x00ff00), 10);
+        setInterval(() => {
+            this._application.particleManager.spawnAmbientParticles(new Vector3(0, 0, 0), 100, 10000, new Color(0x00ff00), 10);
+        }, 5000);
     }
 
     private setupPlayer(): void {
