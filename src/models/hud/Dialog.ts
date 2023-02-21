@@ -23,6 +23,10 @@ export default class Dialog extends EventEmitter {
         this._element.classList.remove(ClassConstants.HIDDEN);
     }
 
+    public hide(): void {
+        this._element.classList.add(ClassConstants.HIDDEN);
+    }
+
     public async writeText(...text: string[]): Promise<void> {
         this._textQueue.push(...text);
 

@@ -48,6 +48,7 @@ export default class StartSequence {
 
         cameraPath.addEventListener("completed", async () => {
             await Promise.all([this.playWave(), this.playDialog()]);
+            this._application.hud.dialog.hide();
             this.resumeControls();
         });
 

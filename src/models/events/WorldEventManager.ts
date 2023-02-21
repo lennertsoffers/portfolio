@@ -6,6 +6,7 @@ import { valueOf as triggerableWorldActionTypeValueOf } from "../enum/Triggerabl
 import WorldZone from "../enum/WorldZone";
 import CameraPath from "../three/CameraPath";
 import ActionTriggerableWorldEvent from "./ActionTriggerableWorldEvent";
+import DialogWorldEvent from "./DialogWorldEvent";
 import PageOverlayWorldEvent from "./PageOverlayWorldEvent";
 import WorldEvent from "./WorldEvent";
 
@@ -36,7 +37,7 @@ export default class WorldEventManager {
 
         switch (this._currentZone) {
             case WorldZone.ABOUT_ME:
-                this._activeTriggerableWorldEvent = new PageOverlayWorldEvent(PageOverlayType.ABOUT_ME, this._application);
+                this._activeTriggerableWorldEvent = new DialogWorldEvent(this._application.hud.dialog, ["This is my about me page"]);
                 this._activeTriggerableWorldEvent.trigger();
                 break;
             case WorldZone.CV:
