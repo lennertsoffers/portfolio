@@ -42,12 +42,14 @@ export default class WorldEventManager {
                 break;
             case WorldZone.CV:
                 const attachableCameraPosition = this._application.attachableCamera.getPosition().clone();
+
+                this._application.cinematicCamera.setPosition(attachableCameraPosition);
                 this._application.useCinematicCamera();
 
                 const cameraPath = new CameraPath(
                     [
                         attachableCameraPosition.clone(),
-                        new Vector3(2.008, 1, -1.4),
+                        new Vector3(2.008, 1.5, -1.4),
                         new Vector3(2.008, 0.3, -1.88)
                     ],
                     1000,
@@ -60,7 +62,7 @@ export default class WorldEventManager {
                     const zoomOutPath = new CameraPath(
                         [
                             new Vector3(2.008, 0.3, -1.88),
-                            new Vector3(2.008, 1, -1.4),
+                            new Vector3(2.008, 1.5, -1.4),
                             attachableCameraPosition.clone()
                         ],
                         1000,
