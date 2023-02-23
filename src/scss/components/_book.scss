@@ -1,0 +1,26 @@
+.book {
+    font-family: $shantell_sans;
+    transition: opacity 0.4s 0.2s;
+    perspective: 500vw;
+    background-color: $cover_colour;
+    overflow: hidden;
+    backface-visibility: hidden;
+
+    padding: $cover_width_extra_small $cover_and_page_stack_width_extra_small $cover_width_extra_small 0;
+
+    @include breakpoint($small) {
+        padding: $cover_width_small $cover_and_page_stack_width_small $cover_width_small 0;
+    }
+
+    @include breakpoint($medium) {
+        padding: $cover_width_medium $cover_and_page_stack_width_medium $cover_width_medium 0;
+    }
+
+    @include breakpoint($large) {
+        padding: $cover_width_large $cover_and_page_stack_width_large;
+    }
+
+    @include breakpoint($extra_large) {
+        padding: $cover_width_extra_large $cover_and_page_stack_width_extra_large;
+    }
+}

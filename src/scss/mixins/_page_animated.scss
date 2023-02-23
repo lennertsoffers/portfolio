@@ -1,0 +1,30 @@
+@mixin page_animated {
+    @include odd {
+        pointer-events: all;
+        transform: rotateY(0deg);
+        right: 0;
+
+        &.flipped {
+            pointer-events: none;
+            transform: rotateY(-180deg);
+        }
+    }
+
+    @include even {
+        display: none;
+
+        @include breakpoint($large) {
+            display: block;
+        }
+
+        pointer-events: none;
+        transform: rotateY(180deg);
+        transform-origin: 100% 0;
+        left: 0;
+
+        &.flipped {
+            pointer-events: all;
+            transform: rotateY(0deg);
+        }
+    }
+}

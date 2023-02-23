@@ -1,0 +1,14 @@
+@mixin page_stack {
+    box-shadow: -1px 0 0 rgba(0, 0, 0, 0.15),
+        -10px 0 0 -5px #dad3cb,
+        -10px 0 0 -4px rgba(0, 0, 0, 0.15),
+        -20px 0 0 -10px #dad3cb,
+        -20px 0 0 -9px rgba(0, 0, 0, 0.15),
+        -30px 0 0 -15px #dad3cb,
+        1px 0 0 rgba(0, 0, 0, 0.15),
+        10px 0 0 -5px #dad3cb,
+        10px 0 0 -4px rgba(0, 0, 0, 0.15),
+        20px 0 0 -10px #dad3cb,
+        20px 0 0 -9px rgba(0, 0, 0, 0.15),
+        30px 0 0 -15px #dad3cb;
+}

@@ -1,0 +1,29 @@
+.page.page--4 {
+    .page__post_it {
+        position: relative;
+
+        >.post_it__image {
+            position: absolute;
+
+            >img {
+                width: 250px;
+            }
+        }
+
+        .post_it__content {
+            padding: 50px 25px 0 25px;
+            position: absolute;
+            z-index: 1;
+            width: 250px;
+        }
+    }
+
+    >.page__stickers {
+        >.mushroom--4 {
+            position: absolute;
+            bottom: 20px;
+            left: 150px;
+            width: 150px;
+        }
+    }
+}

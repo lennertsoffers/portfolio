@@ -1,0 +1,29 @@
+@mixin odd {
+    &:nth-child(odd) {
+        @content
+    }
+}
+
+@mixin even {
+    &:nth-child(even) {
+        @content
+    }
+}
+
+@mixin child($i) {
+    &:nth-child($i) {
+        @content
+    }
+}
+
+@mixin first {
+    &:first-of-type {
+        @content
+    }
+}
+
+@mixin last {
+    &:last-of-type {
+        @content
+    }
+}

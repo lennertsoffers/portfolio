@@ -1,0 +1,12 @@
+@mixin page_overlay($width, $height, $direction) {
+    &::after {
+        content: '';
+        pointer-events: none;
+        background-image: linear-gradient(to $direction, $page_curve_colour_dark 0%, $page_curve_colour_light 10%);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: $width;
+        height: $height;
+    }
+}

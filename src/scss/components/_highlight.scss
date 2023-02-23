@@ -1,0 +1,16 @@
+.highlight {
+    position: relative;
+    display: inline-block;
+
+    &::after {
+        background-color: #ffff0062;
+        content: "";
+        position: absolute;
+        width: calc(100% + 4px);
+        height: 70%;
+        left: -2px;
+        bottom: 0;
+        z-index: -1;
+        transform: rotate(-1.5deg);
+    }
+}

@@ -1,0 +1,49 @@
+.page__header {
+    h2 {
+        @include font_size_weight($font_size_page_header_extra_small, $font_weight_page_header_extra_small);
+    }
+
+    h3 {
+        @include font_size_weight($font_size_page_body_extra_small, $font_weight_page_body_extra_small);
+    }
+
+    @include breakpoint($small) {
+        h2 {
+            @include font_size_weight($font_size_page_header_small, $font_weight_page_header_small);
+        }
+
+        h3 {
+            @include font_size_weight($font_size_page_body_small, $font_weight_page_body_small);
+        }
+    }
+
+    @include breakpoint($medium) {
+        h2 {
+            @include font_size_weight($font_size_page_header_medium, $font_weight_page_header_medium);
+        }
+
+        h3 {
+            @include font_size_weight($font_size_page_body_medium, $font_weight_page_body_medium);
+        }
+    }
+
+    @include breakpoint($large) {
+        h2 {
+            @include font_size_weight($font_size_page_header_large, $font_weight_page_header_large);
+        }
+
+        h3 {
+            @include font_size_weight($font_size_page_body_large, $font_weight_page_body_large);
+        }
+    }
+
+    @include breakpoint($extra_large) {
+        h2 {
+            @include font_size_weight($font_size_page_header_extra_large, $font_weight_page_header_extra_large);
+        }
+
+        h3 {
+            @include font_size_weight($font_size_page_body_extra_large, $font_weight_page_body_extra_large);
+        }
+    }
+}

@@ -1,0 +1,30 @@
+.page.page--2 {
+    .page__image {
+        >img {
+            height: 280px;
+        }
+    }
+
+    >.page__stickers {
+        >.page__win {
+            position: absolute;
+            top: 20px;
+            left: 10px;
+            transform: rotate(-15deg);
+
+            >img {
+                width: 100px;
+            }
+        }
+
+        >.ink {
+            position: absolute;
+            top: 250px;
+            right: 200px;
+
+            >img {
+                width: 100px;
+            }
+        }
+    }
+}

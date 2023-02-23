@@ -1,0 +1,23 @@
+.page__technologies {
+    h3 {
+        text-decoration: underline;
+
+        @include font_size_weight($font_size_page_body_extra_small, $font_weight_page_body_extra_small);
+    }
+
+    @include breakpoint($small) {
+        @include font_size_weight($font_size_page_body_small, $font_weight_page_body_small);
+    }
+
+    @include breakpoint($medium) {
+        @include font_size_weight($font_size_page_body_medium, $font_weight_page_body_medium);
+    }
+
+    @include breakpoint($large) {
+        @include font_size_weight($font_size_page_body_large, $font_weight_page_body_large);
+    }
+
+    @include breakpoint($extra_large) {
+        @include font_size_weight($font_size_page_body_extra_large, $font_weight_page_body_extra_large);
+    }
+}

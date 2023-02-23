@@ -1,0 +1,19 @@
+.page.page--3 {
+    .page__image {
+        >img {
+            width: 250px;
+        }
+    }
+
+    >.page__stickers {
+        >.flower {
+            position: absolute;
+            right: 200px;
+            top: 250px;
+
+            img {
+                width: 70px;
+            }
+        }
+    }
+}

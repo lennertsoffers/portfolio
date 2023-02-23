@@ -1,4 +1,4 @@
-import { AmbientLight, BoxGeometry, Mesh, MeshBasicMaterial, PointLight, Scene } from "three";
+import { AmbientLight, PointLight, Scene } from "three";
 import TimedLoop from "./models/logic/TimedLoop";
 import Dimensions from "./utils/Dimensions";
 import Renderer from "./models/three/Renderer";
@@ -12,9 +12,11 @@ import World from "./models/worlds/World";
 import PageManager from "./models/pages/PageManager";
 import CinematicCamera from "./models/three/CinematicCamera";
 import LoadingPage from "./models/pages/LoadingPage";
-import StartSequence from "./models/startsSquence/StartSequence";
+import StartSequence from "./models/startsSequence/StartSequence";
 import Hud from "./models/hud/Hud";
 import ParticleManager from "./models/animation/ParticleManager";
+import WorldZone from "./models/enum/WorldZone";
+import BookManager from "./models/pages/BookManager";
 
 export default class Application implements Tickable {
     private _canvas: HTMLCanvasElement;
@@ -34,6 +36,7 @@ export default class Application implements Tickable {
     private _renderer: Renderer;
     private _player: Player;
     private _world: World;
+    private _bookManager: BookManager;
 
     constructor(canvas: HTMLCanvasElement) {
         this._canvas = canvas;
@@ -53,13 +56,20 @@ export default class Application implements Tickable {
         this._particleManager = new ParticleManager(this);
         this._loadingPage = new LoadingPage(this, () => this.createWorld(), () => this._startSequence.play());
         this._startSequence = new StartSequence(this);
+        this._bookManager = new BookManager(this);
 
         this._resourceManager.addEventListener("loadCycleEntryLoaded", () => this.onLoadCycleEntryLoaded());
         this._dimensions.addEventListener("resize", () => this.resize());
         this._timedLoop.addEventListener("tick", () => this.tick(this._timedLoop.deltaTime, this._timedLoop.elapsedTime));
 
-        this.showLoadingPage();
-        this._resourceManager.startLoading();
+
+        // TODO - Uncomment production code
+        // this.showLoadingPage();
+        // this._resourceManager.startLoading();
+
+        // TODO - Remove debug code
+        this._world.worldEventManager.handleWorldZoneChange(WorldZone.CV);
+        this._world.worldEventManager.handleInteraction();
 
         // TODO - Remove lights
         const light = new PointLight(0xffffff, 100, 0);
@@ -158,6 +168,7 @@ export default class Application implements Tickable {
     private resize(): void {
         this._currentCamera.resize();
         this._renderer.resize();
+        this._bookManager.resize();
     }
 
     private createWorld(): void {

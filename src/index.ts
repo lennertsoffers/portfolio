@@ -1,4 +1,4 @@
-import "./styles/style.css";
+import "./scss/app.scss";
 import Application from "./Application";
 import ClassConstants from "./models/constants/ClassConstants";
 
