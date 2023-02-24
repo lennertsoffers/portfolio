@@ -1,5 +1,6 @@
 import { Color, Vector3 } from "three";
 import Application from "../../Application";
+import DialogConstants from "../constants/DialogConstants";
 import ApplicationNotLoadedError from "../error/ApplicationNotLoadedError";
 import Player from "../player/Player";
 import CameraPath from "../three/CameraPath";
@@ -71,7 +72,7 @@ export default class StartSequence {
 
     private async playDialog(): Promise<void> {
         this._application.hud.dialog.show();
-        await this._application.hud.dialog.writeText("Hello, my name is Lennert Soffers and welcome to my portfolio!", "I will give you a short introduction now.");
+        await this._application.hud.dialog.writeText(...DialogConstants.WELCOME_TEXT_QUEUE);
     }
 
     private resumeControls(): void {

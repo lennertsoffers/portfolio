@@ -64,12 +64,12 @@ export default class Application implements Tickable {
 
 
         // TODO - Uncomment production code
-        // this.showLoadingPage();
-        // this._resourceManager.startLoading();
+        this.showLoadingPage();
+        this._resourceManager.startLoading();
 
         // TODO - Remove debug code
-        this._world.worldEventManager.handleWorldZoneChange(WorldZone.CV);
-        this._world.worldEventManager.handleInteraction();
+        // this._world.worldEventManager.handleWorldZoneChange(WorldZone.CV);
+        // this._world.worldEventManager.handleInteraction();
 
         // TODO - Remove lights
         const light = new PointLight(0xffffff, 100, 0);

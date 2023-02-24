@@ -6,7 +6,6 @@ import { valueOf as triggerableWorldActionTypeValueOf } from "../enum/Triggerabl
 import WorldZone from "../enum/WorldZone";
 import CameraPath from "../three/CameraPath";
 import ActionTriggerableWorldEvent from "./ActionTriggerableWorldEvent";
-import DialogWorldEvent from "./DialogWorldEvent";
 import PageOverlayWorldEvent from "./PageOverlayWorldEvent";
 import WorldEvent from "./WorldEvent";
 
@@ -37,8 +36,7 @@ export default class WorldEventManager {
 
         switch (this._currentZone) {
             case WorldZone.ABOUT_ME:
-                this._activeTriggerableWorldEvent = new DialogWorldEvent(this._application.hud.dialog, ["This is my about me page"]);
-                this._activeTriggerableWorldEvent.trigger();
+                this.triggerAboutMe();
                 break;
             case WorldZone.CV:
                 this.triggerCv();
@@ -49,54 +47,57 @@ export default class WorldEventManager {
         }
     }
 
-    // TODO - Remove debug code
-    private triggerCv(): void {
-        this._activeTriggerableWorldEvent = new PageOverlayWorldEvent(PageOverlayType.CV, this._application);
-        this._activeTriggerableWorldEvent.trigger();
+    private triggerAboutMe(): void {
     }
 
-    // TODO - Uncomment production code
+    // TODO - Remove debug code
     // private triggerCv(): void {
-    //     const attachableCameraPosition = this._application.attachableCamera.getPosition().clone();
-
-    //     this._application.cinematicCamera.setPosition(attachableCameraPosition);
-    //     this._application.useCinematicCamera();
-
-    //     const cameraPath = new CameraPath(
-    //         [
-    //             attachableCameraPosition.clone(),
-    //             new Vector3(2.008, 1.5, -1.4),
-    //             new Vector3(2.008, 0.3, -1.88)
-    //         ],
-    //         1000,
-    //         1
-    //     );
-    //     this._application.cinematicCamera.cameraPath = cameraPath;
-    //     this._application.cinematicCamera.lookAt(new Vector3(2.02, 0.1, -1.9));
-
-    //     this._activeTriggerableWorldEvent = new PageOverlayWorldEvent(PageOverlayType.CV, this._application, () => {
-    //         const zoomOutPath = new CameraPath(
-    //             [
-    //                 new Vector3(2.008, 0.3, -1.88),
-    //                 new Vector3(2.008, 1.5, -1.4),
-    //                 attachableCameraPosition.clone()
-    //             ],
-    //             1000,
-    //             1
-    //         );
-    //         this._application.cinematicCamera.cameraPath = zoomOutPath;
-    //         this._application.cinematicCamera.lookAt(new Vector3(2.02, 0.1, -1.9));
-    //         zoomOutPath.start();
-    //         zoomOutPath.addEventListener("completed", () => {
-    //             this._application.useAttachableCamera();
-    //         });
-    //     });
-
-    //     cameraPath.start();
-    //     cameraPath.addEventListener("completed", () => {
-    //         if (this._activeTriggerableWorldEvent) this._activeTriggerableWorldEvent.trigger();
-    //     });
+    //     this._activeTriggerableWorldEvent = new PageOverlayWorldEvent(PageOverlayType.CV, this._application);
+    //     this._activeTriggerableWorldEvent.trigger();
     // }
+
+    // TODO - Uncomment production code
+    private triggerCv(): void {
+        const attachableCameraPosition = this._application.attachableCamera.getPosition().clone();
+
+        this._application.cinematicCamera.setPosition(attachableCameraPosition);
+        this._application.useCinematicCamera();
+
+        const cameraPath = new CameraPath(
+            [
+                attachableCameraPosition.clone(),
+                new Vector3(2.008, 1.5, -1.4),
+                new Vector3(2.008, 0.3, -1.88)
+            ],
+            1000,
+            1
+        );
+        this._application.cinematicCamera.cameraPath = cameraPath;
+        this._application.cinematicCamera.lookAt(new Vector3(2.02, 0.1, -1.9));
+
+        this._activeTriggerableWorldEvent = new PageOverlayWorldEvent(PageOverlayType.CV, this._application, () => {
+            const zoomOutPath = new CameraPath(
+                [
+                    new Vector3(2.008, 0.3, -1.88),
+                    new Vector3(2.008, 1.5, -1.4),
+                    attachableCameraPosition.clone()
+                ],
+                1000,
+                1
+            );
+            this._application.cinematicCamera.cameraPath = zoomOutPath;
+            this._application.cinematicCamera.lookAt(new Vector3(2.02, 0.1, -1.9));
+            zoomOutPath.start();
+            zoomOutPath.addEventListener("completed", () => {
+                this._application.useAttachableCamera();
+            });
+        });
+
+        cameraPath.start();
+        cameraPath.addEventListener("completed", () => {
+            if (this._activeTriggerableWorldEvent) this._activeTriggerableWorldEvent.trigger();
+        });
+    }
 
     private triggerProjects(): void {
         const attachableCameraPosition = this._application.attachableCamera.getPosition().clone();
