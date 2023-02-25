@@ -1,6 +1,7 @@
 import { Vector3 } from "three";
 
 export default class ModelConstants {
+    public static PLAYER_NAME = "Kiki";
     public static PLAYER_INITIAL_POSITION = new Vector3(-0.32, -0.57, 6.7);
     public static PLAYER_INITIAL_ROTATION = new Vector3(0, Math.PI, 0);
     public static PLAYER_HEIGHT_MODIFIER = 0.002;
