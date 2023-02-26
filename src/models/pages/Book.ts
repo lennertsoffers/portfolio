@@ -99,6 +99,7 @@ export default class Book {
 
                 page.addEventListener("click", () => {
                     const pageNumber = parseInt(page.getAttribute("data-page-id") as string);
+                    console.log(pageNumber);
 
                     if (this._bookManager.displaySinglePage()) {
                         if (pageNumber < this._pageList.length - 1) this.setFlippedStatus(page, pageNumber);

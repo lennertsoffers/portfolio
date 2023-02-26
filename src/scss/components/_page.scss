@@ -1,83 +1,186 @@
-.page {
-    // Extra small
-    width: $page_width_extra_small;
-    height: $book_center_height_extra_small;
-    @include page_animated;
-
-    @include odd {
-        @include page_overlay($page_width_extra_small , $book_center_height_extra_small, right);
-    }
-
-    @include even {
-        @include page_overlay($page_width_extra_small, $book_center_height_extra_small, left);
-    }
-
-    // Small
-    @include breakpoint($small) {
-        width: $page_width_small;
-        height: $book_center_height_small;
+.book {
+    .page {
+        padding: $page_padding;
+        position: absolute;
+        line-height: $page_line_height;
+        overflow: hidden;
+        background-color: $page_colour;
+        background-image:
+            linear-gradient(90deg, transparent $page_vertical_line_spacing_left, #cfc6bc $page_vertical_line_spacing_left, #cfc6bc $page_vertical_line_spacing_right, transparent $page_vertical_line_spacing_right),
+            linear-gradient(#cfc6bc $page_horizontal_line_width, transparent $page_horizontal_line_width);
+        background-size: 100% $page_line_height;
+        transform-origin: 0 0;
+        transition: transform 1.4s;
+        transform-style: preserve-3d;
+        backface-visibility: hidden;
 
         @include odd {
-            @include page_overlay($page_width_small, $book_center_height_small, right);
+            pointer-events: all;
+            transform: rotateY(0deg);
+            right: 0;
+
+            &.flipped {
+                pointer-events: none;
+                transform: rotateY(-180deg);
+            }
         }
 
         @include even {
-            @include page_overlay($page_width_small, $book_center_height_small, left);
+            pointer-events: none;
+            transform: rotateY(180deg);
+            transform-origin: 100% 0;
+            left: 0;
+
+            &.flipped {
+                pointer-events: all;
+                transform: rotateY(0deg);
+            }
         }
     }
 
-    // Medium
-    @include breakpoint($medium) {
-        width: $page_width_medium;
-        height: $book_center_height_medium;
-
-        @include odd {
-            @include page_overlay($page_width_medium, $book_center_height_medium, right);
+    &.book__single {
+        .page {
+            @include even {
+                display: none;
+            }
         }
 
-        @include even {
-            @include page_overlay($page_width_medium, $book_center_height_medium, left);
+        &.book__extra_small .page {
+            width: $page_single_width_extra_small;
+            height: $book_center_height_extra_small;
+
+            @include odd {
+                @include page_overlay($page_single_width_extra_small , $book_center_height_extra_small, right);
+            }
+
+            @include even {
+                @include page_overlay($page_single_width_extra_small, $book_center_height_extra_small, left);
+            }
+        }
+
+        &.book__small .page {
+            width: $page_single_width_small;
+            height: $book_center_height_small;
+
+            @include odd {
+                @include page_overlay($page_single_width_small, $book_center_height_small, right);
+            }
+
+            @include even {
+                @include page_overlay($page_single_width_small, $book_center_height_small, left);
+            }
+        }
+
+        &.book__medium .page {
+            width: $page_single_width_medium;
+            height: $book_center_height_medium;
+
+            @include odd {
+                @include page_overlay($page_single_width_medium, $book_center_height_medium, right);
+            }
+
+            @include even {
+                @include page_overlay($page_single_width_medium, $book_center_height_medium, left);
+            }
+        }
+
+        &.book__large .page {
+            width: $page_single_width_large;
+            height: $book_center_height_large;
+
+            @include odd {
+                @include page_overlay($page_single_width_large, $book_center_height_large, right);
+            }
+
+            @include even {
+                @include page_overlay($page_single_width_large, $book_center_height_large, left);
+            }
+        }
+
+        &.book__extra_large .page {
+            width: $page_single_width_extra_large;
+            height: $book_center_height_extra_large;
+
+            @include odd {
+                @include page_overlay($page_single_width_extra_large, $book_center_height_extra_large, right);
+            }
+
+            @include even {
+                @include page_overlay($page_single_width_extra_large, $book_center_height_extra_large, left);
+            }
         }
     }
 
-    // Large
-    @include breakpoint($large) {
-        width: $page_width_large;
-        height: $book_center_height_large;
-
-        @include odd {
-            @include page_overlay($page_width_large, $book_center_height_large, right);
+    &.book__double {
+        .page {
+            @include even {
+                display: block;
+            }
         }
 
-        @include even {
-            @include page_overlay($page_width_large, $book_center_height_large, left);
+        &.book__extra_small .page {
+            width: $page_double_width_extra_small;
+            height: $book_center_height_extra_small;
+
+            @include odd {
+                @include page_overlay($page_double_width_extra_small , $book_center_height_extra_small, right);
+            }
+
+            @include even {
+                @include page_overlay($page_double_width_extra_small, $book_center_height_extra_small, left);
+            }
+        }
+
+        &.book__small .page {
+            width: $page_double_width_small;
+            height: $book_center_height_small;
+
+            @include odd {
+                @include page_overlay($page_double_width_small, $book_center_height_small, right);
+            }
+
+            @include even {
+                @include page_overlay($page_double_width_small, $book_center_height_small, left);
+            }
+        }
+
+        &.book__medium .page {
+            width: $page_double_width_medium;
+            height: $book_center_height_medium;
+
+            @include odd {
+                @include page_overlay($page_double_width_medium, $book_center_height_medium, right);
+            }
+
+            @include even {
+                @include page_overlay($page_double_width_medium, $book_center_height_medium, left);
+            }
+        }
+
+        &.book__large .page {
+            width: $page_double_width_large;
+            height: $book_center_height_large;
+
+            @include odd {
+                @include page_overlay($page_double_width_large, $book_center_height_large, right);
+            }
+
+            @include even {
+                @include page_overlay($page_double_width_large, $book_center_height_large, left);
+            }
+        }
+
+        &.book__extra_large .page {
+            width: $page_double_width_extra_large;
+            height: $book_center_height_extra_large;
+
+            @include odd {
+                @include page_overlay($page_double_width_extra_large, $book_center_height_extra_large, right);
+            }
+
+            @include even {
+                @include page_overlay($page_double_width_extra_large, $book_center_height_extra_large, left);
+            }
         }
     }
-
-    // Extra large
-    @include breakpoint($extra_large) {
-        width: $page_width_extra_large;
-        height: $book_center_height_extra_large;
-
-        @include odd {
-            @include page_overlay($page_width_extra_large, $book_center_height_extra_large, right);
-        }
-
-        @include even {
-            @include page_overlay($page_width_extra_large, $book_center_height_extra_large, left);
-        }
-    }
-
-    padding: $page_padding;
-    position: absolute;
-    line-height: $page_line_height;
-    overflow: hidden;
-    background-color: $page_colour;
-    background-image: linear-gradient(90deg, transparent $page_vertical_line_spacing_left, #cfc6bc $page_vertical_line_spacing_left, #cfc6bc $page_vertical_line_spacing_right, transparent $page_vertical_line_spacing_right),
-    linear-gradient(#cfc6bc $page_horizontal_line_width, transparent $page_horizontal_line_width);
-    background-size: 100% $page_line_height;
-    transform-origin: 0 0;
-    transition: transform 1.4s;
-    transform-style: preserve-3d;
-    backface-visibility: hidden;
 }

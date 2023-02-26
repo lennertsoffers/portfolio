@@ -1,23 +1,27 @@
-.page__technologies {
-    h3 {
-        text-decoration: underline;
+.book {
+    .page__technologies {
+        h3 {
+            text-decoration: underline;
+        }
+    }
 
+    &.book__extra_small .page__technologies {
         @include font_size_weight($font_size_page_body_extra_small, $font_weight_page_body_extra_small);
     }
 
-    @include breakpoint($small) {
+    &.book__small .page__technologies {
         @include font_size_weight($font_size_page_body_small, $font_weight_page_body_small);
     }
 
-    @include breakpoint($medium) {
+    &.book__medium .page__technologies {
         @include font_size_weight($font_size_page_body_medium, $font_weight_page_body_medium);
     }
 
-    @include breakpoint($large) {
+    &.book__large .page__technologies {
         @include font_size_weight($font_size_page_body_large, $font_weight_page_body_large);
     }
 
-    @include breakpoint($extra_large) {
+    &.book__extra_large .page__technologies {
         @include font_size_weight($font_size_page_body_extra_large, $font_weight_page_body_extra_large);
     }
 }

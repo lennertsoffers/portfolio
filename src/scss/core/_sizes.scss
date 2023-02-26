@@ -21,11 +21,16 @@ $cover_and_page_stack_width_extra_large: calc(#{$cover_width_extra_large} + #{$p
 
 // Book center
 // - Width
-$book_center_width_extra_small: calc(100vw - (#{$cover_width_extra_small + $page_stack_width_extra_small}));
-$book_center_width_small: calc(100vw - (#{$cover_width_small + $page_stack_width_small}));
-$book_center_width_medium: calc(100vw - (#{$cover_width_medium + $page_stack_width_medium}));
-$book_center_width_large: calc(100vw - (#{$cover_width_large + $page_stack_width_large}) * 2);
-$book_center_width_extra_large: calc(100vw - (#{$cover_width_extra_large + $page_stack_width_extra_large}) * 2);
+$book_single_center_width_extra_small: calc(100vw - (#{$cover_width_extra_small + $page_stack_width_extra_small}));
+$book_single_center_width_small: calc(100vw - (#{$cover_width_small + $page_stack_width_small}));
+$book_single_center_width_medium: calc(100vw - (#{$cover_width_medium + $page_stack_width_medium}));
+$book_single_center_width_large: calc(100vw - (#{$cover_width_large + $page_stack_width_large}));
+$book_single_center_width_extra_large: calc(100vw - (#{$cover_width_extra_large + $page_stack_width_extra_large}));
+$book_double_center_width_extra_small: calc(100vw - (#{$cover_width_extra_small + $page_stack_width_extra_small}) * 2);
+$book_double_center_width_small: calc(100vw - (#{$cover_width_small + $page_stack_width_small}) * 2);
+$book_double_center_width_medium: calc(100vw - (#{$cover_width_medium + $page_stack_width_medium}) * 2);
+$book_double_center_width_large: calc(100vw - (#{$cover_width_large + $page_stack_width_large}) * 2);
+$book_double_center_width_extra_large: calc(100vw - (#{$cover_width_extra_large + $page_stack_width_extra_large}) * 2);
 // - Height
 $book_center_height_extra_small: calc(100vh - (#{$cover_width_extra_small} * 2));
 $book_center_height_small: calc(100vh - (#{$cover_width_small} * 2));
@@ -35,11 +40,16 @@ $book_center_height_extra_large: calc(100vh - (#{$cover_width_extra_large} * 2))
 
 // Page
 // - Width
-$page_width_extra_small: calc(#{$book_center_width_extra_small} + 1px);
-$page_width_small: calc(#{$book_center_width_small} + 1px);
-$page_width_medium: calc(#{$book_center_width_medium} + 1px);
-$page_width_large: calc(#{$book_center_width_large} / 2 + 1px);
-$page_width_extra_large: calc(#{$book_center_width_extra_large} / 2 + 1px);
+$page_single_width_extra_small: calc(#{$book_single_center_width_extra_small} + 1px);
+$page_single_width_small: calc(#{$book_single_center_width_small} + 1px);
+$page_single_width_medium: calc(#{$book_single_center_width_medium} + 1px);
+$page_single_width_large: calc(#{$book_single_center_width_large} + 1px);
+$page_single_width_extra_large: calc(#{$book_single_center_width_extra_large} + 1px);
+$page_double_width_extra_small: calc(#{$book_double_center_width_extra_small} / 2 + 1px);
+$page_double_width_small: calc(#{$book_double_center_width_small} / 2 + 1px);
+$page_double_width_medium: calc(#{$book_double_center_width_medium} / 2 + 1px);
+$page_double_width_large: calc(#{$book_double_center_width_large} / 2 + 1px);
+$page_double_width_extra_large: calc(#{$book_double_center_width_extra_large} / 2 + 1px);
 // - Height
 $page_padding: 40px 70px 30px 120px;
 

@@ -1,6 +1,7 @@
 import BookDimensionEntry from "../../types/entries/BookDimensionEntry";
 
 export default class BookConstants {
+    public static BOOK_DOUBLE_PAGE_ASPECT_RATIO = 1;
     public static BOOK_SINGLE_PAGE_CLASS = "book__single";
     public static BOOK_DOUBLE_PAGE_CLASS = "book__double";
     public static BOOK_DIMENSIONS: BookDimensionEntry[] = [

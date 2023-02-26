@@ -1,4 +1,5 @@
 import Application from "../../Application";
+import BookConstants from "../constants/BookConstants";
 import Book from "./Book";
 
 export default class BookManager {
@@ -17,7 +18,7 @@ export default class BookManager {
     }
 
     public displaySinglePage(): boolean {
-        return this._application.dimensions.getAspectRatio() < 1;
+        return this._application.dimensions.getAspectRatio() < BookConstants.BOOK_DOUBLE_PAGE_ASPECT_RATIO;
     }
 
     public resize(): void {

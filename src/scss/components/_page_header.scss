@@ -1,13 +1,15 @@
-.page__header {
-    h2 {
-        @include font_size_weight($font_size_page_header_extra_small, $font_weight_page_header_extra_small);
+.book {
+    &.book__extra_small .page__header {
+        h2 {
+            @include font_size_weight($font_size_page_header_extra_small, $font_weight_page_header_extra_small);
+        }
+
+        h3 {
+            @include font_size_weight($font_size_page_body_extra_small, $font_weight_page_body_extra_small);
+        }
     }
 
-    h3 {
-        @include font_size_weight($font_size_page_body_extra_small, $font_weight_page_body_extra_small);
-    }
-
-    @include breakpoint($small) {
+    &.book__small .page__header {
         h2 {
             @include font_size_weight($font_size_page_header_small, $font_weight_page_header_small);
         }
@@ -17,7 +19,7 @@
         }
     }
 
-    @include breakpoint($medium) {
+    &.book__medium .page__header {
         h2 {
             @include font_size_weight($font_size_page_header_medium, $font_weight_page_header_medium);
         }
@@ -27,7 +29,7 @@
         }
     }
 
-    @include breakpoint($large) {
+    &.book__large .page__header {
         h2 {
             @include font_size_weight($font_size_page_header_large, $font_weight_page_header_large);
         }
@@ -37,7 +39,7 @@
         }
     }
 
-    @include breakpoint($extra_large) {
+    &.book__extra_large .page__header {
         h2 {
             @include font_size_weight($font_size_page_header_extra_large, $font_weight_page_header_extra_large);
         }
