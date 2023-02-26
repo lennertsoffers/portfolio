@@ -35,7 +35,6 @@
         "webpack-merge": "^5.8.0"
     },
     "dependencies": {
-        "breakpoint-sass": "^3.0.0",
         "lil-gui": "^0.17.0",
         "resolve-url-loader": "^5.0.0",
         "three": "^0.149.0",

@@ -1,3 +1,4 @@
+import BookConstants from "../constants/BookConstants";
 import ElementNotFoundError from "../error/ElementNotFoundError";
 import BookManager from "./BookManager";
 
@@ -18,11 +19,36 @@ export default class Book {
         this._pageList = [];
     }
 
-    public updatePages(): void {
+    public update(): void {
+        this.updateBook();
         this.resetPageList();
         this.setNewPageList();
         this.setNewPageListWrapperContent();
         this.initializeNewPageList();
+    }
+
+    private updateBook(): void {
+        // Update breakpoint classes
+        let bookDimensionClassName = "";
+
+        BookConstants.BOOK_DIMENSIONS.forEach((bookDimensionEntry) => {
+            this._element.classList.remove(bookDimensionEntry.className);
+
+            if (this._bookManager.getWidth() > bookDimensionEntry.width) {
+                bookDimensionClassName = bookDimensionEntry.className;
+            }
+        });
+
+        this._element.classList.add(bookDimensionClassName);
+
+        // Update single page
+        if (this._bookManager.displaySinglePage()) {
+            this._element.classList.add(BookConstants.BOOK_SINGLE_PAGE_CLASS);
+            this._element.classList.remove(BookConstants.BOOK_DOUBLE_PAGE_CLASS);
+        } else {
+            this._element.classList.add(BookConstants.BOOK_DOUBLE_PAGE_CLASS);
+            this._element.classList.remove(BookConstants.BOOK_SINGLE_PAGE_CLASS);
+        }
     }
 
     private resetPageList(): void {

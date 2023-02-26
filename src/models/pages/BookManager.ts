@@ -10,17 +10,21 @@ export default class BookManager {
 
         const bookElement = document.querySelector(".book--projects") as HTMLElement;
         const book = new Book(this, bookElement);
-        book.updatePages();
+        book.update();
 
         this._books = [];
         this._books.push(book);
     }
 
     public displaySinglePage(): boolean {
-        return this._application.dimensions.width < 992;
+        return this._application.dimensions.getAspectRatio() < 1;
     }
 
     public resize(): void {
-        this._books.forEach((book) => book.updatePages());
+        this._books.forEach((book) => book.update());
+    }
+
+    public getWidth(): number {
+        return this._application.dimensions.width;
     }
 }
