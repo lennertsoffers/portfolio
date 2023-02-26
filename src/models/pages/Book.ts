@@ -7,6 +7,7 @@ export default class Book {
     private _element: HTMLElement;
     private _pageListWrapper: HTMLElement;
     private _pageList: HTMLElement[];
+    private _currentPage: number;
 
     constructor(bookManager: BookManager, element: HTMLElement) {
         this._bookManager = bookManager;
@@ -17,6 +18,7 @@ export default class Book {
         this._pageListWrapper = pageListWrapper;
 
         this._pageList = [];
+        this._currentPage = this._bookManager.displaySinglePage() ? 1 : 3;
     }
 
     public update(): void {
@@ -25,6 +27,31 @@ export default class Book {
         this.setNewPageList();
         this.setNewPageListWrapperContent();
         this.initializeNewPageList();
+    }
+
+    public flipUp(): void {
+        if (this._currentPage >= this._pageList.length) return;
+
+        const page = this.getPage(this._currentPage);
+        page.classList.add("flipped");
+        const nextElementSibling = page.nextElementSibling;
+        if (nextElementSibling) nextElementSibling.classList.add("flipped");
+        this._currentPage += 2;
+    }
+
+    public flipDown(): void {
+        if (this._bookManager.displaySinglePage() && this._currentPage <= 1) return;
+        if (!this._bookManager.displaySinglePage() && this._currentPage <= 3) return;
+
+        const page = this.getPage(this._currentPage - 1);
+        page.classList.remove("flipped");
+        const previousElementSibling = page.previousElementSibling;
+        if (previousElementSibling) previousElementSibling.classList.remove("flipped");
+        this._currentPage -= 2;
+    }
+
+    private getPage(pageNumber: number): HTMLElement {
+        return this._element.querySelector(`.page[data-page-id="${pageNumber}"]`) as HTMLElement;
     }
 
     private updateBook(): void {
@@ -49,6 +76,9 @@ export default class Book {
             this._element.classList.add(BookConstants.BOOK_DOUBLE_PAGE_CLASS);
             this._element.classList.remove(BookConstants.BOOK_SINGLE_PAGE_CLASS);
         }
+
+        // Update current page number
+        this._currentPage = this._bookManager.displaySinglePage() ? 1 : 3;
     }
 
     private resetPageList(): void {
@@ -94,32 +124,7 @@ export default class Book {
                 page.style.zIndex = `${this._pageList.length - i}`;
             }
 
-            if (!page.classList.contains("page__placeholder")) {
-                page.setAttribute("data-page-id", `${i + 1}`);
-
-                page.addEventListener("click", () => {
-                    const pageNumber = parseInt(page.getAttribute("data-page-id") as string);
-                    console.log(pageNumber);
-
-                    if (this._bookManager.displaySinglePage()) {
-                        if (pageNumber < this._pageList.length - 1) this.setFlippedStatus(page, pageNumber);
-                    } else {
-                        if (pageNumber > 2 && pageNumber < this._pageList.length) this.setFlippedStatus(page, pageNumber);
-                    }
-                });
-            }
-        }
-    }
-
-    private setFlippedStatus(page: HTMLElement, pageNumber: number): void {
-        if (pageNumber % 2 === 0) {
-            page.classList.remove("flipped");
-            const previousElementSibling = page.previousElementSibling;
-            if (previousElementSibling) previousElementSibling.classList.remove("flipped");
-        } else {
-            page.classList.add("flipped");
-            const nextElementSibling = page.nextElementSibling;
-            if (nextElementSibling) nextElementSibling.classList.add("flipped");
+            page.setAttribute("data-page-id", `${i + 1}`);
         }
     }
 

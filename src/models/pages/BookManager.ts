@@ -5,6 +5,7 @@ import Book from "./Book";
 export default class BookManager {
     private _application: Application;
     private _books: Book[];
+    private _activeBook: Book;
 
     constructor(application: Application) {
         this._application = application;
@@ -15,6 +16,10 @@ export default class BookManager {
 
         this._books = [];
         this._books.push(book);
+
+        this._activeBook = book;
+
+        this.addFlipListener();
     }
 
     public displaySinglePage(): boolean {
@@ -27,5 +32,16 @@ export default class BookManager {
 
     public getWidth(): number {
         return this._application.dimensions.width;
+    }
+
+    private addFlipListener(): void {
+        document.addEventListener("click", () => {
+            this._activeBook.flipUp();
+        });
+
+        document.addEventListener("contextmenu", (e) => {
+            e.preventDefault();
+            this._activeBook.flipDown();
+        });
     }
 }
