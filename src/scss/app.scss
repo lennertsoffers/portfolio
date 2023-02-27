@@ -99,9 +99,9 @@ body {
 
 .page_overlay_hide_button {
     position: absolute;
-    background-color: #fff;
-    height: 100px;
-    width: 100px;
+    background-color: transparent;
+    height: 0px;
+    width: 0px;
     top: 0;
     left: 0;
 }

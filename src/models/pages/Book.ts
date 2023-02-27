@@ -1,4 +1,5 @@
 import BookConstants from "../constants/BookConstants";
+import ClassConstants from "../constants/ClassConstants";
 import ElementNotFoundError from "../error/ElementNotFoundError";
 import BookManager from "./BookManager";
 
@@ -30,7 +31,7 @@ export default class Book {
     }
 
     public flipUp(): void {
-        if (this._currentPage >= this._pageList.length) return;
+        if (this._currentPage >= this._pageList.length - 1) return;
 
         const page = this.getPage(this._currentPage);
         page.classList.add("flipped");
@@ -82,7 +83,7 @@ export default class Book {
     }
 
     private resetPageList(): void {
-        this._pageList = Array.from(this._pageListWrapper.querySelectorAll(".page:not(.page__placeholder)"));
+        this._pageList = Array.from(this._pageListWrapper.querySelectorAll(".page:not(.page__placeholder):not(.page__extended)"));
         this._pageList.forEach((page) => {
             page.classList.remove("flipped");
             page.style.zIndex = "";
@@ -90,18 +91,81 @@ export default class Book {
     }
 
     private setNewPageList(): void {
+        document.querySelectorAll(".page__description p").forEach((paragraph) => paragraph.classList.remove(ClassConstants.HIDDEN));
         const newPageList = [];
 
         if (this._bookManager.displaySinglePage()) {
             this._pageList.forEach((page) => {
+                document.querySelectorAll(".page__header__left, .page__header__right").forEach((headerButton) => {
+                    headerButton.classList.remove(ClassConstants.HIDDEN);
+                });
+
+                let characters = 0;
+                let newPageParagraphs: HTMLElement[] = [];
+
+                const pageHeader = (page.querySelector(".page__header")?.cloneNode(true) as HTMLElement);
+                const pageDescription = page.querySelector(".page__description");
+
+                if (pageHeader && pageDescription) {
+                    ([...pageDescription.querySelectorAll("p")] as HTMLElement[]).forEach((p) => {
+                        characters += p.innerHTML.length;
+
+                        if (characters > 500) {
+                            p.classList.add(ClassConstants.HIDDEN);
+                            const duplicatedParagraph = p.cloneNode(true) as HTMLElement;
+                            duplicatedParagraph.classList.remove(ClassConstants.HIDDEN);
+                            newPageParagraphs.push(duplicatedParagraph);
+                        }
+                    });
+                }
+
+                const classList = [...page.classList];
+                classList.push("page__extended");
+
                 newPageList.push(page);
+                newPageList.push(this.getNewPlaceholder());
+                newPageList.push(this.getNewExtendedPage(pageHeader, newPageParagraphs, classList));
                 newPageList.push(this.getNewPlaceholder());
             });
         } else {
             newPageList.push(this.getNewPlaceholder(true));
 
-            this._pageList[0].classList.add("flipped");
-            newPageList.push(...this._pageList);
+            document.querySelectorAll(".page__header__left, .page__header__right").forEach((headerButton) => {
+                headerButton.classList.add(ClassConstants.HIDDEN);
+            });
+
+            if (this._bookManager.getWidth() < 1200) {
+                this._pageList.forEach((page) => {
+                    let characters = 0;
+                    let newPageParagraphs: HTMLElement[] = [];
+
+                    const pageHeader = (page.querySelector(".page__header")?.cloneNode(true) as HTMLElement);
+                    const pageDescription = page.querySelector(".page__description");
+
+                    if (pageHeader && pageDescription) {
+                        ([...pageDescription.querySelectorAll("p")] as HTMLElement[]).forEach((p) => {
+                            characters += p.innerHTML.length;
+
+                            if (characters > 500) {
+                                p.classList.add(ClassConstants.HIDDEN);
+                                const duplicatedParagraph = p.cloneNode(true) as HTMLElement;
+                                duplicatedParagraph.classList.remove(ClassConstants.HIDDEN);
+                                newPageParagraphs.push(duplicatedParagraph);
+                            }
+                        });
+                    }
+
+                    const classList = [...page.classList];
+                    classList.push("page__extended");
+
+                    newPageList.push(page);
+                    newPageList.push(this.getNewExtendedPage(null, newPageParagraphs, classList));
+                });
+            } else {
+                newPageList.push(...this._pageList);
+            }
+
+            newPageList[1].classList.add("flipped");
 
             if (newPageList.length % 2 === 0) {
                 newPageList.push(this.getNewPlaceholder());
@@ -125,6 +189,18 @@ export default class Book {
             }
 
             page.setAttribute("data-page-id", `${i + 1}`);
+
+            page.querySelectorAll(".page__header__left").forEach((headerButtonLeft) => {
+                const newHeaderButtonLeft = headerButtonLeft.cloneNode(true);
+                headerButtonLeft.parentNode?.replaceChild(newHeaderButtonLeft, headerButtonLeft);
+                newHeaderButtonLeft.addEventListener("click", () => this.flipDown());
+            });
+
+            page.querySelectorAll(".page__header__right").forEach((headerButtonRight) => {
+                const newHeaderButtonRight = headerButtonRight.cloneNode(true);
+                headerButtonRight.parentNode?.replaceChild(newHeaderButtonRight, headerButtonRight);
+                newHeaderButtonRight.addEventListener("click", () => this.flipUp());
+            });
         }
     }
 
@@ -135,5 +211,19 @@ export default class Book {
         if (flipped) placeholder.classList.add("flipped");
 
         return placeholder;
+    }
+
+    private getNewExtendedPage(header: HTMLElement | null, paragraphList: HTMLElement[], classList: string[]): HTMLElement {
+        const extendedPage = document.createElement("article");
+
+        const extendedPageDescription = document.createElement("div");
+        extendedPageDescription.classList.add("page__description");
+        paragraphList.forEach((paragraph) => extendedPageDescription.appendChild(paragraph));
+
+        if (header) extendedPage.appendChild(header);
+        extendedPage.appendChild(extendedPageDescription);
+        extendedPage.classList.add(...classList);
+
+        return extendedPage;
     }
 }

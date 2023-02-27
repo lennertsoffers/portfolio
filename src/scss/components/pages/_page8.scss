@@ -1,36 +1,29 @@
 .page.page--8 {
-    .page__image {
-        >img {
-            height: 300px;
+
+    p,
+    li {
+        font-size: $font_size_page_body_extra_small;
+        font-weight: $font_weight_page_body_extra_small;
+    }
+
+    .page__technologies {
+        margin-bottom: $page_line_height_extra_small;
+        margin-top: $page_line_height_extra_small;
+
+        h3 {
+            font-size: $font_size_page_body_extra_small;
         }
     }
 
-    >.page__stickers {
-        >.page__win {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            transform: rotate(-10deg);
+    p {
+        margin-bottom: $page_line_height_extra_small;
+    }
 
-            >img {
-                width: 100px;
-            }
+    .page__image {
+        >img {
+            width: 100%;
         }
 
-        >.mushroom--5 {
-            position: absolute;
-            bottom: 10px;
-            right: 50px;
-            width: 100px;
-            transform: rotateZ(-10deg);
-        }
-
-        >.ink {
-            position: absolute;
-            top: -50px;
-            left: 450px;
-            width: 100px;
-            transform: rotateZ(80deg);
-        }
+        margin-bottom: $page_line_height_extra_small;
     }
 }

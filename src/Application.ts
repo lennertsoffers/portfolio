@@ -17,6 +17,7 @@ import Hud from "./models/hud/Hud";
 import ParticleManager from "./models/animation/ParticleManager";
 import WorldZone from "./models/enum/WorldZone";
 import BookManager from "./models/pages/BookManager";
+import TouchControls from "./models/mobile/TouchControls";
 
 export default class Application implements Tickable {
     private _canvas: HTMLCanvasElement;
@@ -37,11 +38,13 @@ export default class Application implements Tickable {
     private _player: Player;
     private _world: World;
     private _bookManager: BookManager;
+    private _touchControls: TouchControls;
 
     constructor(canvas: HTMLCanvasElement) {
         this._canvas = canvas;
         this._hud = new Hud(this);
         this._debug = new Debug();
+        this._touchControls = new TouchControls(this);
         this._resourceManager = new ResourceManager();
         this._dimensions = new Dimensions();
         this._timedLoop = new TimedLoop();
@@ -102,6 +105,10 @@ export default class Application implements Tickable {
 
     public get debug(): Debug {
         return this._debug;
+    }
+
+    public get touchControls(): TouchControls {
+        return this._touchControls;
     }
 
     public get resourceManager(): ResourceManager {

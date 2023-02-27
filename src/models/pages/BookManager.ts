@@ -12,12 +12,14 @@ export default class BookManager {
 
         const bookElement = document.querySelector(".book--projects") as HTMLElement;
         const book = new Book(this, bookElement);
-        book.update();
 
         this._books = [];
         this._books.push(book);
 
         this._activeBook = book;
+
+        book.update();
+
 
         this.addFlipListener();
     }
@@ -35,13 +37,16 @@ export default class BookManager {
     }
 
     private addFlipListener(): void {
-        document.addEventListener("click", () => {
-            this._activeBook.flipUp();
-        });
+        this._application.touchControls.addEventListener("swipeLeft", () => this._activeBook.flipUp());
+        this._application.touchControls.addEventListener("swipeRight", () => this._activeBook.flipDown());
 
-        document.addEventListener("contextmenu", (e) => {
-            e.preventDefault();
-            this._activeBook.flipDown();
-        });
+        // document.addEventListener("click", () => {
+        //     this._activeBook.flipUp();
+        // });
+
+        // document.addEventListener("contextmenu", (e) => {
+        //     e.preventDefault();
+        //     this._activeBook.flipDown();
+        // });
     }
 }

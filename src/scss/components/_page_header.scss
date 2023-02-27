@@ -48,4 +48,14 @@
             @include font_size_weight($font_size_page_body_extra_large, $font_weight_page_body_extra_large);
         }
     }
+
+    &.book__single .page__header {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+
+        .page__header__title {
+            text-align: center;
+        }
+    }
 }
