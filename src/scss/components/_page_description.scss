@@ -1,0 +1,51 @@
+.book {
+    &.book__extra_small .page__description {
+        p {
+            font-size: $font_size_page_body_extra_small;
+            font-weight: $font_weight_page_body_extra_small;
+            margin-bottom: $page_line_height_extra_small;
+        }
+    }
+
+    &.book__small .page__description {
+        p {
+            font-size: $font_size_page_body_small;
+            font-weight: $font_weight_page_body_small;
+            margin-bottom: $page_line_height_small;
+        }
+    }
+
+    &.book__medium .page__description {
+        p {
+            font-size: $font_size_page_body_medium;
+            font-weight: $font_weight_page_body_medium;
+            margin-bottom: $page_line_height_medium;
+        }
+    }
+
+    &.book__large .page__description {
+        p {
+            font-size: $font_size_page_body_large;
+            font-weight: $font_weight_page_body_large;
+            margin-bottom: $page_line_height_large;
+        }
+    }
+
+    &.book__extra_large .page__description {
+        p {
+            font-size: $font_size_page_body_extra_large;
+            font-weight: $font_weight_page_body_extra_large;
+            margin-bottom: $page_line_height_extra_large;
+        }
+    }
+
+    &.book__single .page__header {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+
+        .page__header__title {
+            text-align: center;
+        }
+    }
+}

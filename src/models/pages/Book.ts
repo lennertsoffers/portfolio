@@ -96,10 +96,6 @@ export default class Book {
 
         if (this._bookManager.displaySinglePage()) {
             this._pageList.forEach((page) => {
-                document.querySelectorAll(".page__header__left, .page__header__right").forEach((headerButton) => {
-                    headerButton.classList.remove(ClassConstants.HIDDEN);
-                });
-
                 let characters = 0;
                 let newPageParagraphs: HTMLElement[] = [];
 
@@ -110,7 +106,11 @@ export default class Book {
                     ([...pageDescription.querySelectorAll("p")] as HTMLElement[]).forEach((p) => {
                         characters += p.innerHTML.length;
 
-                        if (characters > 500) {
+                        if (([...page.childNodes] as HTMLElement[]).some((c) => c.classList.contains("page__image"))) {
+                            characters += 200;
+                        }
+
+                        if (this._bookManager.getHeight() < 900 && characters > 600 || characters > 1000 || this._bookManager.getWidth() < 420 && characters > 600) {
                             p.classList.add(ClassConstants.HIDDEN);
                             const duplicatedParagraph = p.cloneNode(true) as HTMLElement;
                             duplicatedParagraph.classList.remove(ClassConstants.HIDDEN);
@@ -130,11 +130,7 @@ export default class Book {
         } else {
             newPageList.push(this.getNewPlaceholder(true));
 
-            document.querySelectorAll(".page__header__left, .page__header__right").forEach((headerButton) => {
-                headerButton.classList.add(ClassConstants.HIDDEN);
-            });
-
-            if (this._bookManager.getWidth() < 1200) {
+            if (this._bookManager.getWidth() < 1600) {
                 this._pageList.forEach((page) => {
                     let characters = 0;
                     let newPageParagraphs: HTMLElement[] = [];
@@ -146,7 +142,7 @@ export default class Book {
                         ([...pageDescription.querySelectorAll("p")] as HTMLElement[]).forEach((p) => {
                             characters += p.innerHTML.length;
 
-                            if (characters > 500) {
+                            if (this._bookManager.getHeight() < 900 && characters > 500 || characters > 1000 || this._bookManager.getWidth() / 2 < 800 && characters > 500) {
                                 p.classList.add(ClassConstants.HIDDEN);
                                 const duplicatedParagraph = p.cloneNode(true) as HTMLElement;
                                 duplicatedParagraph.classList.remove(ClassConstants.HIDDEN);
@@ -214,7 +210,7 @@ export default class Book {
     }
 
     private getNewExtendedPage(header: HTMLElement | null, paragraphList: HTMLElement[], classList: string[]): HTMLElement {
-        const extendedPage = document.createElement("article");
+        const extendedPage = document.createElement("section");
 
         const extendedPageDescription = document.createElement("div");
         extendedPageDescription.classList.add("page__description");

@@ -1,22 +1,5 @@
 .page.page--2 {
-    .page__image {
-        >img {
-            height: 280px;
-        }
-    }
-
     >.page__stickers {
-        >.page__win {
-            position: absolute;
-            top: 20px;
-            left: 10px;
-            transform: rotate(-15deg);
-
-            >img {
-                width: 100px;
-            }
-        }
-
         >.ink {
             position: absolute;
             top: 250px;
@@ -25,6 +8,46 @@
             >img {
                 width: 100px;
             }
+        }
+    }
+}
+
+.book__extra_small .page.page--2 {
+    .page__image {
+        img {
+            width: 100%;
+        }
+    }
+}
+
+.book__small .page.page--2 {
+    .page__image {
+        img {
+            width: 100%;
+        }
+    }
+}
+
+.book__medium .page.page--2 {
+    .page__image {
+        img {
+            width: 100%;
+        }
+    }
+}
+
+.book__large .page.page--2 {
+    .page__image {
+        img {
+            height: 280px;
+        }
+    }
+}
+
+.book__extra_large .page.page--2 {
+    .page__image {
+        img {
+            height: 280px;
         }
     }
 }

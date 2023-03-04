@@ -1,36 +1,13 @@
 .page.page--9 {
-    .page__image {
-        >img {
-            height: 300px;
-        }
-    }
-
-    >.page__stickers {
-        >.page__win {
+    .page__stickers {
+        .mushroom--4 {
             position: absolute;
-            top: 10px;
-            left: 10px;
-            transform: rotate(-10deg);
+            bottom: 20px;
+            left: 100px;
 
-            >img {
-                width: 100px;
+            img {
+                width: 140px;
             }
-        }
-
-        >.mushroom--5 {
-            position: absolute;
-            bottom: 10px;
-            right: 50px;
-            width: 100px;
-            transform: rotateZ(-10deg);
-        }
-
-        >.ink {
-            position: absolute;
-            top: -50px;
-            left: 450px;
-            width: 100px;
-            transform: rotateZ(80deg);
         }
     }
 }

@@ -1,22 +1,5 @@
 .page.page--5 {
-    .page__image {
-        >img {
-            height: 300px;
-        }
-    }
-
     >.page__stickers {
-        >.page__win {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            transform: rotate(-10deg);
-
-            >img {
-                width: 100px;
-            }
-        }
-
         >.mushroom--5 {
             position: absolute;
             bottom: 10px;
@@ -31,6 +14,12 @@
             left: 450px;
             width: 100px;
             transform: rotateZ(80deg);
+        }
+    }
+
+    .page__image {
+        img {
+            width: 100%;
         }
     }
 }

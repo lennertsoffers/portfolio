@@ -1,5 +1,7 @@
 .book {
     &.book__extra_small .page__header {
+        margin-bottom: $page_line_height_extra_small;
+
         h2 {
             @include font_size_weight($font_size_page_header_extra_small, $font_weight_page_header_extra_small);
         }
@@ -10,6 +12,8 @@
     }
 
     &.book__small .page__header {
+        margin-bottom: $page_line_height_small;
+
         h2 {
             @include font_size_weight($font_size_page_header_small, $font_weight_page_header_small);
         }
@@ -20,6 +24,8 @@
     }
 
     &.book__medium .page__header {
+        margin-bottom: $page_line_height_medium;
+
         h2 {
             @include font_size_weight($font_size_page_header_medium, $font_weight_page_header_medium);
         }
@@ -30,6 +36,8 @@
     }
 
     &.book__large .page__header {
+        margin-bottom: $page_line_height_large;
+
         h2 {
             @include font_size_weight($font_size_page_header_large, $font_weight_page_header_large);
         }
@@ -40,6 +48,8 @@
     }
 
     &.book__extra_large .page__header {
+        margin-bottom: $page_line_height_extra_large;
+
         h2 {
             @include font_size_weight($font_size_page_header_extra_large, $font_weight_page_header_extra_large);
         }

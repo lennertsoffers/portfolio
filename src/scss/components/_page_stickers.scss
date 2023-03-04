@@ -1,0 +1,57 @@
+.page {
+    .page__stickers {
+        .page__win {
+            position: absolute;
+
+            img {
+                width: 100px;
+            }
+        }
+    }
+}
+
+.book__extra_small .page {
+    .page__stickers {
+        .page__win {
+            top: calc($page_line_height_extra_small * 3);
+            right: 10px;
+            transform: rotate(10deg);
+        }
+    }
+}
+
+.book__small .page {
+    .page__stickers {
+        .page__win {
+            top: calc($page_line_height_small * 3);
+            right: 10px;
+            transform: rotate(10deg);
+        }
+    }
+}
+
+.book__medium .page {
+    .page__stickers {
+        .page__win {
+            top: calc($page_line_height_medium * 3);
+            right: 10px;
+            transform: rotate(10deg);
+        }
+    }
+}
+
+.book__large .page {
+    .page__win {
+        top: 10px;
+        left: 10px;
+        transform: rotate(-10deg);
+    }
+}
+
+.book__extra_large .page {
+    .page__win {
+        top: 10px;
+        left: 10px;
+        transform: rotate(-10deg);
+    }
+}

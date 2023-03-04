@@ -1,21 +1,24 @@
 .page.page--10 {
+    .page__stickers {
+        .mushroom--3 {
+            position: absolute;
+            bottom: 20px;
+            left: 60px;
 
-    p,
-    li {
-        font-size: $font_size_page_body_extra_small;
-        font-weight: $font_weight_page_body_extra_small;
-    }
-
-    .page__technologies {
-        margin-bottom: $page_line_height_extra_small;
-        margin-top: $page_line_height_extra_small;
-
-        h3 {
-            font-size: $font_size_page_body_extra_small;
+            img {
+                height: 100px;
+            }
         }
-    }
 
-    p {
-        margin-bottom: $page_line_height_extra_small;
+        .mushroom--5 {
+            position: absolute;
+            bottom: 20px;
+            left: 120px;
+            transform: rotateZ(5deg);
+
+            img {
+                height: 60px;
+            }
+        }
     }
 }

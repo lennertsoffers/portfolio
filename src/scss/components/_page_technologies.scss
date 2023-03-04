@@ -7,21 +7,31 @@
 
     &.book__extra_small .page__technologies {
         @include font_size_weight($font_size_page_body_extra_small, $font_weight_page_body_extra_small);
+
+        margin-bottom: $page_line_height_extra_small;
     }
 
     &.book__small .page__technologies {
         @include font_size_weight($font_size_page_body_small, $font_weight_page_body_small);
+
+        margin-bottom: $page_line_height_small;
     }
 
     &.book__medium .page__technologies {
         @include font_size_weight($font_size_page_body_medium, $font_weight_page_body_medium);
+
+        margin-bottom: $page_line_height_medium;
     }
 
     &.book__large .page__technologies {
         @include font_size_weight($font_size_page_body_large, $font_weight_page_body_large);
+
+        margin-bottom: $page_line_height_large;
     }
 
     &.book__extra_large .page__technologies {
         @include font_size_weight($font_size_page_body_extra_large, $font_weight_page_body_extra_large);
+
+        margin-bottom: $page_line_height_extra_large;
     }
 }

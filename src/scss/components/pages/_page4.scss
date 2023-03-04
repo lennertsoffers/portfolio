@@ -27,3 +27,33 @@
         }
     }
 }
+
+.book__extra_small .page.page--4 {
+    .page__post_it {
+        display: none;
+    }
+}
+
+.book__small .page.page--4 {
+    .page__post_it {
+        display: none;
+    }
+}
+
+.book__medium .page.page--4 {
+    .page__post_it {
+        display: none;
+    }
+}
+
+.book__large .page.page--4 {
+    .page__post_it {
+        display: block;
+    }
+}
+
+.book__extra_large .page.page--4 {
+    .page__post_it {
+        display: block;
+    }
+}
