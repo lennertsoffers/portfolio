@@ -1,0 +1,19 @@
+.book:not(.book__extra_large) {
+    .hide-only-xl {
+        display: block;
+    }
+
+    .show-only-xl {
+        display: none;
+    }
+}
+
+.book.book__extra_large {
+    .hide-only-xl {
+        display: none;
+    }
+
+    .show-only-xl {
+        display: block;
+    }
+}

@@ -50,12 +50,6 @@ $page_double_width_small: calc(#{$book_double_center_width_small} / 2 + 1px);
 $page_double_width_medium: calc(#{$book_double_center_width_medium} / 2 + 1px);
 $page_double_width_large: calc(#{$book_double_center_width_large} / 2 + 1px);
 $page_double_width_extra_large: calc(#{$book_double_center_width_extra_large} / 2 + 1px);
-// - Padding
-$page_padding_extra_small: 30px;
-$page_padding_small: 40px 70px 30px 120px;
-$page_padding_medium: 40px 70px 30px 120px;
-$page_padding_large: 40px 70px 30px 120px;
-$page_padding_extra_large: 40px 70px 30px 120px;
 // - Background
 $page_line_height_extra_small: 30px;
 $page_line_height_small: 30px;
@@ -68,7 +62,7 @@ $page_vertical_line_spacing_width_medium: 2px;
 $page_vertical_line_spacing_width_large: 2px;
 $page_vertical_line_spacing_width_extra_large: 2px;
 $page_vertical_line_spacing_left_extra_small: 0px;
-$page_vertical_line_spacing_left_small: 78px;
+$page_vertical_line_spacing_left_small: 50px;
 $page_vertical_line_spacing_left_medium: 78px;
 $page_vertical_line_spacing_left_large: 78px;
 $page_vertical_line_spacing_left_extra_large: 78px;
@@ -82,3 +76,9 @@ $page_horizontal_line_width_small: 2px;
 $page_horizontal_line_width_medium: 2px;
 $page_horizontal_line_width_large: 2px;
 $page_horizontal_line_width_extra_large: 2px;
+// - Padding
+$page_padding_extra_small: $page_line_height_extra_small;
+$page_padding_small: $page_line_height_small 70px;
+$page_padding_medium: $page_line_height_medium 120px;
+$page_padding_large: 40px 70px 30px 120px;
+$page_padding_extra_large: 40px 70px 30px 120px;

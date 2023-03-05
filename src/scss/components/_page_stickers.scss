@@ -33,25 +33,29 @@
 .book__medium .page {
     .page__stickers {
         .page__win {
-            top: calc($page_line_height_medium * 3);
-            right: 10px;
-            transform: rotate(10deg);
+            top: 10px;
+            left: 10px;
+            transform: rotate(-10deg);
         }
     }
 }
 
 .book__large .page {
-    .page__win {
-        top: 10px;
-        left: 10px;
-        transform: rotate(-10deg);
+    .page__stickers {
+        .page__win {
+            top: 10px;
+            left: 10px;
+            transform: rotate(-10deg);
+        }
     }
 }
 
 .book__extra_large .page {
-    .page__win {
-        top: 10px;
-        left: 10px;
-        transform: rotate(-10deg);
+    .page__stickers {
+        .page__win {
+            top: 10px;
+            left: 10px;
+            transform: rotate(-10deg);
+        }
     }
 }

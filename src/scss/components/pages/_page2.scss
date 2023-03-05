@@ -18,6 +18,12 @@
             width: 100%;
         }
     }
+
+    .page__stickers {
+        .ink {
+            display: none;
+        }
+    }
 }
 
 .book__small .page.page--2 {
@@ -26,12 +32,24 @@
             width: 100%;
         }
     }
+
+    .page__stickers {
+        .ink {
+            display: none;
+        }
+    }
 }
 
 .book__medium .page.page--2 {
     .page__image {
         img {
-            width: 100%;
+            height: 280px;
+        }
+    }
+
+    .page__stickers {
+        .ink {
+            display: none;
         }
     }
 }
@@ -42,12 +60,24 @@
             height: 280px;
         }
     }
+
+    .page__stickers {
+        .ink {
+            display: block;
+        }
+    }
 }
 
 .book__extra_large .page.page--2 {
     .page__image {
         img {
             height: 280px;
+        }
+    }
+
+    .page__stickers {
+        .ink {
+            display: block;
         }
     }
 }

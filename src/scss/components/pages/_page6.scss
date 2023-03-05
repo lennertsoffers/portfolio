@@ -1,47 +1,61 @@
+.page.page--6 {
+    .page__stickers {
+        .flower {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+
+            img {
+                height: 70px;
+            }
+        }
+    }
+}
+
 .book__extra_small .page.page--6 {
     .page__image {
-        >img {
-            width: 100%;
+        img {
+            max-height: 250px;
         }
     }
 }
 
 .book__small .page.page--6 {
     .page__image {
-        >img {
-            width: 100%;
+        img {
+            max-height: 250px;
         }
     }
 }
 
 .book__medium .page.page--6 {
     .page__image {
-        >img {
-            width: 100%;
+        img {
+            height: 300px;
         }
     }
 }
 
 .book__large .page.page--6 {
     .page__image {
-        >img {
-            height: 300px;
+        img {
+            height: 250px;
         }
     }
 
-    >.page__stickers {
-        >.page__win {
+    .page__stickers {
+        .page__win {
             position: absolute;
             top: 10px;
             left: 10px;
             transform: rotate(-10deg);
 
-            >img {
+            img {
                 width: 100px;
             }
         }
 
-        >.mushroom--5 {
+        .mushroom--5 {
             position: absolute;
             bottom: 10px;
             right: 50px;
@@ -49,7 +63,7 @@
             transform: rotateZ(-10deg);
         }
 
-        >.ink {
+        .ink {
             position: absolute;
             top: -50px;
             left: 450px;
@@ -61,24 +75,24 @@
 
 .book__extra_large .page.page--6 {
     .page__image {
-        >img {
-            height: 300px;
+        img {
+            height: 250px;
         }
     }
 
-    >.page__stickers {
-        >.page__win {
+    .page__stickers {
+        .page__win {
             position: absolute;
             top: 10px;
             left: 10px;
             transform: rotate(-10deg);
 
-            >img {
+            img {
                 width: 100px;
             }
         }
 
-        >.mushroom--5 {
+        .mushroom--5 {
             position: absolute;
             bottom: 10px;
             right: 50px;
@@ -86,7 +100,7 @@
             transform: rotateZ(-10deg);
         }
 
-        >.ink {
+        .ink {
             position: absolute;
             top: -50px;
             left: 450px;

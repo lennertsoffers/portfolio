@@ -1,24 +1,4 @@
 .page.page--8 {
-
-    p,
-    li {
-        font-size: $font_size_page_body_extra_small;
-        font-weight: $font_weight_page_body_extra_small;
-    }
-
-    .page__technologies {
-        margin-bottom: $page_line_height_extra_small;
-        margin-top: $page_line_height_extra_small;
-
-        h3 {
-            font-size: $font_size_page_body_extra_small;
-        }
-    }
-
-    p {
-        margin-bottom: $page_line_height_extra_small;
-    }
-
     .page__image {
         >img {
             width: 100%;

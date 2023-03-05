@@ -56,14 +56,14 @@
 .book__large .page.page--3 {
     .page__image {
         img {
-            width: 250px;
+            width: 100px;
         }
     }
 
     .page__stickers {
         .flower {
-            right: 200px;
-            top: 250px;
+            bottom: 10px;
+            right: 10px;
         }
     }
 }
@@ -71,14 +71,14 @@
 .book__extra_large .page.page--3 {
     .page__image {
         img {
-            width: 250px;
+            width: 100px;
         }
     }
 
     .page__stickers {
         .flower {
-            right: 200px;
-            top: 250px;
+            bottom: 10px;
+            right: 10px;
         }
     }
 }

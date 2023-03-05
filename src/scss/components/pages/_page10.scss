@@ -3,22 +3,37 @@
         .mushroom--3 {
             position: absolute;
             bottom: 20px;
-            left: 60px;
+            right: 60px;
 
             img {
                 height: 100px;
             }
         }
 
-        .mushroom--5 {
+        .ink {
             position: absolute;
-            bottom: 20px;
-            left: 120px;
-            transform: rotateZ(5deg);
+            top: 100px;
+            right: -40px;
 
             img {
-                height: 60px;
+                height: 80px;
             }
+        }
+    }
+}
+
+.book__single .page.page--10 {
+    .page__stickers {
+        .ink {
+            display: block;
+        }
+    }
+}
+
+.book__double .page.page--10 {
+    .page__stickers {
+        .ink {
+            display: none;
         }
     }
 }

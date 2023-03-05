@@ -27,3 +27,10 @@
 .as-center {
     align-self: center;
 }
+
+.book__extra_large {
+    .flex-row-xl {
+        display: flex;
+        justify-content: space-between;
+    }
+}

@@ -111,6 +111,7 @@ export default class Book {
                         }
 
                         if (this._bookManager.getHeight() < 900 && characters > 600 || characters > 1000 || this._bookManager.getWidth() < 420 && characters > 600) {
+
                             p.classList.add(ClassConstants.HIDDEN);
                             const duplicatedParagraph = p.cloneNode(true) as HTMLElement;
                             duplicatedParagraph.classList.remove(ClassConstants.HIDDEN);
@@ -124,8 +125,11 @@ export default class Book {
 
                 newPageList.push(page);
                 newPageList.push(this.getNewPlaceholder());
-                newPageList.push(this.getNewExtendedPage(pageHeader, newPageParagraphs, classList));
-                newPageList.push(this.getNewPlaceholder());
+
+                if (newPageParagraphs.length > 0) {
+                    newPageList.push(this.getNewExtendedPage(pageHeader, newPageParagraphs, classList));
+                    newPageList.push(this.getNewPlaceholder());
+                }
             });
         } else {
             newPageList.push(this.getNewPlaceholder(true));
@@ -138,16 +142,24 @@ export default class Book {
                     const pageHeader = (page.querySelector(".page__header")?.cloneNode(true) as HTMLElement);
                     const pageDescription = page.querySelector(".page__description");
 
+                    if (([...page.childNodes] as HTMLElement[]).some((c) => c.classList.contains("page__image"))) {
+                        characters += 200;
+                    }
+
                     if (pageHeader && pageDescription) {
+                        let paragraphLeft = false;
+
                         ([...pageDescription.querySelectorAll("p")] as HTMLElement[]).forEach((p) => {
                             characters += p.innerHTML.length;
 
-                            if (this._bookManager.getHeight() < 900 && characters > 500 || characters > 1000 || this._bookManager.getWidth() / 2 < 800 && characters > 500) {
+                            if ((this._bookManager.getHeight() < 900 && characters > 500 || characters > 1000 || this._bookManager.getWidth() / 2 < 800 && characters > 500) && paragraphLeft) {
                                 p.classList.add(ClassConstants.HIDDEN);
                                 const duplicatedParagraph = p.cloneNode(true) as HTMLElement;
                                 duplicatedParagraph.classList.remove(ClassConstants.HIDDEN);
                                 newPageParagraphs.push(duplicatedParagraph);
                             }
+
+                            paragraphLeft = true;
                         });
                     }
 
