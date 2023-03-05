@@ -24,6 +24,7 @@
 @import "components/page_technologies";
 @import "components/page_description";
 @import "components/page_stickers";
+@import "components/book_controls";
 @import "components/highlight";
 @import "components/pages/page1";
 @import "components/pages/page2";
@@ -101,10 +102,11 @@ body {
 }
 
 .page_overlay_hide_button {
-    position: absolute;
-    background-color: transparent;
-    height: 0px;
-    width: 0px;
+    position: fixed;
+    display: block;
+    background-color: #fff;
+    height: 100px;
+    width: 100px;
     top: 0;
     left: 0;
 }

@@ -20,7 +20,6 @@ export default class BookManager {
 
         book.update();
 
-
         this.addFlipListener();
     }
 
@@ -43,6 +42,8 @@ export default class BookManager {
     private addFlipListener(): void {
         this._application.touchControls.addEventListener("swipeLeft", () => this._activeBook.flipUp());
         this._application.touchControls.addEventListener("swipeRight", () => this._activeBook.flipDown());
+        this._application.bookControls.addEventListener("left", () => this._activeBook.flipDown());
+        this._application.bookControls.addEventListener("right", () => this._activeBook.flipUp());
 
         document.addEventListener("click", () => {
             this._activeBook.flipUp();

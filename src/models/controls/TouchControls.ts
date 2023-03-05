@@ -1,9 +1,6 @@
-import Application from "../../Application";
 import EventEmitter from "../../utils/EventEmitter";
 
 export default class TouchControls extends EventEmitter {
-    private _application: Application;
-    private _touching: boolean;
     private _touchStartLocation = {
         x: 0,
         y: 0
@@ -13,11 +10,8 @@ export default class TouchControls extends EventEmitter {
         y: 0
     };
 
-    constructor(application: Application) {
+    constructor() {
         super();
-
-        this._application = application;
-        this._touching = false;
 
         this.addTouchControls();
     }

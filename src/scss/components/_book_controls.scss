@@ -1,0 +1,177 @@
+$book_controls_medium: 400px;
+$book_controls_large: 800px;
+
+$book_controls_padding_small: 5px;
+$book_controls_padding_medium: 10px;
+$book_controls_padding_large: 20px;
+$book_controls_button_dimensions_small: 50px;
+$book_controls_button_dimensions_medium: 70px;
+$book_controls_button_dimensions_large: 100px;
+$book_controls_button_close_image_dimensions_small: 30px;
+$book_controls_button_close_image_dimensions_medium: 50px;
+$book_controls_button_close_image_dimensions_large: 60px;
+$book_controls_button_movement_image_dimensions_small: 40px;
+$book_controls_button_movement_image_dimensions_medium: 60px;
+$book_controls_button_movement_image_dimensions_large: 70px;
+$book_controls_animation_duration: 0.2s;
+$book_controls_button_default_colour: #212121;
+$book_controls_close_button_hover_colour: #ea0a50;
+$book_controls_movement_button_hover_colour: #3f5be8;
+
+.book_controls {
+    padding: $book_controls_padding_small;
+
+    @media screen and (min-width: $book_controls_medium) {
+        padding: $book_controls_padding_medium;
+    }
+
+    @media screen and (min-width: $book_controls_large) {
+        padding: $book_controls_padding_large;
+    }
+
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    user-select: none;
+
+    >div {
+        position: relative;
+        display: flex;
+
+        &:first-of-type {
+            justify-content: end;
+        }
+
+        &:last-of-type {
+            justify-content: space-between;
+        }
+
+        >div {
+            height: $book_controls_button_dimensions_small;
+            width: $book_controls_button_dimensions_small;
+
+            @media screen and (min-width: $book_controls_medium) {
+                height: $book_controls_button_dimensions_medium;
+                width: $book_controls_button_dimensions_medium;
+            }
+
+            @media screen and (min-width: $book_controls_large) {
+                height: $book_controls_button_dimensions_large;
+                width: $book_controls_button_dimensions_large;
+            }
+
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+
+            svg {
+                path {
+                    fill: $book_controls_button_default_colour;
+                    transition: fill calc($book_controls_animation_duration / 2);
+                }
+            }
+
+            &.button__close svg {
+                width: $book_controls_button_close_image_dimensions_small;
+
+                @media screen and (min-width: $book_controls_medium) {
+                    width: $book_controls_button_close_image_dimensions_medium;
+                }
+
+                @media screen and (min-width: $book_controls_large) {
+                    width: $book_controls_button_close_image_dimensions_large;
+                }
+            }
+
+            &.button__left svg,
+            &.button__right svg {
+                width: $book_controls_button_movement_image_dimensions_small;
+
+                @media screen and (min-width: $book_controls_medium) {
+                    width: $book_controls_button_movement_image_dimensions_medium;
+                }
+
+                @media screen and (min-width: $book_controls_large) {
+                    width: $book_controls_button_movement_image_dimensions_large;
+                }
+            }
+
+            &.button__close:hover {
+                svg path {
+                    fill: $book_controls_close_button_hover_colour;
+                }
+
+                animation: wiggle $book_controls_animation_duration ease-in-out;
+            }
+
+            &.button__left svg {
+                transform-origin: center center;
+                transform: scaleX(-100%);
+            }
+
+            &.button__left:hover svg {
+                animation: pointLeft $book_controls_animation_duration ease-in-out;
+
+                path {
+                    fill: $book_controls_movement_button_hover_colour;
+                }
+            }
+
+            &.button__right:hover svg {
+                animation: pointRight $book_controls_animation_duration ease-in-out;
+
+                path {
+                    fill: $book_controls_movement_button_hover_colour;
+                }
+            }
+
+            @keyframes pointLeft {
+                0% {
+                    transform: translate(0) scaleX(-100%);
+                }
+
+                50% {
+                    transform: translate(-10px) scaleX(-100%);
+                }
+
+                100% {
+                    transform: translate(0) scaleX(-100%);
+                }
+            }
+
+            @keyframes pointRight {
+                0% {
+                    transform: translate(0);
+                }
+
+                50% {
+                    transform: translate(10px);
+                }
+
+                100% {
+                    transform: translate(0);
+                }
+            }
+
+            @keyframes wiggle {
+                0% {
+                    transform: rotateZ(0);
+                }
+
+                50% {
+                    transform: rotateZ(10deg);
+                }
+
+                100% {
+                    transform: rotateZ(0);
+                }
+            }
+        }
+    }
+}

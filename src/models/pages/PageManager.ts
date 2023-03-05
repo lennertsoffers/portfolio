@@ -13,6 +13,8 @@ export default class PageManager extends EventEmitter {
         this._application = application;
         this._pages = [];
         this.createPages();
+
+        this._application.bookControls.addEventListener("close", () => this.closeAll());
     }
 
     public showPage(pageType: PageOverlayType): void {

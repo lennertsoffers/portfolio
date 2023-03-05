@@ -9,5 +9,10 @@ export default class ClassConstants {
     public static MENU_BUTTON_PROJECTS_CLASS_NAME = "menu__projects";
     public static MENU_BUTTON_ABOUT_ME_CLASS_NAME = "menu__about_me";
 
+    public static BOOK_CONTROLS_CLASS_NAME = "book_controls";
+    public static BOOK_CONTROLS_CLOSE_BUTTON_CLASS_NAME = "button__close";
+    public static BOOK_CONTROLS_LEFT_BUTTON_CLASS_NAME = "button__left";
+    public static BOOK_CONTROLS_RIGHT_BUTTON_CLASS_NAME = "button__right";
+
     public static HIDDEN = "hidden";
 }

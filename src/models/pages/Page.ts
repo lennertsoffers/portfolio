@@ -1,4 +1,3 @@
-import { Vector3 } from "three";
 import PageConstants from "../constants/PageConstants";
 import PageOverlayType from "../enum/PageOverlayType";
 import PageNotFoundError from "../error/PageNotFoundError";
@@ -18,8 +17,6 @@ export default class Page {
 
         this._htmlElement = htmlElement;
         this._onClose = () => { };
-
-        this.addEventListeners();
     }
 
     public get pageType(): PageOverlayType {
@@ -42,12 +39,5 @@ export default class Page {
 
     public isVisible(): boolean {
         return !this._hidden;
-    }
-
-    private addEventListeners(): void {
-        const closeButton = this._htmlElement.querySelector(`.${PageConstants.PAGE_OVERLAY_HIDE_BUTTON_CLASS}`) as HTMLElement;
-        if (!closeButton) return;
-
-        closeButton.addEventListener("click", () => this._onClose());
     }
 }
