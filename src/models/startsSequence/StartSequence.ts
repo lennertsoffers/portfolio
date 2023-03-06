@@ -17,11 +17,9 @@ export default class StartSequence {
     }
 
     public play(): void {
-        // TODO - Enable startup animation
         this.resumeControls();
         this.setupPlayer();
         this.playAnimation();
-        this._application.hud.menu.show();
         this._application.particleManager.spawnAmbientParticles(new Vector3(0, 0, 0), 10, 10000, new Color(0xf0d441), 13);
         setInterval(() => {
             this._application.particleManager.spawnAmbientParticles(new Vector3(0, 0, 0), 10, 10000, new Color(0xf0d441), 13);
@@ -73,6 +71,10 @@ export default class StartSequence {
     private async playDialog(): Promise<void> {
         this._application.hud.dialog.show();
         await this._application.hud.dialog.writeText(...DialogConstants.WELCOME_TEXT_QUEUE);
+        this._application.hud.menu.animate();
+        setTimeout(() => this._application.pointer.pointAt(this._application.hud.menu.htmlElement), 1000);
+        await this._application.hud.dialog.writeText(...DialogConstants.MENU_TEXT_QUEUE);
+        await this._application.hud.dialog.writeText(...DialogConstants.HAVE_FUN_TEXT_QUEUE);
     }
 
     private resumeControls(): void {

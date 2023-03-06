@@ -26,6 +26,8 @@
 @import "components/page_stickers";
 @import "components/book_controls";
 @import "components/highlight";
+@import "components/pointer";
+@import "components/menu";
 @import "components/pages/page1";
 @import "components/pages/page2";
 @import "components/pages/page3";
@@ -84,18 +86,6 @@ body {
     position: fixed;
     z-index: 1;
     width: 100vw;
-    height: 100px;
-    text-align: center;
-    font-size: 20px;
-}
-
-.menu {
-    background-color: #fff;
-    top: 0;
-    right: 0;
-    position: fixed;
-    z-index: 1;
-    width: 100px;
     height: 100px;
     text-align: center;
     font-size: 20px;

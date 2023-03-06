@@ -5,24 +5,34 @@ import Hud from "./Hud";
 
 export default class Menu {
     private _hud: Hud;
-    private _element: HTMLElement;
+    private _htmlElement: HTMLElement;
 
     constructor(hud: Hud) {
         this._hud = hud;
 
         const element = document.querySelector(`.${ClassConstants.MENU_CLASS_NAME}`) as HTMLElement;
         if (!element) throw new ElementNotFoundError(ClassConstants.MENU_CLASS_NAME);
-        this._element = element;
+        this._htmlElement = element;
 
         this.addEventListeners();
+        this.hide();
+    }
+
+    public get htmlElement(): HTMLElement {
+        return this._htmlElement;
     }
 
     public show(): void {
-        this._element.classList.remove(ClassConstants.HIDDEN);
+        this._htmlElement.classList.remove(ClassConstants.HIDDEN);
+    }
+
+    public animate(): void {
+        this.show();
+        this._htmlElement.classList.add(ClassConstants.MENU_ANIMATED_CLASS_NAME);
     }
 
     public hide(): void {
-        this._element.classList.add(ClassConstants.HIDDEN);
+        this._htmlElement.classList.add(ClassConstants.HIDDEN);
     }
 
     private async handleNavigationClickCv(): Promise<void> {
@@ -46,15 +56,15 @@ export default class Menu {
     }
 
     private addEventListeners(): void {
-        const cvButton = this._element.querySelector(`.${ClassConstants.MENU_BUTTON_CV_CLASS_NAME}`);
+        const cvButton = this._htmlElement.querySelector(`.${ClassConstants.MENU_BUTTON_CV_CLASS_NAME}`);
         if (!cvButton) throw new ElementNotFoundError(ClassConstants.MENU_BUTTON_CV_CLASS_NAME);
         cvButton.addEventListener("click", () => this.handleNavigationClickCv());
 
-        const projectsButton = this._element.querySelector(`.${ClassConstants.MENU_BUTTON_PROJECTS_CLASS_NAME}`);
+        const projectsButton = this._htmlElement.querySelector(`.${ClassConstants.MENU_BUTTON_PROJECTS_CLASS_NAME}`);
         if (!projectsButton) throw new ElementNotFoundError(ClassConstants.MENU_BUTTON_PROJECTS_CLASS_NAME);
         projectsButton.addEventListener("click", () => this.handleNavigationClickProjects());
 
-        const aboutMeButton = this._element.querySelector(`.${ClassConstants.MENU_BUTTON_ABOUT_ME_CLASS_NAME}`);
+        const aboutMeButton = this._htmlElement.querySelector(`.${ClassConstants.MENU_BUTTON_ABOUT_ME_CLASS_NAME}`);
         if (!aboutMeButton) throw new ElementNotFoundError(ClassConstants.MENU_BUTTON_ABOUT_ME_CLASS_NAME);
         aboutMeButton.addEventListener("click", () => this.handleNavigationClickAboutMe());
     }

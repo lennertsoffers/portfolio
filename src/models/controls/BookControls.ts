@@ -25,6 +25,7 @@ export default class BookControls extends EventEmitter {
         this._rightButtonElement = rightButtonElement;
 
         this.addBookControls();
+        this.hide();
     }
 
     public show(): void {

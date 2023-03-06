@@ -1,0 +1,60 @@
+.pointer {
+    position: fixed;
+    width: 100px;
+    z-index: 1000;
+
+    .pointer__inner {
+        width: 100px;
+
+        >svg {
+            >path {
+                fill: #3f5be8;
+            }
+        }
+    }
+}
+
+.pointer--animated {
+    .pointer__inner {
+        animation: pointAnimation 1s ease-in-out forwards;
+    }
+
+    @keyframes pointAnimation {
+        0% {
+            opacity: 0;
+            transform: translateX(0);
+        }
+
+        50% {
+            opacity: 100;
+        }
+
+        75% {
+            opacity: 100;
+            transform: translateX(20px);
+        }
+
+        100% {
+            opacity: 100;
+            transform: translateX(10px);
+        }
+    }
+}
+
+.pointer--hide {
+    .pointer__inner {
+        animation: hideAnimation 1s forwards;
+    }
+
+    @keyframes hideAnimation {
+        0% {
+            opacity: 100;
+            transform: translateX(10px);
+        }
+
+        100% {
+            opacity: 0;
+            transform: translateX(0);
+        }
+    }
+}

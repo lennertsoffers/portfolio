@@ -5,6 +5,7 @@ export default class ClassConstants {
     public static DIALOG_CLASS_NAME = "dialog";
 
     public static MENU_CLASS_NAME = "menu";
+    public static MENU_ANIMATED_CLASS_NAME = "menu--animated";
     public static MENU_BUTTON_CV_CLASS_NAME = "menu__cv";
     public static MENU_BUTTON_PROJECTS_CLASS_NAME = "menu__projects";
     public static MENU_BUTTON_ABOUT_ME_CLASS_NAME = "menu__about_me";
@@ -13,6 +14,8 @@ export default class ClassConstants {
     public static BOOK_CONTROLS_CLOSE_BUTTON_CLASS_NAME = "button__close";
     public static BOOK_CONTROLS_LEFT_BUTTON_CLASS_NAME = "button__left";
     public static BOOK_CONTROLS_RIGHT_BUTTON_CLASS_NAME = "button__right";
+
+    public static POINTER_CLASS_NAME = "pointer";
 
     public static HIDDEN = "hidden";
 }

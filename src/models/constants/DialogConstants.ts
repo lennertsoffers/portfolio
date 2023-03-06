@@ -8,8 +8,14 @@ export default class DialogConstants {
         `I can walk freely through this world by using the ‘WASD’ or ‘↑←↓→’ keys.`,
         `I walk by default, but if you want me to run, you can hold the ‘shift’ key while moving.`,
         `There are 3 different books placed in this world, each one about one of the following topics: ‘about‘, ‘projects’ or ‘internship’.`,
-        `To read the book, you have to get close to it and press ‘e’.`,
+        `To read the book, you have to get close to it and press ‘e’.`
+    ];
+
+    public static MENU_TEXT_QUEUE = [
         `I can also teleport to any book. Just click any link in this menu.`,
+    ];
+
+    public static HAVE_FUN_TEXT_QUEUE = [
         `Have fun!`,
         `Ps, you can follow the road signs to find the book you want to read.`
     ];

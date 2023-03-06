@@ -19,6 +19,8 @@ export default class Dialog extends EventEmitter {
         const element = document.querySelector(`.${ClassConstants.DIALOG_CLASS_NAME}`) as HTMLElement;
         if (!element) throw new ElementNotFoundError(ClassConstants.DIALOG_CLASS_NAME);
         this._element = element;
+
+        this.hide();
     }
 
     public show(): void {

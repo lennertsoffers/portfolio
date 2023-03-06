@@ -19,6 +19,7 @@ import WorldZone from "./models/enum/WorldZone";
 import BookManager from "./models/pages/BookManager";
 import TouchControls from "./models/controls/TouchControls";
 import BookControls from "./models/controls/BookControls";
+import Pointer from "./models/startsSequence/Pointer";
 
 export default class Application implements Tickable {
     private _canvas: HTMLCanvasElement;
@@ -41,6 +42,7 @@ export default class Application implements Tickable {
     private _bookManager: BookManager;
     private _touchControls: TouchControls;
     private _bookControls: BookControls;
+    private _pointer: Pointer;
 
     constructor(canvas: HTMLCanvasElement) {
         this._canvas = canvas;
@@ -63,6 +65,7 @@ export default class Application implements Tickable {
         this._loadingPage = new LoadingPage(this, () => this.createWorld(), () => this._startSequence.play());
         this._startSequence = new StartSequence(this);
         this._bookManager = new BookManager(this);
+        this._pointer = new Pointer(this);
 
         this._resourceManager.addEventListener("loadCycleEntryLoaded", () => this.onLoadCycleEntryLoaded());
         this._dimensions.addEventListener("resize", () => this.resize());
@@ -70,12 +73,12 @@ export default class Application implements Tickable {
 
 
         // TODO - Uncomment production code
-        // this.showLoadingPage();
-        // this._resourceManager.startLoading();
+        this.showLoadingPage();
+        this._resourceManager.startLoading();
 
         // TODO - Remove debug code
-        this._world.worldEventManager.handleWorldZoneChange(WorldZone.CV);
-        this._world.worldEventManager.handleInteraction();
+        // this._world.worldEventManager.handleWorldZoneChange(WorldZone.CV);
+        // this._world.worldEventManager.handleInteraction();
 
         // TODO - Remove lights
         const light = new PointLight(0xffffff, 100, 0);
@@ -158,6 +161,10 @@ export default class Application implements Tickable {
         return this._particleManager;
     }
 
+    public get pointer(): Pointer {
+        return this._pointer;
+    }
+
     public showLoadingPage(): void {
         this._loadingPage.show();
     }
@@ -196,6 +203,3 @@ export default class Application implements Tickable {
         }
     }
 }
-
-// TODO - Fix max zoom bug
-// Zooming in is capped by minimum while zooming out isn't

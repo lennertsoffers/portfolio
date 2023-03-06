@@ -28,6 +28,8 @@ export default class PageManager extends EventEmitter {
         this._pages.forEach((page) => {
             if (page.isVisible()) page.hide();
         });
+
+        this._application.bookControls.hide();
     }
 
     private createPages(): void {

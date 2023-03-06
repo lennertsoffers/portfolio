@@ -1,9 +1,13 @@
-import { Vector3 } from "three";
+import { Vector2, Vector3 } from "three";
 import MathConstants from "../models/constants/MathConstants";
 
 export default class MathUtils {
     public static degreesToRadians(degrees: number): number {
         return degrees / 180 * Math.PI;
+    }
+
+    public static radiansToDegrees(radians: number): number {
+        return radians * 180 / Math.PI;
     }
 
     public static getPositionOnGravitationalAcceleration(beginVelocity: number, y: number, yaw: number, pitch: number, t: number): Vector3 {
@@ -39,5 +43,9 @@ export default class MathUtils {
         }
 
         return num;
+    }
+
+    public static getAngleFromVector2(vector: Vector2): number {
+        return Math.atan2(vector.y, vector.x);
     }
 }
