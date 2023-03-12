@@ -1,13 +1,14 @@
 // Core
 @import "core/variables/page_variables";
+@import "core/fonts";
 @import "core/reset";
 @import "core/colours";
 @import "core/global";
 @import "core/breakpoints";
 @import "core/flex";
 @import "core/spacing";
-@import "core/fonts";
 @import "core/sizes";
+@import "core/animations";
 
 // Mixins
 @import "mixins/page_overlay";
@@ -28,6 +29,7 @@
 @import "components/highlight";
 @import "components/pointer";
 @import "components/menu";
+@import "components/dialog";
 @import "components/pages/page1";
 @import "components/pages/page2";
 @import "components/pages/page3";
@@ -38,6 +40,7 @@
 @import "components/pages/page8";
 @import "components/pages/page9";
 @import "components/pages/page10";
+@import "components/pages/about_me1";
 
 * {
     margin: 0;
@@ -47,6 +50,7 @@
 html,
 body {
     overflow: hidden;
+    background-color: #000;
 }
 
 .webgl {
@@ -78,17 +82,6 @@ body {
     font-size: 40px;
     line-height: 50vh;
     text-align: center;
-}
-
-.dialog {
-    background-color: #fff;
-    bottom: 0;
-    position: fixed;
-    z-index: 1;
-    width: 100vw;
-    height: 100px;
-    text-align: center;
-    font-size: 20px;
 }
 
 .page_overlay_hide_button {

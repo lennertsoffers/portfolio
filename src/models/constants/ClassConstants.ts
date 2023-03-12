@@ -1,11 +1,15 @@
 export default class ClassConstants {
     public static CANVAS_CLASS_NAME = "webgl";
     public static LOADING_CLASS_NAME = "page_overlay_loading";
-    public static LOADING_CONTINUE_BUTTON_CLASS_NAME = "page_overlay_loading_continue";
+    public static LOADING_CONTINUE_BUTTON_CLASS_NAME =
+        "page_overlay_loading_continue";
     public static DIALOG_CLASS_NAME = "dialog";
+    public static DIALOG_CONTENT_CLASS_NAME = "dialog__content";
 
     public static MENU_CLASS_NAME = "menu";
     public static MENU_ANIMATED_CLASS_NAME = "menu--animated";
+    public static MENU_NAVIGATION_CLASS_NAME = "menu__navigation";
+    public static MENU_BUTTON_MAP_CLASS_NAME = "menu__map";
     public static MENU_BUTTON_CV_CLASS_NAME = "menu__cv";
     public static MENU_BUTTON_PROJECTS_CLASS_NAME = "menu__projects";
     public static MENU_BUTTON_ABOUT_ME_CLASS_NAME = "menu__about_me";
@@ -18,4 +22,6 @@ export default class ClassConstants {
     public static POINTER_CLASS_NAME = "pointer";
 
     public static HIDDEN = "hidden";
+    public static FADE_IN = "fade_in";
+    public static FADE_OUT = "fade_out";
 }

@@ -1,0 +1,87 @@
+@keyframes pointLeftFlip {
+    0% {
+        transform: translate(0) scaleX(-100%);
+    }
+
+    50% {
+        transform: translate(-10px) scaleX(-100%);
+    }
+
+    100% {
+        transform: translate(0) scaleX(-100%);
+    }
+}
+
+@keyframes pointLeft {
+    0% {
+        transform: translate(0);
+    }
+
+    50% {
+        transform: translate(-10px);
+    }
+
+    100% {
+        transform: translate(0);
+    }
+}
+
+@keyframes pointRight {
+    0% {
+        transform: translate(0);
+    }
+
+    50% {
+        transform: translate(10px);
+    }
+
+    100% {
+        transform: translate(0);
+    }
+}
+
+@keyframes wiggle {
+    0% {
+        transform: rotateZ(0);
+    }
+
+    33.33% {
+        transform: rotateZ(-5deg);
+    }
+
+    66.66% {
+        transform: rotateZ(5deg);
+    }
+
+    100% {
+        transform: rotateZ(0);
+    }
+}
+
+@keyframes moveIn {
+    0% {
+        transform: translateX(100%);
+    }
+
+    80% {
+        transform: translateX(-20px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes moveOut {
+    0% {
+        transform: translateX(0);
+    }
+
+    20% {
+        transform: translateX(-20px);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}

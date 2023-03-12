@@ -25,7 +25,6 @@ export default class PageOverlayWorldEvent extends WorldEvent {
         this.showCorrectPageOverlay();
     }
     public handleEnd(): void {
-        this.hidePageOverlays();
         this._onEnd();
     }
 

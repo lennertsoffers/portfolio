@@ -1,0 +1,93 @@
+.dialog {
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    position: fixed;
+    z-index: 1;
+    width: 100vw;
+    max-width: 900px;
+    aspect-ratio: 3.75;
+    text-align: center;
+    font-size: 20px;
+    padding: 20px;
+    display: flex;
+    justify-content: end;
+    flex-direction: column;
+    user-select: none;
+
+    svg {
+        width: 100%;
+
+        path {
+            fill: #fff;
+        }
+    }
+
+    .dialog__content {
+        width: 100vw;
+        max-width: 900px;
+        position: absolute;
+        margin: auto 0;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 50px 100px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .dialog__buttons__wrapper {
+        width: 100vw;
+        max-width: 900px;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        padding: 20px;
+
+        .dialog__buttons {
+            position: absolute;
+            font-size: 20px;
+            display: flex;
+            justify-content: space-between;
+            right: 0;
+            top: 0;
+
+            @media screen and (min-width: 1600px) {
+                right: 45px;
+                top: 35px;
+            }
+
+            > div {
+                font-size: $font_size_page_body_extra_small;
+
+                @media screen and (min-width: 800px) {
+                    width: 80px;
+                    height: 30px;
+                }
+
+                @media screen and (min-width: 1600px) {
+                    width: 80px;
+                    height: 30px;
+                    border-radius: 15px;
+                    line-height: 30px;
+                }
+            }
+
+            .dialog__buttons--skip {
+                margin-right: 10px;
+                text-decoration: underline;
+            }
+
+            .dialog__buttons--next {
+                background-color: #290e2b;
+                color: #fff;
+            }
+        }
+    }
+}

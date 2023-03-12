@@ -1,0 +1,147 @@
+.page.page--about_me_1 {
+    .page__stickers {
+        .mushroom--3 {
+            position: absolute;
+            bottom: 20px;
+            right: 60px;
+
+            img {
+                height: 100px;
+            }
+        }
+
+        .ink {
+            position: absolute;
+            top: 100px;
+            left: -40px;
+
+            img {
+                height: 80px;
+            }
+        }
+    }
+}
+
+.book__single {
+    &.book__extra_small {
+        .page--about_me_1 {
+            .page__image {
+                margin-bottom: $page_line_height_extra_small;
+
+                img {
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+    &.book__small {
+        .page--about_me_1 {
+            .page__image {
+                margin-bottom: $page_line_height_small;
+
+                img {
+                    max-height: 400px;
+                }
+            }
+        }
+    }
+
+    &.book__medium {
+        .page--about_me_1 {
+            .page__image {
+                margin-bottom: $page_line_height_medium;
+
+                img {
+                    max-height: 400px;
+                }
+            }
+        }
+    }
+
+    &.book__large {
+        .page--about_me_1 {
+            .page__image {
+                margin-bottom: $page_line_height_large;
+
+                img {
+                    max-height: 400px;
+                }
+            }
+        }
+    }
+
+    &.book__extra_large {
+        .page--about_me_1 {
+            .page__image {
+                margin-bottom: $page_line_height_extra_large;
+
+                img {
+                    max-height: 400px;
+                }
+            }
+        }
+    }
+}
+
+.book__double {
+    &.book__extra_small {
+        .page--about_me_1 {
+            .page__image {
+                margin-bottom: $page_line_height_extra_small;
+
+                img {
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+    &.book__small {
+        .page--about_me_1 {
+            .page__image {
+                margin-bottom: $page_line_height_small;
+
+                img {
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+    &.book__medium {
+        .page--about_me_1 {
+            .page__image {
+                margin-bottom: $page_line_height_medium;
+
+                img {
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+    &.book__large {
+        .page--about_me_1 {
+            .page__image {
+                margin-bottom: $page_line_height_large;
+
+                img {
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+    &.book__extra_large {
+        .page--about_me_1 {
+            .page__image {
+                margin-bottom: $page_line_height_extra_large;
+
+                img {
+                    max-height: 400px;
+                }
+            }
+        }
+    }
+}

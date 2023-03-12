@@ -1,3 +1,4 @@
+import ClassConstants from "../constants/ClassConstants";
 import PageConstants from "../constants/PageConstants";
 import PageOverlayType from "../enum/PageOverlayType";
 import PageNotFoundError from "../error/PageNotFoundError";
@@ -29,12 +30,16 @@ export default class Page {
 
     public show(): void {
         this._hidden = false;
+        this._htmlElement.classList.add(ClassConstants.FADE_IN);
+        this._htmlElement.classList.remove(ClassConstants.FADE_OUT);
         this._htmlElement.classList.remove(PageConstants.PAGE_OVERLAY_HIDDEN_CLASS);
     }
 
     public hide(): void {
         this._hidden = true;
-        this._htmlElement.classList.add(PageConstants.PAGE_OVERLAY_HIDDEN_CLASS);
+        this._htmlElement.classList.remove(ClassConstants.FADE_IN);
+        this._htmlElement.classList.add(ClassConstants.FADE_OUT);
+        setTimeout(() => this._htmlElement.classList.add(PageConstants.PAGE_OVERLAY_HIDDEN_CLASS), 1500);
     }
 
     public isVisible(): boolean {

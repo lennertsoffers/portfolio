@@ -62,22 +62,29 @@ export default class Application implements Tickable {
         this._world = new MainWorld(this);
         this._pageManager = new PageManager(this);
         this._particleManager = new ParticleManager(this);
-        this._loadingPage = new LoadingPage(this, () => this.createWorld(), () => this._startSequence.play());
+        this._loadingPage = new LoadingPage(
+            this,
+            () => this.createWorld(),
+            () => this._startSequence.play()
+        );
         this._startSequence = new StartSequence(this);
         this._bookManager = new BookManager(this);
         this._pointer = new Pointer(this);
 
-        this._resourceManager.addEventListener("loadCycleEntryLoaded", () => this.onLoadCycleEntryLoaded());
+        this._resourceManager.addEventListener("loadCycleEntryLoaded", () =>
+            this.onLoadCycleEntryLoaded()
+        );
         this._dimensions.addEventListener("resize", () => this.resize());
-        this._timedLoop.addEventListener("tick", () => this.tick(this._timedLoop.deltaTime, this._timedLoop.elapsedTime));
-
+        this._timedLoop.addEventListener("tick", () =>
+            this.tick(this._timedLoop.deltaTime, this._timedLoop.elapsedTime)
+        );
 
         // TODO - Uncomment production code
         this.showLoadingPage();
         this._resourceManager.startLoading();
 
         // TODO - Remove debug code
-        // this._world.worldEventManager.handleWorldZoneChange(WorldZone.CV);
+        // this._world.worldEventManager.handleWorldZoneChange(WorldZone.ABOUT_ME);
         // this._world.worldEventManager.handleInteraction();
 
         // TODO - Remove lights
@@ -163,6 +170,10 @@ export default class Application implements Tickable {
 
     public get pointer(): Pointer {
         return this._pointer;
+    }
+
+    public get bookManager(): BookManager {
+        return this._bookManager;
     }
 
     public showLoadingPage(): void {

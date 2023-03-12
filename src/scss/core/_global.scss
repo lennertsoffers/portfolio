@@ -1,3 +1,7 @@
+* {
+    font-family: $shantell_sans;
+}
+
 .book:not(.book__extra_large) {
     .hide-only-xl {
         display: block;
@@ -15,5 +19,33 @@
 
     .show-only-xl {
         display: block;
+    }
+}
+
+.fade_in {
+    animation: fadeIn 1.5s ease-out forwards;
+
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 100%;
+        }
+    }
+}
+
+.fade_out {
+    animation: fadeOut 1.5s ease-out forwards;
+
+    @keyframes fadeOut {
+        0% {
+            opacity: 100%;
+        }
+
+        100% {
+            opacity: 0;
+        }
     }
 }

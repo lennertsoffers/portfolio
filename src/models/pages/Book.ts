@@ -14,7 +14,9 @@ export default class Book {
         this._bookManager = bookManager;
         this._element = element;
 
-        const pageListWrapper = this._element.querySelector(".pages") as HTMLElement;
+        const pageListWrapper = this._element.querySelector(
+            ".pages"
+        ) as HTMLElement;
         if (!pageListWrapper) throw new ElementNotFoundError(".pages");
         this._pageListWrapper = pageListWrapper;
 
@@ -41,18 +43,23 @@ export default class Book {
     }
 
     public flipDown(): void {
-        if (this._bookManager.displaySinglePage() && this._currentPage <= 1) return;
-        if (!this._bookManager.displaySinglePage() && this._currentPage <= 3) return;
+        if (this._bookManager.displaySinglePage() && this._currentPage <= 1)
+            return;
+        if (!this._bookManager.displaySinglePage() && this._currentPage <= 3)
+            return;
 
         const page = this.getPage(this._currentPage - 1);
         page.classList.remove("flipped");
         const previousElementSibling = page.previousElementSibling;
-        if (previousElementSibling) previousElementSibling.classList.remove("flipped");
+        if (previousElementSibling)
+            previousElementSibling.classList.remove("flipped");
         this._currentPage -= 2;
     }
 
     private getPage(pageNumber: number): HTMLElement {
-        return this._element.querySelector(`.page[data-page-id="${pageNumber}"]`) as HTMLElement;
+        return this._element.querySelector(
+            `.page[data-page-id="${pageNumber}"]`
+        ) as HTMLElement;
     }
 
     private updateBook(): void {
@@ -72,10 +79,14 @@ export default class Book {
         // Update single page
         if (this._bookManager.displaySinglePage()) {
             this._element.classList.add(BookConstants.BOOK_SINGLE_PAGE_CLASS);
-            this._element.classList.remove(BookConstants.BOOK_DOUBLE_PAGE_CLASS);
+            this._element.classList.remove(
+                BookConstants.BOOK_DOUBLE_PAGE_CLASS
+            );
         } else {
             this._element.classList.add(BookConstants.BOOK_DOUBLE_PAGE_CLASS);
-            this._element.classList.remove(BookConstants.BOOK_SINGLE_PAGE_CLASS);
+            this._element.classList.remove(
+                BookConstants.BOOK_SINGLE_PAGE_CLASS
+            );
         }
 
         // Update current page number
@@ -83,7 +94,11 @@ export default class Book {
     }
 
     private resetPageList(): void {
-        this._pageList = Array.from(this._pageListWrapper.querySelectorAll(".page:not(.page__placeholder):not(.page__extended)"));
+        this._pageList = Array.from(
+            this._pageListWrapper.querySelectorAll(
+                ".page:not(.page__placeholder):not(.page__extended)"
+            )
+        );
         this._pageList.forEach((page) => {
             page.classList.remove("flipped");
             page.style.zIndex = "";
@@ -91,7 +106,11 @@ export default class Book {
     }
 
     private setNewPageList(): void {
-        document.querySelectorAll(".page__description p").forEach((paragraph) => paragraph.classList.remove(ClassConstants.HIDDEN));
+        document
+            .querySelectorAll(".page__description p")
+            .forEach((paragraph) =>
+                paragraph.classList.remove(ClassConstants.HIDDEN)
+            );
         const newPageList = [];
 
         if (this._bookManager.displaySinglePage()) {
@@ -99,22 +118,42 @@ export default class Book {
                 let characters = 0;
                 let newPageParagraphs: HTMLElement[] = [];
 
-                const pageHeader = (page.querySelector(".page__header")?.cloneNode(true) as HTMLElement);
-                const pageDescription = page.querySelector(".page__description");
+                const pageHeader = page
+                    .querySelector(".page__header")
+                    ?.cloneNode(true) as HTMLElement;
+                const pageDescription =
+                    page.querySelector(".page__description");
 
                 if (pageHeader && pageDescription) {
-                    ([...pageDescription.querySelectorAll("p")] as HTMLElement[]).forEach((p) => {
+                    (
+                        [
+                            ...pageDescription.querySelectorAll("p")
+                        ] as HTMLElement[]
+                    ).forEach((p) => {
                         characters += p.innerHTML.length;
 
-                        if (([...page.childNodes] as HTMLElement[]).some((c) => c.classList.contains("page__image"))) {
+                        if (
+                            ([...page.childNodes] as HTMLElement[]).some((c) =>
+                                c.classList.contains("page__image")
+                            )
+                        ) {
                             characters += 200;
                         }
 
-                        if (this._bookManager.getHeight() < 900 && characters > 600 || characters > 1000 || this._bookManager.getWidth() < 420 && characters > 600) {
-
+                        if (
+                            (this._bookManager.getHeight() < 900 &&
+                                characters > 600) ||
+                            characters > 1000 ||
+                            (this._bookManager.getWidth() < 420 &&
+                                characters > 600)
+                        ) {
                             p.classList.add(ClassConstants.HIDDEN);
-                            const duplicatedParagraph = p.cloneNode(true) as HTMLElement;
-                            duplicatedParagraph.classList.remove(ClassConstants.HIDDEN);
+                            const duplicatedParagraph = p.cloneNode(
+                                true
+                            ) as HTMLElement;
+                            duplicatedParagraph.classList.remove(
+                                ClassConstants.HIDDEN
+                            );
                             newPageParagraphs.push(duplicatedParagraph);
                         }
                     });
@@ -127,35 +166,67 @@ export default class Book {
                 newPageList.push(this.getNewPlaceholder());
 
                 if (newPageParagraphs.length > 0) {
-                    newPageList.push(this.getNewExtendedPage(pageHeader, newPageParagraphs, classList));
+                    newPageList.push(
+                        this.getNewExtendedPage(
+                            pageHeader,
+                            newPageParagraphs,
+                            classList
+                        )
+                    );
                     newPageList.push(this.getNewPlaceholder());
                 }
             });
         } else {
             newPageList.push(this.getNewPlaceholder(true));
 
-            if (this._bookManager.getWidth() < 1600) {
+            if (this._bookManager.getWidth() < 2000) {
                 this._pageList.forEach((page) => {
                     let characters = 0;
                     let newPageParagraphs: HTMLElement[] = [];
 
-                    const pageHeader = (page.querySelector(".page__header")?.cloneNode(true) as HTMLElement);
-                    const pageDescription = page.querySelector(".page__description");
+                    const pageHeader = page
+                        .querySelector(".page__header")
+                        ?.cloneNode(true) as HTMLElement;
+                    const pageDescription =
+                        page.querySelector(".page__description");
 
-                    if (([...page.childNodes] as HTMLElement[]).some((c) => c.classList.contains("page__image"))) {
+                    if (
+                        ([...page.childNodes] as HTMLElement[]).some((c) =>
+                            c.classList.contains("page__image")
+                        )
+                    ) {
                         characters += 200;
+                    }
+
+                    if (page.classList.contains("page--about_me_1")) {
+                        characters += 1000;
                     }
 
                     if (pageHeader && pageDescription) {
                         let paragraphLeft = false;
 
-                        ([...pageDescription.querySelectorAll("p")] as HTMLElement[]).forEach((p) => {
+                        (
+                            [
+                                ...pageDescription.querySelectorAll("p")
+                            ] as HTMLElement[]
+                        ).forEach((p) => {
                             characters += p.innerHTML.length;
 
-                            if ((this._bookManager.getHeight() < 900 && characters > 500 || characters > 1000 || this._bookManager.getWidth() / 2 < 800 && characters > 500) && paragraphLeft) {
+                            if (
+                                ((this._bookManager.getHeight() < 900 &&
+                                    characters > 500) ||
+                                    characters > 1000 ||
+                                    (this._bookManager.getWidth() / 2 < 800 &&
+                                        characters > 500)) &&
+                                paragraphLeft
+                            ) {
                                 p.classList.add(ClassConstants.HIDDEN);
-                                const duplicatedParagraph = p.cloneNode(true) as HTMLElement;
-                                duplicatedParagraph.classList.remove(ClassConstants.HIDDEN);
+                                const duplicatedParagraph = p.cloneNode(
+                                    true
+                                ) as HTMLElement;
+                                duplicatedParagraph.classList.remove(
+                                    ClassConstants.HIDDEN
+                                );
                                 newPageParagraphs.push(duplicatedParagraph);
                             }
 
@@ -167,7 +238,13 @@ export default class Book {
                     classList.push("page__extended");
 
                     newPageList.push(page);
-                    newPageList.push(this.getNewExtendedPage(null, newPageParagraphs, classList));
+                    newPageList.push(
+                        this.getNewExtendedPage(
+                            null,
+                            newPageParagraphs,
+                            classList
+                        )
+                    );
                 });
             } else {
                 newPageList.push(...this._pageList);
@@ -198,17 +275,33 @@ export default class Book {
 
             page.setAttribute("data-page-id", `${i + 1}`);
 
-            page.querySelectorAll(".page__header__left").forEach((headerButtonLeft) => {
-                const newHeaderButtonLeft = headerButtonLeft.cloneNode(true);
-                headerButtonLeft.parentNode?.replaceChild(newHeaderButtonLeft, headerButtonLeft);
-                newHeaderButtonLeft.addEventListener("click", () => this.flipDown());
-            });
+            page.querySelectorAll(".page__header__left").forEach(
+                (headerButtonLeft) => {
+                    const newHeaderButtonLeft =
+                        headerButtonLeft.cloneNode(true);
+                    headerButtonLeft.parentNode?.replaceChild(
+                        newHeaderButtonLeft,
+                        headerButtonLeft
+                    );
+                    newHeaderButtonLeft.addEventListener("click", () =>
+                        this.flipDown()
+                    );
+                }
+            );
 
-            page.querySelectorAll(".page__header__right").forEach((headerButtonRight) => {
-                const newHeaderButtonRight = headerButtonRight.cloneNode(true);
-                headerButtonRight.parentNode?.replaceChild(newHeaderButtonRight, headerButtonRight);
-                newHeaderButtonRight.addEventListener("click", () => this.flipUp());
-            });
+            page.querySelectorAll(".page__header__right").forEach(
+                (headerButtonRight) => {
+                    const newHeaderButtonRight =
+                        headerButtonRight.cloneNode(true);
+                    headerButtonRight.parentNode?.replaceChild(
+                        newHeaderButtonRight,
+                        headerButtonRight
+                    );
+                    newHeaderButtonRight.addEventListener("click", () =>
+                        this.flipUp()
+                    );
+                }
+            );
         }
     }
 
@@ -221,12 +314,18 @@ export default class Book {
         return placeholder;
     }
 
-    private getNewExtendedPage(header: HTMLElement | null, paragraphList: HTMLElement[], classList: string[]): HTMLElement {
+    private getNewExtendedPage(
+        header: HTMLElement | null,
+        paragraphList: HTMLElement[],
+        classList: string[]
+    ): HTMLElement {
         const extendedPage = document.createElement("section");
 
         const extendedPageDescription = document.createElement("div");
         extendedPageDescription.classList.add("page__description");
-        paragraphList.forEach((paragraph) => extendedPageDescription.appendChild(paragraph));
+        paragraphList.forEach((paragraph) =>
+            extendedPageDescription.appendChild(paragraph)
+        );
 
         if (header) extendedPage.appendChild(header);
         extendedPage.appendChild(extendedPageDescription);

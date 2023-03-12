@@ -4,12 +4,16 @@ import PageOverlayType from "../enum/PageOverlayType";
 export default class PageConstants {
     public static PAGE_DATA_LIST: PageDataEntry[] = [
         {
+            pageType: PageOverlayType.ABOUT_ME,
+            className: "page_overlay_about_me"
+        },
+        {
             pageType: PageOverlayType.CV,
-            className: "page_overlay_internship",
+            className: "page_overlay_internship"
         },
         {
             pageType: PageOverlayType.PROJECTS,
-            className: "page_overlay_projects",
+            className: "page_overlay_projects"
         }
     ];
 

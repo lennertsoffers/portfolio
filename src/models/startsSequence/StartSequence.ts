@@ -20,9 +20,21 @@ export default class StartSequence {
         this.resumeControls();
         this.setupPlayer();
         this.playAnimation();
-        this._application.particleManager.spawnAmbientParticles(new Vector3(0, 0, 0), 10, 10000, new Color(0xf0d441), 13);
+        this._application.particleManager.spawnAmbientParticles(
+            new Vector3(0, 0, 0),
+            10,
+            10000,
+            new Color(0xf0d441),
+            13
+        );
         setInterval(() => {
-            this._application.particleManager.spawnAmbientParticles(new Vector3(0, 0, 0), 10, 10000, new Color(0xf0d441), 13);
+            this._application.particleManager.spawnAmbientParticles(
+                new Vector3(0, 0, 0),
+                10,
+                10000,
+                new Color(0xf0d441),
+                13
+            );
         }, 1000);
     }
 
@@ -46,7 +58,7 @@ export default class StartSequence {
                 new Vector3(4, 3, 16),
                 new Vector3(0.2, 2, 15.5),
                 new Vector3(0, 1, 10.5),
-                new Vector3(-0.32, 0, 10),
+                new Vector3(-0.32, -0.3, 10)
             ],
             3000,
             100
@@ -70,11 +82,27 @@ export default class StartSequence {
 
     private async playDialog(): Promise<void> {
         this._application.hud.dialog.show();
-        await this._application.hud.dialog.writeText(...DialogConstants.WELCOME_TEXT_QUEUE);
+
+        await this._application.hud.dialog.writeText(
+            ...DialogConstants.WELCOME_TEXT_QUEUE
+        );
+
         this._application.hud.menu.animate();
-        setTimeout(() => this._application.pointer.pointAt(this._application.hud.menu.htmlElement), 1000);
-        await this._application.hud.dialog.writeText(...DialogConstants.MENU_TEXT_QUEUE);
-        await this._application.hud.dialog.writeText(...DialogConstants.HAVE_FUN_TEXT_QUEUE);
+        setTimeout(() => {
+            this._application.hud.menu.toggleNavigation();
+
+            setTimeout(() => {
+                this._application.hud.menu.hideNavigation();
+            }, 3000);
+        }, 500);
+
+        await this._application.hud.dialog.writeText(
+            ...DialogConstants.MENU_TEXT_QUEUE
+        );
+
+        await this._application.hud.dialog.writeText(
+            ...DialogConstants.HAVE_FUN_TEXT_QUEUE
+        );
     }
 
     private resumeControls(): void {

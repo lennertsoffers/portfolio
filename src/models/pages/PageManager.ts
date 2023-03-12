@@ -25,6 +25,8 @@ export default class PageManager extends EventEmitter {
     }
 
     public closeAll(): void {
+        this.trigger("closePage");
+
         this._pages.forEach((page) => {
             if (page.isVisible()) page.hide();
         });

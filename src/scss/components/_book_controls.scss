@@ -40,7 +40,7 @@ $book_controls_movement_button_hover_colour: #3f5be8;
     justify-content: space-between;
     user-select: none;
 
-    >div {
+    > div {
         position: relative;
         display: flex;
 
@@ -52,7 +52,7 @@ $book_controls_movement_button_hover_colour: #3f5be8;
             justify-content: space-between;
         }
 
-        >div {
+        > div {
             height: $book_controls_button_dimensions_small;
             width: $book_controls_button_dimensions_small;
 
@@ -116,7 +116,8 @@ $book_controls_movement_button_hover_colour: #3f5be8;
             }
 
             &.button__left:hover svg {
-                animation: pointLeft $book_controls_animation_duration ease-in-out;
+                animation: pointLeftFlip $book_controls_animation_duration
+                    ease-in-out;
 
                 path {
                     fill: $book_controls_movement_button_hover_colour;
@@ -124,52 +125,11 @@ $book_controls_movement_button_hover_colour: #3f5be8;
             }
 
             &.button__right:hover svg {
-                animation: pointRight $book_controls_animation_duration ease-in-out;
+                animation: pointRight $book_controls_animation_duration
+                    ease-in-out;
 
                 path {
                     fill: $book_controls_movement_button_hover_colour;
-                }
-            }
-
-            @keyframes pointLeft {
-                0% {
-                    transform: translate(0) scaleX(-100%);
-                }
-
-                50% {
-                    transform: translate(-10px) scaleX(-100%);
-                }
-
-                100% {
-                    transform: translate(0) scaleX(-100%);
-                }
-            }
-
-            @keyframes pointRight {
-                0% {
-                    transform: translate(0);
-                }
-
-                50% {
-                    transform: translate(10px);
-                }
-
-                100% {
-                    transform: translate(0);
-                }
-            }
-
-            @keyframes wiggle {
-                0% {
-                    transform: rotateZ(0);
-                }
-
-                50% {
-                    transform: rotateZ(10deg);
-                }
-
-                100% {
-                    transform: rotateZ(0);
                 }
             }
         }
