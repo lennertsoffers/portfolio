@@ -1,0 +1,54 @@
+.link_container {
+    > div {
+        bottom: $book_controls_padding_small;
+
+        @media screen and (min-width: $book_controls_medium) {
+            bottom: $book_controls_padding_medium;
+        }
+
+        @media screen and (min-width: $book_controls_large) {
+            bottom: $book_controls_padding_large;
+        }
+
+        width: 200px;
+        text-align: center;
+        position: fixed;
+        z-index: 1000;
+        height: $book_controls_button_dimensions_small;
+        line-height: $book_controls_button_dimensions_small;
+
+        @media screen and (min-width: $book_controls_medium) {
+            height: $book_controls_button_dimensions_medium;
+            line-height: $book_controls_button_dimensions_medium;
+        }
+
+        @media screen and (min-width: $book_controls_large) {
+            height: $book_controls_button_dimensions_large;
+            line-height: $book_controls_button_dimensions_large;
+        }
+
+        &.link_container--left {
+            left: calc(-200px / 2);
+            margin: 0 75% 0 25%;
+        }
+
+        &.link_container--center {
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+
+        &.link_container--right {
+            right: calc(-200px / 2);
+            margin: 0 25% 0 75%;
+        }
+
+        &.fadeIn {
+            animation: fadeIn 0.7s ease-out forwards;
+        }
+
+        &.fadeOut {
+            animation: fadeOut 0.7s ease-in forwards;
+        }
+    }
+}

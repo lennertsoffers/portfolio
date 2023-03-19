@@ -20,6 +20,7 @@ import BookManager from "./models/pages/BookManager";
 import TouchControls from "./models/controls/TouchControls";
 import BookControls from "./models/controls/BookControls";
 import Pointer from "./models/startsSequence/Pointer";
+import LinkContainer from "./models/pages/LinkContainer";
 
 export default class Application implements Tickable {
     private _canvas: HTMLCanvasElement;
@@ -43,6 +44,7 @@ export default class Application implements Tickable {
     private _touchControls: TouchControls;
     private _bookControls: BookControls;
     private _pointer: Pointer;
+    private _linkContainer: LinkContainer;
 
     constructor(canvas: HTMLCanvasElement) {
         this._canvas = canvas;
@@ -50,6 +52,7 @@ export default class Application implements Tickable {
         this._debug = new Debug();
         this._touchControls = new TouchControls();
         this._bookControls = new BookControls();
+        this._linkContainer = new LinkContainer();
         this._resourceManager = new ResourceManager();
         this._dimensions = new Dimensions();
         this._timedLoop = new TimedLoop();
@@ -80,12 +83,12 @@ export default class Application implements Tickable {
         );
 
         // TODO - Uncomment production code
-        this.showLoadingPage();
-        this._resourceManager.startLoading();
+        // this.showLoadingPage();
+        // this._resourceManager.startLoading();
 
         // TODO - Remove debug code
-        // this._world.worldEventManager.handleWorldZoneChange(WorldZone.ABOUT_ME);
-        // this._world.worldEventManager.handleInteraction();
+        this._world.worldEventManager.handleWorldZoneChange(WorldZone.PROJECTS);
+        this._world.worldEventManager.handleInteraction();
 
         // TODO - Remove lights
         const light = new PointLight(0xffffff, 100, 0);
@@ -174,6 +177,10 @@ export default class Application implements Tickable {
 
     public get bookManager(): BookManager {
         return this._bookManager;
+    }
+
+    public get linkContainer(): LinkContainer {
+        return this._linkContainer;
     }
 
     public showLoadingPage(): void {

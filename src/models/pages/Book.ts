@@ -2,9 +2,11 @@ import BookConstants from "../constants/BookConstants";
 import ClassConstants from "../constants/ClassConstants";
 import ElementNotFoundError from "../error/ElementNotFoundError";
 import BookManager from "./BookManager";
+import LinkContainer from "./LinkContainer";
 
 export default class Book {
     private _bookManager: BookManager;
+    private _linkContainer: LinkContainer;
     private _element: HTMLElement;
     private _pageListWrapper: HTMLElement;
     private _pageList: HTMLElement[];
@@ -12,6 +14,7 @@ export default class Book {
 
     constructor(bookManager: BookManager, element: HTMLElement) {
         this._bookManager = bookManager;
+        this._linkContainer = this._bookManager.application.linkContainer;
         this._element = element;
 
         const pageListWrapper = this._element.querySelector(
@@ -30,6 +33,7 @@ export default class Book {
         this.setNewPageList();
         this.setNewPageListWrapperContent();
         this.initializeNewPageList();
+        this.showLinks();
     }
 
     public hasPageRight(): boolean {
@@ -347,5 +351,50 @@ export default class Book {
         extendedPage.classList.add(...classList);
 
         return extendedPage;
+    }
+
+    public showLinks() {
+        this._linkContainer.reset();
+
+        if (this._bookManager.displaySinglePage()) {
+            const page = this.getPage(this._currentPage);
+            const mainPage = !page.classList.contains("page__extended")
+                ? page
+                : this.getPage(this._currentPage - 1);
+
+            this._linkContainer.showLinkCenter(
+                this.extractLinkFromPage(mainPage)
+            );
+        } else {
+            const pageLeft = this.getPage(this._currentPage - 1);
+            const pageRight = this.getPage(this._currentPage);
+
+            // Display link in center
+            if (pageRight.classList.contains("page__extended")) {
+                const mainPage = pageLeft;
+                this._linkContainer.showLinkCenter(
+                    this.extractLinkFromPage(mainPage)
+                );
+            }
+
+            // Display one link left and one link right
+            else {
+                const mainPageLeft = pageLeft;
+                this._linkContainer.showLinkLeft(
+                    this.extractLinkFromPage(mainPageLeft)
+                );
+                const mainPageRight = pageRight;
+                this._linkContainer.showLinkRight(
+                    this.extractLinkFromPage(mainPageRight)
+                );
+            }
+        }
+    }
+
+    private extractLinkFromPage(page: HTMLElement): string {
+        const pageLink = page.querySelector(".page__link a");
+
+        if (!pageLink) return "";
+        return pageLink.outerHTML;
     }
 }

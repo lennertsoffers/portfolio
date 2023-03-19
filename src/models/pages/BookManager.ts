@@ -2,6 +2,7 @@ import Application from "../../Application";
 import BookInfoEntry from "../../types/entries/BookInfoEntry";
 import DomUtils from "../../utils/DomUtils";
 import BookConstants from "../constants/BookConstants";
+import ClassConstants from "../constants/ClassConstants";
 import Book from "./Book";
 
 export default class BookManager {
@@ -20,6 +21,10 @@ export default class BookManager {
         this.addFlipListener();
     }
 
+    public get application(): Application {
+        return this._application;
+    }
+
     public getBookName(): string {
         return this._activeBook ? this._activeBook.name : "";
     }
@@ -29,12 +34,14 @@ export default class BookManager {
             if (bookInfo.name === name) this._activeBook = bookInfo;
         });
 
+        this._application.linkContainer.show();
         this._activeBook && this._activeBook.book.update();
         this.updateNavigation();
     }
 
     public unselectBook(): void {
         this._activeBook = null;
+        this._application.linkContainer.hide();
     }
 
     public displaySinglePage(): boolean {
@@ -45,7 +52,8 @@ export default class BookManager {
     }
 
     public resize(): void {
-        this._books.forEach((book) => book.book.update());
+        this._activeBook && this._activeBook.book.update();
+        this.updateNavigation();
     }
 
     public getWidth(): number {
@@ -60,18 +68,22 @@ export default class BookManager {
         this._application.touchControls.addEventListener("swipeLeft", () => {
             this._activeBook && this._activeBook.book.flipUp();
             this.updateNavigation();
+            this._activeBook && this._activeBook.book.showLinks();
         });
         this._application.touchControls.addEventListener("swipeRight", () => {
             this._activeBook && this._activeBook.book.flipDown();
             this.updateNavigation();
+            this._activeBook && this._activeBook.book.showLinks();
         });
         this._application.bookControls.addEventListener("left", () => {
             this._activeBook && this._activeBook.book.flipDown();
             this.updateNavigation();
+            this._activeBook && this._activeBook.book.showLinks();
         });
         this._application.bookControls.addEventListener("right", () => {
             this._activeBook && this._activeBook.book.flipUp();
             this.updateNavigation();
+            this._activeBook && this._activeBook.book.showLinks();
         });
     }
 
@@ -103,5 +115,11 @@ export default class BookManager {
                 } as BookInfoEntry;
             })
         );
+
+        document
+            .querySelectorAll(".page__link")
+            .forEach((pageLink) =>
+                pageLink.classList.add(ClassConstants.HIDDEN)
+            );
     }
 }

@@ -21,6 +21,11 @@ export default class ClassConstants {
     public static BOOK_CONTROLS_LEFT_BUTTON_CLASS_NAME = "button__left";
     public static BOOK_CONTROLS_RIGHT_BUTTON_CLASS_NAME = "button__right";
 
+    public static LINK_CONTAINER = "link_container";
+    public static LINK_CONTAINER_LEFT = "link_container--left";
+    public static LINK_CONTAINER_CENTER = "link_container--center";
+    public static LINK_CONTAINER_RIGHT = "link_container--right";
+
     public static POINTER_CLASS_NAME = "pointer";
 
     public static HIDDEN = "hidden";
