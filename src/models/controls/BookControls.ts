@@ -1,6 +1,6 @@
+import DomUtils from "../../utils/DomUtils";
 import EventEmitter from "../../utils/EventEmitter";
 import ClassConstants from "../constants/ClassConstants";
-import ElementNotFoundError from "../error/ElementNotFoundError";
 
 export default class BookControls extends EventEmitter {
     private _bookControlsElement: HTMLElement;
@@ -11,14 +11,26 @@ export default class BookControls extends EventEmitter {
     constructor() {
         super();
 
-        const bookControlsElement = document.querySelector(`.${ClassConstants.BOOK_CONTROLS_CLASS_NAME}`) as HTMLElement;
-        if (!bookControlsElement) throw new ElementNotFoundError(ClassConstants.BOOK_CONTROLS_CLASS_NAME);
-        const closeButtonElement = bookControlsElement.querySelector(`.${ClassConstants.BOOK_CONTROLS_CLOSE_BUTTON_CLASS_NAME}`) as HTMLElement;
-        if (!closeButtonElement) throw new ElementNotFoundError(ClassConstants.BOOK_CONTROLS_CLOSE_BUTTON_CLASS_NAME);
-        const leftButtonElement = bookControlsElement.querySelector(`.${ClassConstants.BOOK_CONTROLS_LEFT_BUTTON_CLASS_NAME}`) as HTMLElement;
-        if (!leftButtonElement) throw new ElementNotFoundError(ClassConstants.BOOK_CONTROLS_LEFT_BUTTON_CLASS_NAME);
-        const rightButtonElement = bookControlsElement.querySelector(`.${ClassConstants.BOOK_CONTROLS_RIGHT_BUTTON_CLASS_NAME}`) as HTMLElement;
-        if (!rightButtonElement) throw new ElementNotFoundError(ClassConstants.BOOK_CONTROLS_RIGHT_BUTTON_CLASS_NAME);
+        const bookControlsElement = DomUtils.getElement(
+            document,
+            `.${ClassConstants.BOOK_CONTROLS_CLASS_NAME}`
+        );
+
+        const closeButtonElement = DomUtils.getElement(
+            bookControlsElement,
+            `.${ClassConstants.BOOK_CONTROLS_CLOSE_BUTTON_CLASS_NAME}`
+        );
+
+        const leftButtonElement = DomUtils.getElement(
+            bookControlsElement,
+            `.${ClassConstants.BOOK_CONTROLS_LEFT_BUTTON_CLASS_NAME}`
+        );
+
+        const rightButtonElement = DomUtils.getElement(
+            bookControlsElement,
+            `.${ClassConstants.BOOK_CONTROLS_RIGHT_BUTTON_CLASS_NAME}`
+        );
+
         this._bookControlsElement = bookControlsElement;
         this._closeButtonElement = closeButtonElement;
         this._leftButtonElement = leftButtonElement;
@@ -34,6 +46,22 @@ export default class BookControls extends EventEmitter {
 
     public hide(): void {
         this._bookControlsElement.classList.add(ClassConstants.HIDDEN);
+    }
+
+    public hideToLeft(): void {
+        this._leftButtonElement.classList.add(ClassConstants.HIDDEN);
+    }
+
+    public showToLeft(): void {
+        this._leftButtonElement.classList.remove(ClassConstants.HIDDEN);
+    }
+
+    public hideToRight(): void {
+        this._rightButtonElement.classList.add(ClassConstants.HIDDEN);
+    }
+
+    public showToRight(): void {
+        this._rightButtonElement.classList.remove(ClassConstants.HIDDEN);
     }
 
     private addBookControls(): void {

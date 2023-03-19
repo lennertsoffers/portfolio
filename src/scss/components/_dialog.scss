@@ -9,15 +9,51 @@
     max-width: 900px;
     aspect-ratio: 3.75;
     text-align: center;
-    font-size: 20px;
-    padding: 20px;
     display: flex;
     justify-content: end;
     flex-direction: column;
     user-select: none;
+    padding: 5px;
+    font-size: 16px;
 
     svg {
+        pointer-events: all;
         width: 100%;
+        z-index: 0;
+
+        .cls-1 {
+            fill: #fff;
+        }
+
+        .cls-2 {
+            fill: #290e2b;
+        }
+
+        .cls-3 {
+            fill: none;
+            stroke: #000;
+            stroke-miterlimit: 10;
+        }
+
+        .cls-4 {
+            fill: #000 !important;
+        }
+
+        &.small {
+            display: block;
+
+            @media screen and (min-width: $medium) {
+                display: none;
+            }
+        }
+
+        &.large {
+            display: none;
+
+            @media screen and (min-width: $medium) {
+                display: block;
+            }
+        }
 
         path {
             fill: #fff;
@@ -25,6 +61,7 @@
     }
 
     .dialog__content {
+        pointer-events: none;
         width: 100vw;
         max-width: 900px;
         position: absolute;
@@ -38,55 +75,49 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
+
+        font-size: 14px;
+
+        @media screen and (min-width: $medium) {
+            font-size: 20px;
+        }
+
+        @media screen and (min-width: $large) {
+            font-size: 20px;
+        }
+
+        @media screen and (min-width: $extra_large) {
+            font-size: 24px;
+        }
     }
 
-    .dialog__buttons__wrapper {
-        width: 100vw;
-        max-width: 900px;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        padding: 20px;
+    .dialog__button--skip {
+        cursor: pointer;
+        pointer-events: all;
 
-        .dialog__buttons {
-            position: absolute;
-            font-size: 20px;
-            display: flex;
-            justify-content: space-between;
-            right: 0;
-            top: 0;
+        line {
+            opacity: 0;
+            transition: opacity 0.25s;
+        }
 
-            @media screen and (min-width: 1600px) {
-                right: 45px;
-                top: 35px;
+        &:hover {
+            line {
+                opacity: 1;
             }
+        }
+    }
 
-            > div {
-                font-size: $font_size_page_body_extra_small;
+    .dialog__button--next {
+        cursor: pointer;
+        pointer-events: all;
 
-                @media screen and (min-width: 800px) {
-                    width: 80px;
-                    height: 30px;
-                }
+        > rect {
+            transition: all 0.15s ease-in-out;
+        }
 
-                @media screen and (min-width: 1600px) {
-                    width: 80px;
-                    height: 30px;
-                    border-radius: 15px;
-                    line-height: 30px;
-                }
-            }
-
-            .dialog__buttons--skip {
-                margin-right: 10px;
-                text-decoration: underline;
-            }
-
-            .dialog__buttons--next {
-                background-color: #290e2b;
-                color: #fff;
+        &:hover {
+            > rect {
+                fill: #6f207a;
             }
         }
     }

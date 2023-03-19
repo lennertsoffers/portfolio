@@ -1,4 +1,15 @@
 .page.page--about_me_1 {
+    .CHONK {
+        display: none;
+    }
+
+    @media screen and (min-width: 1600px) {
+        .CHONK {
+            display: block;
+            max-width: 100%;
+        }
+    }
+
     .page__stickers {
         .mushroom--3 {
             position: absolute;
@@ -25,11 +36,31 @@
 .book__single {
     &.book__extra_small {
         .page--about_me_1 {
+            &.page__extended {
+                overflow: auto;
+
+                &::after {
+                    height: calc(
+                        $book_center_height_extra_small + 26px
+                    ) !important;
+                }
+            }
+
+            .page__header {
+                margin-bottom: 10px;
+            }
+
+            .page__description {
+                p {
+                    margin-bottom: 10px;
+                }
+            }
             .page__image {
-                margin-bottom: $page_line_height_extra_small;
+                margin-bottom: 10px;
 
                 img {
-                    width: 100%;
+                    max-width: 100%;
+                    max-height: 400px;
                 }
             }
         }
@@ -41,6 +72,7 @@
                 margin-bottom: $page_line_height_small;
 
                 img {
+                    max-width: 100%;
                     max-height: 400px;
                 }
             }
@@ -53,6 +85,7 @@
                 margin-bottom: $page_line_height_medium;
 
                 img {
+                    max-width: 100%;
                     max-height: 400px;
                 }
             }
@@ -65,6 +98,7 @@
                 margin-bottom: $page_line_height_large;
 
                 img {
+                    max-width: 100%;
                     max-height: 400px;
                 }
             }
@@ -77,6 +111,7 @@
                 margin-bottom: $page_line_height_extra_large;
 
                 img {
+                    max-width: 100%;
                     max-height: 400px;
                 }
             }
@@ -88,10 +123,11 @@
     &.book__extra_small {
         .page--about_me_1 {
             .page__image {
-                margin-bottom: $page_line_height_extra_small;
+                margin-bottom: 20px;
 
                 img {
-                    width: 100%;
+                    max-width: 100%;
+                    max-height: 400px;
                 }
             }
         }
@@ -100,10 +136,11 @@
     &.book__small {
         .page--about_me_1 {
             .page__image {
-                margin-bottom: $page_line_height_small;
+                margin-bottom: 20px;
 
                 img {
-                    width: 100%;
+                    max-width: 100%;
+                    max-height: 400px;
                 }
             }
         }
@@ -112,10 +149,11 @@
     &.book__medium {
         .page--about_me_1 {
             .page__image {
-                margin-bottom: $page_line_height_medium;
+                margin-bottom: 20px;
 
                 img {
-                    width: 100%;
+                    max-width: 100%;
+                    max-height: 400px;
                 }
             }
         }
@@ -124,10 +162,11 @@
     &.book__large {
         .page--about_me_1 {
             .page__image {
-                margin-bottom: $page_line_height_large;
+                margin-bottom: 10px;
 
                 img {
-                    width: 100%;
+                    max-width: 100%;
+                    max-height: 400px;
                 }
             }
         }
@@ -136,10 +175,11 @@
     &.book__extra_large {
         .page--about_me_1 {
             .page__image {
-                margin-bottom: $page_line_height_extra_large;
+                margin-bottom: 0px;
 
                 img {
-                    max-height: 400px;
+                    max-width: 100%;
+                    max-height: 350px;
                 }
             }
         }

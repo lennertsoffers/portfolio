@@ -42,14 +42,22 @@ $book_controls_movement_button_hover_colour: #3f5be8;
 
     > div {
         position: relative;
-        display: flex;
 
         &:first-of-type {
+            display: flex;
             justify-content: end;
         }
 
         &:last-of-type {
-            justify-content: space-between;
+            width: 100%;
+
+            .button__left {
+                float: left;
+            }
+
+            .button__right {
+                float: right;
+            }
         }
 
         > div {

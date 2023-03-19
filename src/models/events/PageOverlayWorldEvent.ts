@@ -8,13 +8,19 @@ export default class PageOverlayWorldEvent extends WorldEvent {
     private _application: Application;
     private _onEnd: Function;
 
-    constructor(pageOverlayType: PageOverlayType, application: Application, onEnd: Function = () => { }) {
+    constructor(
+        pageOverlayType: PageOverlayType,
+        application: Application,
+        onEnd: Function = () => {}
+    ) {
         super();
 
         this._application = application;
         this._pageOverlayType = pageOverlayType;
         this._onEnd = onEnd;
-        this._application.pageManager.addEventListener("closePage", () => this.end());
+        this._application.pageManager.addEventListener("closePage", () =>
+            this.end()
+        );
     }
 
     public set onEnd(value: Function) {

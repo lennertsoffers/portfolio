@@ -26,4 +26,18 @@ export default class BookConstants {
             className: "book__extra_large"
         }
     ];
+    public static BOOKS_INFO = [
+        {
+            title: "PROJECTS",
+            className: "book--projects"
+        },
+        {
+            title: "ABOUT_ME",
+            className: "book--about_me"
+        },
+        {
+            title: "CV",
+            className: "book--internship"
+        }
+    ];
 }

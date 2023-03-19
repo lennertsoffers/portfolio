@@ -1,39 +1,52 @@
+import DomUtils from "../../utils/DomUtils";
 import EventEmitter from "../../utils/EventEmitter";
 import ClassConstants from "../constants/ClassConstants";
-import ElementNotFoundError from "../error/ElementNotFoundError";
+import Observable from "../logic/Observable";
 import Hud from "./Hud";
 
 export default class Dialog extends EventEmitter {
     private _hud: Hud;
     private _element: HTMLElement;
     private _textElement: HTMLElement;
+    private _nextButtonElements: HTMLElement[];
+    private _skipButtonElements: HTMLElement[];
     private _textQueue: string[];
-    private _skipWriteDelay: boolean;
+    private _continue: Observable;
+    private _skip: Observable;
 
     constructor(hud: Hud) {
         super();
 
         this._hud = hud;
         this._textQueue = [];
-        this._skipWriteDelay = false;
 
-        const element = document.querySelector(
+        this._element = DomUtils.getElement(
+            document,
             `.${ClassConstants.DIALOG_CLASS_NAME}`
-        ) as HTMLElement;
-        if (!element)
-            throw new ElementNotFoundError(ClassConstants.DIALOG_CLASS_NAME);
-        this._element = element;
-
-        const textElement = element.querySelector(
+        );
+        this._textElement = DomUtils.getElement(
+            this._element,
             `.${ClassConstants.DIALOG_CONTENT_CLASS_NAME} div`
-        ) as HTMLElement;
-        if (!textElement)
-            throw new ElementNotFoundError(
-                ClassConstants.DIALOG_CONTENT_CLASS_NAME
-            );
-        this._textElement = textElement;
+        );
+        this._nextButtonElements = DomUtils.getElements(
+            this._element,
+            `.${ClassConstants.DIALOG_NEXT_BUTTON_CLASS_NAME}`
+        );
+        this._skipButtonElements = DomUtils.getElements(
+            this._element,
+            `.${ClassConstants.DIALOG_SKIP_BUTTON_CLASS_NAME}`
+        );
+
+        this._continue = new Observable();
+        this._skip = new Observable();
+
+        this.addEventListeners();
 
         this.hide();
+    }
+
+    public addOnSkipCallback(value: Function) {
+        this._skip.addEventListener("activate", value);
     }
 
     public show(): void {
@@ -48,39 +61,57 @@ export default class Dialog extends EventEmitter {
         this._textQueue.push(...text);
 
         while (this._textQueue.length > 0) {
-            const skipWriteDelay = () => (this._skipWriteDelay = true);
-            this._element.addEventListener("click", skipWriteDelay);
-
             await this.writeLine(this._textQueue[0]);
 
-            this._element.removeEventListener("click", skipWriteDelay);
+            await new Promise((resolve) => {
+                const resolveCallback = () => {
+                    resolve(null);
+                    this._continue.removeEventListener(
+                        "activate",
+                        resolveCallback
+                    );
+                };
+
+                this._continue.addEventListener("activate", resolveCallback);
+            });
 
             this._textQueue.splice(0, 1);
-
-            await new Promise((resolve) => {
-                this._element.addEventListener("click", () => {
-                    this._element.removeEventListener("click", resolve);
-                    resolve(null);
-                });
-            });
         }
+    }
 
-        this.writeLine("");
+    private addEventListeners(): void {
+        this._nextButtonElements.forEach((nextButton) =>
+            nextButton.addEventListener("click", () => {
+                this._continue.activate();
+            })
+        );
+
+        this._skipButtonElements.forEach((skipButton) =>
+            skipButton.addEventListener("click", () => {
+                this._textQueue = [];
+                this._textElement.innerHTML = "";
+                this._skip.activate();
+            })
+        );
     }
 
     private async writeLine(line: string): Promise<void> {
         this._textElement.innerHTML = "";
 
         for (const character of line) {
-            if (this._skipWriteDelay) {
-                this._skipWriteDelay = false;
-                this._textElement.innerHTML = line;
-
-                return;
-            }
-
             this._textElement.innerHTML += character;
-            await new Promise((resolve) => setTimeout(resolve, 20));
+            const skip = await new Promise((resolve) => {
+                const resolveCallback = () => {
+                    resolve(true);
+                    this._skip.removeEventListener("activate", resolveCallback);
+                };
+
+                this._skip.addEventListener("activate", resolveCallback);
+
+                setTimeout(() => resolve(false), 20);
+            });
+
+            if (skip) return;
         }
     }
 }

@@ -1,4 +1,8 @@
 .book {
+    .page-hidden {
+        display: none;
+    }
+
     .page {
         position: absolute;
         overflow: hidden;
@@ -32,9 +36,17 @@
         padding: $page_padding_extra_small;
         line-height: $page_line_height_extra_small;
         background-size: 100% $page_line_height_extra_small;
-        background-image:
-            linear-gradient(90deg, transparent $page_vertical_line_spacing_left_extra_small, #cfc6bc $page_vertical_line_spacing_left_extra_small, #cfc6bc $page_vertical_line_spacing_right_extra_small, transparent $page_vertical_line_spacing_right_extra_small),
-            linear-gradient(#cfc6bc $page_horizontal_line_width_extra_small, transparent $page_horizontal_line_width_extra_small);
+        background-image: linear-gradient(
+                90deg,
+                transparent $page_vertical_line_spacing_left_extra_small,
+                #cfc6bc $page_vertical_line_spacing_left_extra_small,
+                #cfc6bc $page_vertical_line_spacing_right_extra_small,
+                transparent $page_vertical_line_spacing_right_extra_small
+            ),
+            linear-gradient(
+                #cfc6bc $page_horizontal_line_width_extra_small,
+                transparent $page_horizontal_line_width_extra_small
+            );
 
         .page__description {
             p {
@@ -47,9 +59,17 @@
         padding: $page_padding_small;
         line-height: $page_line_height_small;
         background-size: 100% $page_line_height_small;
-        background-image:
-            linear-gradient(90deg, transparent $page_vertical_line_spacing_left_small, #cfc6bc $page_vertical_line_spacing_left_small, #cfc6bc $page_vertical_line_spacing_right_small, transparent $page_vertical_line_spacing_right_small),
-            linear-gradient(#cfc6bc $page_horizontal_line_width_small, transparent $page_horizontal_line_width_small);
+        background-image: linear-gradient(
+                90deg,
+                transparent $page_vertical_line_spacing_left_small,
+                #cfc6bc $page_vertical_line_spacing_left_small,
+                #cfc6bc $page_vertical_line_spacing_right_small,
+                transparent $page_vertical_line_spacing_right_small
+            ),
+            linear-gradient(
+                #cfc6bc $page_horizontal_line_width_small,
+                transparent $page_horizontal_line_width_small
+            );
 
         .page__description {
             p {
@@ -62,18 +82,34 @@
         padding: $page_padding_medium;
         line-height: $page_line_height_medium;
         background-size: 100% $page_line_height_medium;
-        background-image:
-            linear-gradient(90deg, transparent $page_vertical_line_spacing_left_medium, #cfc6bc $page_vertical_line_spacing_left_medium, #cfc6bc $page_vertical_line_spacing_right_medium, transparent $page_vertical_line_spacing_right_medium),
-            linear-gradient(#cfc6bc $page_horizontal_line_width_medium, transparent $page_horizontal_line_width_medium);
+        background-image: linear-gradient(
+                90deg,
+                transparent $page_vertical_line_spacing_left_medium,
+                #cfc6bc $page_vertical_line_spacing_left_medium,
+                #cfc6bc $page_vertical_line_spacing_right_medium,
+                transparent $page_vertical_line_spacing_right_medium
+            ),
+            linear-gradient(
+                #cfc6bc $page_horizontal_line_width_medium,
+                transparent $page_horizontal_line_width_medium
+            );
     }
 
     &.book__large .page {
         padding: $page_padding_large;
         line-height: $page_line_height_large;
         background-size: 100% $page_line_height_large;
-        background-image:
-            linear-gradient(90deg, transparent $page_vertical_line_spacing_left_large, #cfc6bc $page_vertical_line_spacing_left_large, #cfc6bc $page_vertical_line_spacing_right_large, transparent $page_vertical_line_spacing_right_large),
-            linear-gradient(#cfc6bc $page_horizontal_line_width_large, transparent $page_horizontal_line_width_large);
+        background-image: linear-gradient(
+                90deg,
+                transparent $page_vertical_line_spacing_left_large,
+                #cfc6bc $page_vertical_line_spacing_left_large,
+                #cfc6bc $page_vertical_line_spacing_right_large,
+                transparent $page_vertical_line_spacing_right_large
+            ),
+            linear-gradient(
+                #cfc6bc $page_horizontal_line_width_large,
+                transparent $page_horizontal_line_width_large
+            );
 
         .page__description {
             p {
@@ -86,9 +122,17 @@
         padding: $page_padding_extra_large;
         line-height: $page_line_height_extra_large;
         background-size: 100% $page_line_height_extra_large;
-        background-image:
-            linear-gradient(90deg, transparent $page_vertical_line_spacing_left_extra_large, #cfc6bc $page_vertical_line_spacing_left_extra_large, #cfc6bc $page_vertical_line_spacing_right_extra_large, transparent $page_vertical_line_spacing_right_extra_large),
-            linear-gradient(#cfc6bc $page_horizontal_line_width_extra_large, transparent $page_horizontal_line_width_extra_large);
+        background-image: linear-gradient(
+                90deg,
+                transparent $page_vertical_line_spacing_left_extra_large,
+                #cfc6bc $page_vertical_line_spacing_left_extra_large,
+                #cfc6bc $page_vertical_line_spacing_right_extra_large,
+                transparent $page_vertical_line_spacing_right_extra_large
+            ),
+            linear-gradient(
+                #cfc6bc $page_horizontal_line_width_extra_large,
+                transparent $page_horizontal_line_width_extra_large
+            );
 
         .page__description {
             p {
@@ -115,11 +159,19 @@
             }
 
             @include odd {
-                @include page_overlay($page_single_width_extra_small , $book_center_height_extra_small, right);
+                @include page_overlay(
+                    $page_single_width_extra_small,
+                    $book_center_height_extra_small,
+                    right
+                );
             }
 
             @include even {
-                @include page_overlay($page_single_width_extra_small, $book_center_height_extra_small, left);
+                @include page_overlay(
+                    $page_single_width_extra_small,
+                    $book_center_height_extra_small,
+                    left
+                );
             }
         }
 
@@ -134,11 +186,19 @@
             }
 
             @include odd {
-                @include page_overlay($page_single_width_small, $book_center_height_small, right);
+                @include page_overlay(
+                    $page_single_width_small,
+                    $book_center_height_small,
+                    right
+                );
             }
 
             @include even {
-                @include page_overlay($page_single_width_small, $book_center_height_small, left);
+                @include page_overlay(
+                    $page_single_width_small,
+                    $book_center_height_small,
+                    left
+                );
             }
         }
 
@@ -159,11 +219,19 @@
             }
 
             @include odd {
-                @include page_overlay($page_single_width_medium, $book_center_height_medium, right);
+                @include page_overlay(
+                    $page_single_width_medium,
+                    $book_center_height_medium,
+                    right
+                );
             }
 
             @include even {
-                @include page_overlay($page_single_width_medium, $book_center_height_medium, left);
+                @include page_overlay(
+                    $page_single_width_medium,
+                    $book_center_height_medium,
+                    left
+                );
             }
         }
 
@@ -178,11 +246,19 @@
             }
 
             @include odd {
-                @include page_overlay($page_single_width_large, $book_center_height_large, right);
+                @include page_overlay(
+                    $page_single_width_large,
+                    $book_center_height_large,
+                    right
+                );
             }
 
             @include even {
-                @include page_overlay($page_single_width_large, $book_center_height_large, left);
+                @include page_overlay(
+                    $page_single_width_large,
+                    $book_center_height_large,
+                    left
+                );
             }
         }
 
@@ -197,11 +273,19 @@
             }
 
             @include odd {
-                @include page_overlay($page_single_width_extra_large, $book_center_height_extra_large, right);
+                @include page_overlay(
+                    $page_single_width_extra_large,
+                    $book_center_height_extra_large,
+                    right
+                );
             }
 
             @include even {
-                @include page_overlay($page_single_width_extra_large, $book_center_height_extra_large, left);
+                @include page_overlay(
+                    $page_single_width_extra_large,
+                    $book_center_height_extra_large,
+                    left
+                );
             }
         }
     }
@@ -253,11 +337,19 @@
             }
 
             @include odd {
-                @include page_overlay($page_double_width_extra_small , $book_center_height_extra_small, right);
+                @include page_overlay(
+                    $page_double_width_extra_small,
+                    $book_center_height_extra_small,
+                    right
+                );
             }
 
             @include even {
-                @include page_overlay($page_double_width_extra_small, $book_center_height_extra_small, left);
+                @include page_overlay(
+                    $page_double_width_extra_small,
+                    $book_center_height_extra_small,
+                    left
+                );
             }
         }
 
@@ -271,17 +363,40 @@
             }
 
             @include odd {
-                @include page_overlay($page_double_width_small, $book_center_height_small, right);
+                @include page_overlay(
+                    $page_double_width_small,
+                    $book_center_height_small,
+                    right
+                );
             }
 
             @include even {
-                @include page_overlay($page_double_width_small, $book_center_height_small, left);
+                @include page_overlay(
+                    $page_double_width_small,
+                    $book_center_height_small,
+                    left
+                );
             }
         }
 
         &.book__medium .page {
             width: $page_double_width_medium;
             height: $book_center_height_medium;
+
+            padding: $page_padding_extra_small;
+            line-height: $page_line_height_extra_small;
+            background-size: 100% $page_line_height_extra_small;
+            background-image: linear-gradient(
+                    90deg,
+                    transparent $page_vertical_line_spacing_left_extra_small,
+                    #cfc6bc $page_vertical_line_spacing_left_extra_small,
+                    #cfc6bc $page_vertical_line_spacing_right_extra_small,
+                    transparent $page_vertical_line_spacing_right_extra_small
+                ),
+                linear-gradient(
+                    #cfc6bc $page_horizontal_line_width_extra_small,
+                    transparent $page_horizontal_line_width_extra_small
+                );
 
             .page__header {
                 display: flex;
@@ -295,11 +410,19 @@
             }
 
             @include odd {
-                @include page_overlay($page_double_width_medium, $book_center_height_medium, right);
+                @include page_overlay(
+                    $page_double_width_medium,
+                    $book_center_height_medium,
+                    right
+                );
             }
 
             @include even {
-                @include page_overlay($page_double_width_medium, $book_center_height_medium, left);
+                @include page_overlay(
+                    $page_double_width_medium,
+                    $book_center_height_medium,
+                    left
+                );
             }
         }
 
@@ -325,11 +448,19 @@
             }
 
             @include odd {
-                @include page_overlay($page_double_width_large, $book_center_height_large, right);
+                @include page_overlay(
+                    $page_double_width_large,
+                    $book_center_height_large,
+                    right
+                );
             }
 
             @include even {
-                @include page_overlay($page_double_width_large, $book_center_height_large, left);
+                @include page_overlay(
+                    $page_double_width_large,
+                    $book_center_height_large,
+                    left
+                );
             }
         }
 
@@ -344,11 +475,19 @@
             }
 
             @include odd {
-                @include page_overlay($page_double_width_extra_large, $book_center_height_extra_large, right);
+                @include page_overlay(
+                    $page_double_width_extra_large,
+                    $book_center_height_extra_large,
+                    right
+                );
             }
 
             @include even {
-                @include page_overlay($page_double_width_extra_large, $book_center_height_extra_large, left);
+                @include page_overlay(
+                    $page_double_width_extra_large,
+                    $book_center_height_extra_large,
+                    left
+                );
             }
         }
     }

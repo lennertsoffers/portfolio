@@ -2,22 +2,32 @@ import ClassConstants from "../constants/ClassConstants";
 import PageConstants from "../constants/PageConstants";
 import PageOverlayType from "../enum/PageOverlayType";
 import PageNotFoundError from "../error/PageNotFoundError";
+import PageManager from "./PageManager";
 
 export default class Page {
+    private _pageManager: PageManager;
     private _pageType: PageOverlayType;
     private _hidden: boolean;
     private _htmlElement: HTMLElement;
     private _onClose: Function;
 
-    constructor(pageType: PageOverlayType, className: string) {
+    constructor(
+        pageManager: PageManager,
+        pageType: PageOverlayType,
+        className: string
+    ) {
+        this._pageManager = pageManager;
         this._pageType = pageType;
         this._hidden = true;
 
-        const htmlElement = document.querySelector(`.${className}`) as HTMLElement;
-        if (!htmlElement) throw new PageNotFoundError(pageType.toString(), className);
+        const htmlElement = document.querySelector(
+            `.${className}`
+        ) as HTMLElement;
+        if (!htmlElement)
+            throw new PageNotFoundError(pageType.toString(), className);
 
         this._htmlElement = htmlElement;
-        this._onClose = () => { };
+        this._onClose = () => {};
     }
 
     public get pageType(): PageOverlayType {
@@ -29,17 +39,27 @@ export default class Page {
     }
 
     public show(): void {
+        this._pageManager.application.bookManager.selectBook(this.pageType);
         this._hidden = false;
         this._htmlElement.classList.add(ClassConstants.FADE_IN);
         this._htmlElement.classList.remove(ClassConstants.FADE_OUT);
-        this._htmlElement.classList.remove(PageConstants.PAGE_OVERLAY_HIDDEN_CLASS);
+        this._htmlElement.classList.remove(
+            PageConstants.PAGE_OVERLAY_HIDDEN_CLASS
+        );
     }
 
     public hide(): void {
+        this._pageManager.application.bookManager.unselectBook();
         this._hidden = true;
         this._htmlElement.classList.remove(ClassConstants.FADE_IN);
         this._htmlElement.classList.add(ClassConstants.FADE_OUT);
-        setTimeout(() => this._htmlElement.classList.add(PageConstants.PAGE_OVERLAY_HIDDEN_CLASS), 1500);
+        setTimeout(
+            () =>
+                this._htmlElement.classList.add(
+                    PageConstants.PAGE_OVERLAY_HIDDEN_CLASS
+                ),
+            1500
+        );
     }
 
     public isVisible(): boolean {

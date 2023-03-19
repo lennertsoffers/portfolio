@@ -14,7 +14,13 @@ export default class PageManager extends EventEmitter {
         this._pages = [];
         this.createPages();
 
-        this._application.bookControls.addEventListener("close", () => this.closeAll());
+        this._application.bookControls.addEventListener("close", () =>
+            this.closeAll()
+        );
+    }
+
+    public get application(): Application {
+        return this._application;
     }
 
     public showPage(pageType: PageOverlayType): void {
@@ -36,7 +42,11 @@ export default class PageManager extends EventEmitter {
 
     private createPages(): void {
         PageConstants.PAGE_DATA_LIST.forEach((pageDataEntry) => {
-            const page = new Page(pageDataEntry.pageType, pageDataEntry.className);
+            const page = new Page(
+                this,
+                pageDataEntry.pageType,
+                pageDataEntry.className
+            );
             page.onClose = () => this.trigger("closePage");
             this._pages.push(page);
         });

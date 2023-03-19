@@ -46,7 +46,13 @@ export default class WorldEventManager {
                 this.triggerCv();
                 break;
             case WorldZone.PROJECTS:
-                this.triggerProjects();
+                this._activeTriggerableWorldEvent = new PageOverlayWorldEvent(
+                    PageOverlayType.PROJECTS,
+                    this._application,
+                    () => {}
+                );
+                this._activeTriggerableWorldEvent.trigger();
+                // this.triggerProjects();
                 break;
         }
     }
@@ -125,7 +131,7 @@ export default class WorldEventManager {
         this._application.cinematicCamera.lookAt(new Vector3(2.02, 0.1, -1.9));
 
         this._activeTriggerableWorldEvent = new PageOverlayWorldEvent(
-            PageOverlayType.CV,
+            PageOverlayType.PROJECTS,
             this._application,
             () => {
                 const zoomOutPath = new CameraPath(

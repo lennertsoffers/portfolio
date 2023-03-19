@@ -32,6 +32,17 @@ export default class Book {
         this.initializeNewPageList();
     }
 
+    public hasPageRight(): boolean {
+        return this._currentPage < this._pageList.length - 1;
+    }
+
+    public hasPageLeft(): boolean {
+        return (
+            (this._bookManager.displaySinglePage() && this._currentPage > 1) ||
+            (!this._bookManager.displaySinglePage() && this._currentPage > 3)
+        );
+    }
+
     public flipUp(): void {
         if (this._currentPage >= this._pageList.length - 1) return;
 
@@ -106,12 +117,10 @@ export default class Book {
     }
 
     private setNewPageList(): void {
-        document
+        this._element
             .querySelectorAll(".page__description p")
-            .forEach((paragraph) =>
-                paragraph.classList.remove(ClassConstants.HIDDEN)
-            );
-        const newPageList = [];
+            .forEach((paragraph) => paragraph.classList.remove("page-hidden"));
+        const newPageList: HTMLElement[] = [];
 
         if (this._bookManager.displaySinglePage()) {
             this._pageList.forEach((page) => {
@@ -147,13 +156,11 @@ export default class Book {
                             (this._bookManager.getWidth() < 420 &&
                                 characters > 600)
                         ) {
-                            p.classList.add(ClassConstants.HIDDEN);
                             const duplicatedParagraph = p.cloneNode(
                                 true
                             ) as HTMLElement;
-                            duplicatedParagraph.classList.remove(
-                                ClassConstants.HIDDEN
-                            );
+                            p.classList.add("page-hidden");
+
                             newPageParagraphs.push(duplicatedParagraph);
                         }
                     });
@@ -179,7 +186,10 @@ export default class Book {
         } else {
             newPageList.push(this.getNewPlaceholder(true));
 
-            if (this._bookManager.getWidth() < 2000) {
+            if (
+                this._bookManager.getWidth() < 1600 ||
+                this._bookManager.getBookName() === "ABOUT_ME"
+            ) {
                 this._pageList.forEach((page) => {
                     let characters = 0;
                     let newPageParagraphs: HTMLElement[] = [];
@@ -198,35 +208,40 @@ export default class Book {
                         characters += 200;
                     }
 
-                    if (page.classList.contains("page--about_me_1")) {
-                        characters += 1000;
+                    if (
+                        this._bookManager.getHeight() > 900 &&
+                        this._bookManager.getWidth() > 1400 &&
+                        page.classList.contains("page--about_me_1")
+                    ) {
+                        characters -= 200;
                     }
 
                     if (pageHeader && pageDescription) {
                         let paragraphLeft = false;
+                        let pCount = 0;
 
                         (
                             [
                                 ...pageDescription.querySelectorAll("p")
                             ] as HTMLElement[]
                         ).forEach((p) => {
+                            pCount++;
                             characters += p.innerHTML.length;
-
                             if (
-                                ((this._bookManager.getHeight() < 900 &&
+                                (((this._bookManager.getHeight() < 900 &&
                                     characters > 500) ||
                                     characters > 1000 ||
                                     (this._bookManager.getWidth() / 2 < 800 &&
                                         characters > 500)) &&
-                                paragraphLeft
+                                    paragraphLeft) ||
+                                (pCount > 3 &&
+                                    this._bookManager.getBookName() ===
+                                        "ABOUT_ME")
                             ) {
-                                p.classList.add(ClassConstants.HIDDEN);
                                 const duplicatedParagraph = p.cloneNode(
                                     true
                                 ) as HTMLElement;
-                                duplicatedParagraph.classList.remove(
-                                    ClassConstants.HIDDEN
-                                );
+                                p.classList.add("page-hidden");
                                 newPageParagraphs.push(duplicatedParagraph);
                             }
 

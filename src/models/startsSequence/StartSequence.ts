@@ -19,7 +19,7 @@ export default class StartSequence {
     public play(): void {
         this.resumeControls();
         this.setupPlayer();
-        this.playAnimation();
+        // this.playAnimation();
         this._application.particleManager.spawnAmbientParticles(
             new Vector3(0, 0, 0),
             10,
@@ -81,28 +81,39 @@ export default class StartSequence {
     }
 
     private async playDialog(): Promise<void> {
-        this._application.hud.dialog.show();
+        return new Promise(async (resolve) => {
+            this._application.hud.dialog.addOnSkipCallback(() => {
+                this._application.hud.menu.animate();
 
-        await this._application.hud.dialog.writeText(
-            ...DialogConstants.WELCOME_TEXT_QUEUE
-        );
+                this._application.hud.dialog.hide();
+                resolve();
+            });
 
-        this._application.hud.menu.animate();
-        setTimeout(() => {
-            this._application.hud.menu.toggleNavigation();
+            this._application.hud.dialog.show();
 
+            await this._application.hud.dialog.writeText(
+                ...DialogConstants.WELCOME_TEXT_QUEUE
+            );
+
+            this._application.hud.menu.animate();
             setTimeout(() => {
-                this._application.hud.menu.hideNavigation();
-            }, 3000);
-        }, 500);
+                this._application.hud.menu.toggleNavigation();
 
-        await this._application.hud.dialog.writeText(
-            ...DialogConstants.MENU_TEXT_QUEUE
-        );
+                setTimeout(() => {
+                    this._application.hud.menu.hideNavigation();
+                }, 3000);
+            }, 500);
 
-        await this._application.hud.dialog.writeText(
-            ...DialogConstants.HAVE_FUN_TEXT_QUEUE
-        );
+            await this._application.hud.dialog.writeText(
+                ...DialogConstants.MENU_TEXT_QUEUE
+            );
+
+            await this._application.hud.dialog.writeText(
+                ...DialogConstants.HAVE_FUN_TEXT_QUEUE
+            );
+
+            resolve();
+        });
     }
 
     private resumeControls(): void {

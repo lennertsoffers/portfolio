@@ -5,6 +5,8 @@ export default class ClassConstants {
         "page_overlay_loading_continue";
     public static DIALOG_CLASS_NAME = "dialog";
     public static DIALOG_CONTENT_CLASS_NAME = "dialog__content";
+    public static DIALOG_NEXT_BUTTON_CLASS_NAME = "dialog__button--next";
+    public static DIALOG_SKIP_BUTTON_CLASS_NAME = "dialog__button--skip";
 
     public static MENU_CLASS_NAME = "menu";
     public static MENU_ANIMATED_CLASS_NAME = "menu--animated";
