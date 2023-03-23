@@ -6,13 +6,12 @@
     overflow: hidden;
     backface-visibility: hidden;
     z-index: 1;
-    height: 100vh;
+    height: 100%;
 
     &.book__single {
         &.book__extra_small {
-            padding: $cover_width_extra_small
-                $cover_and_page_stack_width_extra_small $cover_width_extra_small
-                0;
+            padding: $cover_width_extra_small $cover_and_page_stack_width_extra_small
+                $cover_width_extra_small 0;
         }
 
         &.book__small {
@@ -31,16 +30,14 @@
         }
 
         &.book__extra_large {
-            padding: $cover_width_extra_large
-                $cover_and_page_stack_width_extra_large $cover_width_extra_large
-                0;
+            padding: $cover_width_extra_large $cover_and_page_stack_width_extra_large
+                $cover_width_extra_large 0;
         }
     }
 
     &.book__double {
         &.book__extra_small {
-            padding: $cover_width_extra_small
-                $cover_and_page_stack_width_extra_small;
+            padding: $cover_width_extra_small $cover_and_page_stack_width_extra_small;
         }
 
         &.book__small {
@@ -56,8 +53,7 @@
         }
 
         &.book__extra_large {
-            padding: $cover_width_extra_large
-                $cover_and_page_stack_width_extra_large;
+            padding: $cover_width_extra_large $cover_and_page_stack_width_extra_large;
         }
     }
 }

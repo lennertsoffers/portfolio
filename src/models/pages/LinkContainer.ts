@@ -66,16 +66,20 @@ export default class LinkContainer {
 
     public showLinkLeft(linkElement: string): void {
         this._leftInnerHtmlReference.value = linkElement;
+        this._centerInnerHtmlReference.value = "";
         this.handleWaitFor();
     }
 
     public showLinkCenter(linkElement: string): void {
         this._centerInnerHtmlReference.value = linkElement;
+        this._leftInnerHtmlReference.value = "";
+        this._rightInnerHtmlReference.value = "";
         this.handleWaitFor();
     }
 
     public showLinkRight(linkElement: string): void {
         this._rightInnerHtmlReference.value = linkElement;
+        this._centerInnerHtmlReference.value = "";
         this.handleWaitFor();
     }
 

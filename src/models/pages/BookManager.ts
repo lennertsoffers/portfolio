@@ -85,6 +85,16 @@ export default class BookManager {
             this.updateNavigation();
             this._activeBook && this._activeBook.book.showLinks();
         });
+        this._application.touchControls.addEventListener("swipeUp", () => {
+            document.querySelectorAll(".page").forEach((page) => {
+                page.scrollBy({ top: 15 });
+            });
+        });
+        this._application.touchControls.addEventListener("swipeDown", () => {
+            document.querySelectorAll(".page").forEach((page) => {
+                page.scrollBy({ top: -15 });
+            });
+        });
     }
 
     private updateNavigation(): void {
@@ -118,8 +128,6 @@ export default class BookManager {
 
         document
             .querySelectorAll(".page__link")
-            .forEach((pageLink) =>
-                pageLink.classList.add(ClassConstants.HIDDEN)
-            );
+            .forEach((pageLink) => pageLink.classList.add(ClassConstants.HIDDEN));
     }
 }

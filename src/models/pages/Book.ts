@@ -1,5 +1,4 @@
 import BookConstants from "../constants/BookConstants";
-import ClassConstants from "../constants/ClassConstants";
 import ElementNotFoundError from "../error/ElementNotFoundError";
 import BookManager from "./BookManager";
 import LinkContainer from "./LinkContainer";
@@ -17,9 +16,7 @@ export default class Book {
         this._linkContainer = this._bookManager.application.linkContainer;
         this._element = element;
 
-        const pageListWrapper = this._element.querySelector(
-            ".pages"
-        ) as HTMLElement;
+        const pageListWrapper = this._element.querySelector(".pages") as HTMLElement;
         if (!pageListWrapper) throw new ElementNotFoundError(".pages");
         this._pageListWrapper = pageListWrapper;
 
@@ -55,20 +52,53 @@ export default class Book {
         const nextElementSibling = page.nextElementSibling;
         if (nextElementSibling) nextElementSibling.classList.add("flipped");
         this._currentPage += 2;
+
+        this.resetScroll();
+
+        if (
+            navigator.userAgent.match(/Android/i) ||
+            navigator.userAgent.match(/iPhone/i)
+        ) {
+            document.querySelectorAll(".page").forEach((page) => {
+                if (page.getAttribute("data-page-id") !== `${this._currentPage}`) {
+                    page.classList.add("hidden");
+                } else {
+                    page.classList.remove("hidden");
+                }
+            });
+        }
     }
 
     public flipDown(): void {
-        if (this._bookManager.displaySinglePage() && this._currentPage <= 1)
-            return;
-        if (!this._bookManager.displaySinglePage() && this._currentPage <= 3)
-            return;
+        if (this._bookManager.displaySinglePage() && this._currentPage <= 1) return;
+        if (!this._bookManager.displaySinglePage() && this._currentPage <= 3) return;
 
         const page = this.getPage(this._currentPage - 1);
         page.classList.remove("flipped");
         const previousElementSibling = page.previousElementSibling;
-        if (previousElementSibling)
-            previousElementSibling.classList.remove("flipped");
+        if (previousElementSibling) previousElementSibling.classList.remove("flipped");
         this._currentPage -= 2;
+
+        this.resetScroll();
+
+        if (
+            navigator.userAgent.match(/Android/i) ||
+            navigator.userAgent.match(/iPhone/i)
+        ) {
+            document.querySelectorAll(".page").forEach((page) => {
+                if (page.getAttribute("data-page-id") !== `${this._currentPage}`) {
+                    page.classList.add("hidden");
+                } else {
+                    page.classList.remove("hidden");
+                }
+            });
+        }
+    }
+
+    private resetScroll(): void {
+        document.querySelectorAll(".page").forEach((page) => {
+            page.scrollTop = 0;
+        });
     }
 
     private getPage(pageNumber: number): HTMLElement {
@@ -94,14 +124,10 @@ export default class Book {
         // Update single page
         if (this._bookManager.displaySinglePage()) {
             this._element.classList.add(BookConstants.BOOK_SINGLE_PAGE_CLASS);
-            this._element.classList.remove(
-                BookConstants.BOOK_DOUBLE_PAGE_CLASS
-            );
+            this._element.classList.remove(BookConstants.BOOK_DOUBLE_PAGE_CLASS);
         } else {
             this._element.classList.add(BookConstants.BOOK_DOUBLE_PAGE_CLASS);
-            this._element.classList.remove(
-                BookConstants.BOOK_SINGLE_PAGE_CLASS
-            );
+            this._element.classList.remove(BookConstants.BOOK_SINGLE_PAGE_CLASS);
         }
 
         // Update current page number
@@ -134,40 +160,36 @@ export default class Book {
                 const pageHeader = page
                     .querySelector(".page__header")
                     ?.cloneNode(true) as HTMLElement;
-                const pageDescription =
-                    page.querySelector(".page__description");
+                const pageDescription = page.querySelector(".page__description");
 
                 if (pageHeader && pageDescription) {
-                    (
-                        [
-                            ...pageDescription.querySelectorAll("p")
-                        ] as HTMLElement[]
-                    ).forEach((p) => {
-                        characters += p.innerHTML.length;
+                    ([...pageDescription.querySelectorAll("p")] as HTMLElement[]).forEach(
+                        (p) => {
+                            characters += p.innerHTML.length;
 
-                        if (
-                            ([...page.childNodes] as HTMLElement[]).some((c) =>
-                                c.classList.contains("page__image")
-                            )
-                        ) {
-                            characters += 200;
+                            if (
+                                ([...page.childNodes] as HTMLElement[]).some((c) =>
+                                    c.classList.contains("page__image")
+                                )
+                            ) {
+                                characters += 200;
+                            }
+
+                            if (
+                                (this._bookManager.getHeight() < 900 &&
+                                    characters > 600) ||
+                                characters > 1000 ||
+                                (this._bookManager.getWidth() < 420 && characters > 600)
+                            ) {
+                                const duplicatedParagraph = p.cloneNode(
+                                    true
+                                ) as HTMLElement;
+                                p.classList.add("page-hidden");
+
+                                newPageParagraphs.push(duplicatedParagraph);
+                            }
                         }
-
-                        if (
-                            (this._bookManager.getHeight() < 900 &&
-                                characters > 600) ||
-                            characters > 1000 ||
-                            (this._bookManager.getWidth() < 420 &&
-                                characters > 600)
-                        ) {
-                            const duplicatedParagraph = p.cloneNode(
-                                true
-                            ) as HTMLElement;
-                            p.classList.add("page-hidden");
-
-                            newPageParagraphs.push(duplicatedParagraph);
-                        }
-                    });
+                    );
                 }
 
                 const classList = [...page.classList];
@@ -178,11 +200,7 @@ export default class Book {
 
                 if (newPageParagraphs.length > 0) {
                     newPageList.push(
-                        this.getNewExtendedPage(
-                            pageHeader,
-                            newPageParagraphs,
-                            classList
-                        )
+                        this.getNewExtendedPage(pageHeader, newPageParagraphs, classList)
                     );
                     newPageList.push(this.getNewPlaceholder());
                 }
@@ -201,8 +219,7 @@ export default class Book {
                     const pageHeader = page
                         .querySelector(".page__header")
                         ?.cloneNode(true) as HTMLElement;
-                    const pageDescription =
-                        page.querySelector(".page__description");
+                    const pageDescription = page.querySelector(".page__description");
 
                     if (
                         ([...page.childNodes] as HTMLElement[]).some((c) =>
@@ -225,9 +242,7 @@ export default class Book {
                         let pCount = 0;
 
                         (
-                            [
-                                ...pageDescription.querySelectorAll("p")
-                            ] as HTMLElement[]
+                            [...pageDescription.querySelectorAll("p")] as HTMLElement[]
                         ).forEach((p) => {
                             pCount++;
                             characters += p.innerHTML.length;
@@ -239,8 +254,7 @@ export default class Book {
                                         characters > 500)) &&
                                     paragraphLeft) ||
                                 (pCount > 3 &&
-                                    this._bookManager.getBookName() ===
-                                        "ABOUT_ME")
+                                    this._bookManager.getBookName() === "ABOUT_ME")
                             ) {
                                 const duplicatedParagraph = p.cloneNode(
                                     true
@@ -258,11 +272,7 @@ export default class Book {
 
                     newPageList.push(page);
                     newPageList.push(
-                        this.getNewExtendedPage(
-                            null,
-                            newPageParagraphs,
-                            classList
-                        )
+                        this.getNewExtendedPage(null, newPageParagraphs, classList)
                     );
                 });
             } else {
@@ -294,33 +304,23 @@ export default class Book {
 
             page.setAttribute("data-page-id", `${i + 1}`);
 
-            page.querySelectorAll(".page__header__left").forEach(
-                (headerButtonLeft) => {
-                    const newHeaderButtonLeft =
-                        headerButtonLeft.cloneNode(true);
-                    headerButtonLeft.parentNode?.replaceChild(
-                        newHeaderButtonLeft,
-                        headerButtonLeft
-                    );
-                    newHeaderButtonLeft.addEventListener("click", () =>
-                        this.flipDown()
-                    );
-                }
-            );
+            page.querySelectorAll(".page__header__left").forEach((headerButtonLeft) => {
+                const newHeaderButtonLeft = headerButtonLeft.cloneNode(true);
+                headerButtonLeft.parentNode?.replaceChild(
+                    newHeaderButtonLeft,
+                    headerButtonLeft
+                );
+                newHeaderButtonLeft.addEventListener("click", () => this.flipDown());
+            });
 
-            page.querySelectorAll(".page__header__right").forEach(
-                (headerButtonRight) => {
-                    const newHeaderButtonRight =
-                        headerButtonRight.cloneNode(true);
-                    headerButtonRight.parentNode?.replaceChild(
-                        newHeaderButtonRight,
-                        headerButtonRight
-                    );
-                    newHeaderButtonRight.addEventListener("click", () =>
-                        this.flipUp()
-                    );
-                }
-            );
+            page.querySelectorAll(".page__header__right").forEach((headerButtonRight) => {
+                const newHeaderButtonRight = headerButtonRight.cloneNode(true);
+                headerButtonRight.parentNode?.replaceChild(
+                    newHeaderButtonRight,
+                    headerButtonRight
+                );
+                newHeaderButtonRight.addEventListener("click", () => this.flipUp());
+            });
         }
     }
 
@@ -362,9 +362,7 @@ export default class Book {
                 ? page
                 : this.getPage(this._currentPage - 1);
 
-            this._linkContainer.showLinkCenter(
-                this.extractLinkFromPage(mainPage)
-            );
+            this._linkContainer.showLinkCenter(this.extractLinkFromPage(mainPage));
         } else {
             const pageLeft = this.getPage(this._currentPage - 1);
             const pageRight = this.getPage(this._currentPage);
@@ -372,17 +370,13 @@ export default class Book {
             // Display link in center
             if (pageRight.classList.contains("page__extended")) {
                 const mainPage = pageLeft;
-                this._linkContainer.showLinkCenter(
-                    this.extractLinkFromPage(mainPage)
-                );
+                this._linkContainer.showLinkCenter(this.extractLinkFromPage(mainPage));
             }
 
             // Display one link left and one link right
             else {
                 const mainPageLeft = pageLeft;
-                this._linkContainer.showLinkLeft(
-                    this.extractLinkFromPage(mainPageLeft)
-                );
+                this._linkContainer.showLinkLeft(this.extractLinkFromPage(mainPageLeft));
                 const mainPageRight = pageRight;
                 this._linkContainer.showLinkRight(
                     this.extractLinkFromPage(mainPageRight)

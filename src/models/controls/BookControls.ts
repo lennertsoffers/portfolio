@@ -77,5 +77,11 @@ export default class BookControls extends EventEmitter {
             event.stopPropagation();
             this.trigger("right");
         });
+
+        this._bookControlsElement.addEventListener("wheel", (event: WheelEvent) => {
+            document.querySelectorAll(".page").forEach((page) => {
+                page.scrollBy({ top: event.deltaY / 4 });
+            });
+        });
     }
 }

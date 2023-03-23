@@ -20,6 +20,9 @@ export default class Dimensions extends EventEmitter {
     }
 
     private updateOnResize(): void {
+        let root = document.documentElement;
+        root.style.setProperty("--vh", root.clientHeight + "px");
+
         window.addEventListener("resize", () => {
             this._width = window.innerWidth;
             this._height = window.innerHeight;

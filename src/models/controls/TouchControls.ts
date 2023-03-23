@@ -9,6 +9,7 @@ export default class TouchControls extends EventEmitter {
         x: 0,
         y: 0
     };
+    private _movementY = 0;
 
     constructor() {
         super();
@@ -17,10 +18,14 @@ export default class TouchControls extends EventEmitter {
     }
 
     private addTouchControls(): void {
-        document.addEventListener("touchstart", (touchEvent) => this.handleTouchStart(touchEvent));
+        document.addEventListener("touchstart", (touchEvent) =>
+            this.handleTouchStart(touchEvent)
+        );
         document.addEventListener("touchend", () => this.handleTouchEnd());
         document.addEventListener("touchcancel", () => this.handleTouchEnd());
-        document.addEventListener("touchmove", (touchEvent) => this.handleTouchMove(touchEvent));
+        document.addEventListener("touchmove", (touchEvent) => {
+            this.handleTouchMove(touchEvent);
+        });
     }
 
     private handleTouchStart(touchEvent: TouchEvent): void {
@@ -31,20 +36,28 @@ export default class TouchControls extends EventEmitter {
 
     private handleTouchEnd(): void {
         const movementX = this._touchEndLocation.x - this._touchStartLocation.x;
-        const movementY = this._touchEndLocation.y - this._touchStartLocation.y;
 
-        if (Math.abs(movementX) > Math.abs(movementY)) {
-            if (movementX < 0) this.trigger("swipeLeft");
-            if (movementX > 0) this.trigger("swipeRight");
-        } else {
-            if (movementY < 0) this.trigger("swipeUp");
-            if (movementY > 0) this.trigger("swipeDown");
-        }
+        // if (movementX < -100) this.trigger("swipeLeft");
+        // if (movementX > 100) this.trigger("swipeRight");
     }
 
     private handleTouchMove(touchEvent: TouchEvent): void {
         const touch = touchEvent.touches[0];
         this._touchEndLocation.x = touch.clientX;
         this._touchEndLocation.y = touch.clientY;
+
+        this._movementY = this._touchEndLocation.y - this._touchStartLocation.y;
+
+        if (this._movementY > 15) {
+            this._movementY = 0;
+            this._touchStartLocation.y = this._touchEndLocation.y;
+            this.trigger("swipeDown");
+        }
+
+        if (this._movementY < -15) {
+            this._movementY = 0;
+            this._touchStartLocation.y = this._touchEndLocation.y;
+            this.trigger("swipeUp");
+        }
     }
 }

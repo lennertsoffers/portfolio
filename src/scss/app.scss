@@ -11,7 +11,6 @@
 @import "core/animations";
 
 // Mixins
-@import "mixins/page_overlay";
 @import "mixins/children";
 @import "mixins/font_size_weight";
 @import "mixins/page_stack";
@@ -48,6 +47,10 @@
     padding: 0;
 }
 
+:root {
+    --vh: 0px;
+}
+
 html,
 body {
     overflow: hidden;
@@ -67,7 +70,7 @@ body {
     z-index: 1;
     position: fixed;
     width: 100vw;
-    height: 100vh;
+    height: 100%;
 }
 
 .page_overlay_hidden {

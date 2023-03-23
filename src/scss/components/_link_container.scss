@@ -11,20 +11,72 @@
         }
 
         width: 200px;
-        text-align: center;
         position: fixed;
         z-index: 1000;
         height: $book_controls_button_dimensions_small;
         line-height: $book_controls_button_dimensions_small;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        a {
+            display: block;
+            height: calc($book_controls_button_dimensions_small / 1.5);
+            width: calc($book_controls_button_dimensions_small / 1.5);
+
+            svg {
+                display: block;
+                height: calc($book_controls_button_dimensions_small / 1.5);
+                width: calc($book_controls_button_dimensions_small / 1.5);
+
+                path {
+                    transition: fill 0.2s;
+                }
+            }
+        }
+
+        a:hover {
+            svg {
+                path {
+                    fill: #3f5be8;
+                }
+
+                animation: wiggle 0.2s ease-in-out;
+            }
+        }
 
         @media screen and (min-width: $book_controls_medium) {
             height: $book_controls_button_dimensions_medium;
             line-height: $book_controls_button_dimensions_medium;
+
+            a {
+                display: block;
+                height: calc($book_controls_button_dimensions_medium / 2);
+                width: calc($book_controls_button_dimensions_medium / 2);
+
+                svg {
+                    display: block;
+                    height: calc($book_controls_button_dimensions_medium / 2);
+                    width: calc($book_controls_button_dimensions_medium / 2);
+                }
+            }
         }
 
         @media screen and (min-width: $book_controls_large) {
             height: $book_controls_button_dimensions_large;
             line-height: $book_controls_button_dimensions_large;
+
+            a {
+                display: block;
+                height: calc($book_controls_button_dimensions_large / 2);
+                width: calc($book_controls_button_dimensions_large / 2);
+
+                svg {
+                    display: block;
+                    height: calc($book_controls_button_dimensions_large / 2);
+                    width: calc($book_controls_button_dimensions_large / 2);
+                }
+            }
         }
 
         &.link_container--left {
@@ -44,11 +96,11 @@
         }
 
         &.fadeIn {
-            animation: fadeIn 0.7s ease-out forwards;
+            animation: fadeIn 0.25s ease-out forwards;
         }
 
         &.fadeOut {
-            animation: fadeOut 0.7s ease-in forwards;
+            animation: fadeOut 0.25s ease-in forwards;
         }
     }
 }
