@@ -9,6 +9,7 @@
 @import "core/spacing";
 @import "core/sizes";
 @import "core/animations";
+@import "core/cursor";
 
 // Mixins
 @import "mixins/children";
@@ -25,6 +26,7 @@
 @import "components/page_description";
 @import "components/page_stickers";
 @import "components/book_controls";
+@import "components/mobile_controls";
 @import "components/highlight";
 @import "components/pointer";
 @import "components/menu";
@@ -82,10 +84,15 @@ body {
 }
 
 .page_overlay_loading {
+    z-index: 2000;
     background-color: #fff;
     font-size: 40px;
-    line-height: 50vh;
     text-align: center;
+    overflow: scroll;
+}
+
+.page_overlay_continue_button {
+    background-color: #000;
 }
 
 .page_overlay_hide_button {
@@ -96,4 +103,12 @@ body {
     width: 100px;
     top: 0;
     left: 0;
+}
+
+body {
+    cursor: $cursor_grab;
+}
+
+canvas.mousedown {
+    cursor: $cursor_grabbing;
 }

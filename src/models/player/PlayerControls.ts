@@ -1,6 +1,7 @@
 import { Vector3 } from "three";
 import Tickable from "../../types/interfaces/Tickable";
 import ControlConstants from "../constants/ControlsConstants";
+import DeviceType from "../enum/DeviceType";
 import KeyType from "../enum/KeyType";
 import PlayerState from "../enum/PlayerState";
 import AttachableCamera from "../three/AttachableCamera";
@@ -27,7 +28,7 @@ export default class PlayerControls implements Tickable {
         this._player = player;
         this._loaded = false;
 
-        this._keysDown = new Set<string>;
+        this._keysDown = new Set<string>();
         this._keyboardControlsEnabled = true;
         this._pressedKeyType = KeyType.NONE;
 
@@ -36,6 +37,8 @@ export default class PlayerControls implements Tickable {
         this._orbitPosition = new Vector3();
         this._initialRotationY = 0;
         this._orbitMovement = new Vector3();
+
+        this._player.application.mobileControls.addEventListener("interact", () => this.interact());
     }
 
     public get character(): PlayerModel {
@@ -53,7 +56,9 @@ export default class PlayerControls implements Tickable {
     public tick(_deltaTime: number, _elapsedTime: number): void {
         if (!this._loaded || !this._keyboardControlsEnabled) return;
 
-        this.handlePressedKeys();
+        if (this._player.application.dimensions.deviceType === DeviceType.MOBILE)
+            this.handleButtonsDown();
+        else this.handlePressedKeys();
     }
 
     public loadControls(): void {
@@ -88,7 +93,12 @@ export default class PlayerControls implements Tickable {
         });
 
         window.addEventListener("pointermove", (event) => {
-            if (!this._dragging || !this._orbitControlsActive) return;
+            if (
+                !this._dragging ||
+                !this._orbitControlsActive ||
+                this._player.application.dimensions.deviceType === DeviceType.MOBILE
+            )
+                return;
 
             this.updateOrbitValues(event);
             this.updateOrbitControls();
@@ -112,7 +122,13 @@ export default class PlayerControls implements Tickable {
         const relativeMovementY = event.movementY / this._player.application.dimensions.height;
 
         this._orbitMovement.x += relativeMovementX * ControlConstants.ORBIT_SENSITIVITY;
-        this._orbitMovement.y = Math.min(Math.max(this._orbitMovement.y + relativeMovementY * ControlConstants.ORBIT_SENSITIVITY, -ControlConstants.ORBIT_Y_LIMIT), ControlConstants.ORBIT_Y_LIMIT);
+        this._orbitMovement.y = Math.min(
+            Math.max(
+                this._orbitMovement.y + relativeMovementY * ControlConstants.ORBIT_SENSITIVITY,
+                -ControlConstants.ORBIT_Y_LIMIT
+            ),
+            ControlConstants.ORBIT_Y_LIMIT
+        );
         this._orbitMovement.z += relativeMovementX * ControlConstants.ORBIT_SENSITIVITY;
     }
 
@@ -120,9 +136,15 @@ export default class PlayerControls implements Tickable {
         const distanceModifier = this.camera.distanceModifier;
 
         this.camera.futurePosition = new Vector3(
-            this._orbitPosition.x + Math.sin(this._orbitMovement.x + this._initialRotationY) * Math.cos(this._orbitMovement.y) * distanceModifier,
+            this._orbitPosition.x +
+                Math.sin(this._orbitMovement.x + this._initialRotationY) *
+                    Math.cos(this._orbitMovement.y) *
+                    distanceModifier,
             this._orbitPosition.y + Math.sin(this._orbitMovement.y) * distanceModifier,
-            this._orbitPosition.z + Math.cos(this._orbitMovement.z + this._initialRotationY) * Math.cos(this._orbitMovement.y) * distanceModifier
+            this._orbitPosition.z +
+                Math.cos(this._orbitMovement.z + this._initialRotationY) *
+                    Math.cos(this._orbitMovement.y) *
+                    distanceModifier
         );
     }
 
@@ -135,6 +157,35 @@ export default class PlayerControls implements Tickable {
         window.addEventListener("keyup", (event) => {
             this._keysDown.delete(event.key.toLowerCase());
         });
+    }
+
+    private handleButtonsDown(): void {
+        const buttonsDown = this._player.application.mobileControls.buttonsDown;
+
+        this.resetPressedKeyType();
+
+        if (buttonsDown.left) {
+            this.moveLeft();
+        }
+        if (buttonsDown.right) {
+            this.moveRight();
+        }
+
+        if (this._pressedKeyType === KeyType.MOVE) return;
+        if (buttonsDown.forwards) {
+            this.moveForwards();
+            this._pressedKeyType = KeyType.MOVE;
+        } else if (buttonsDown.backwards) {
+            this.moveBackwards();
+            this._pressedKeyType = KeyType.MOVE;
+        }
+
+        if ((this._pressedKeyType as KeyType) === KeyType.MOVE) {
+            this.stopOrbiting();
+        } else if (this._pressedKeyType === KeyType.EMOTE) {
+        } else {
+            this._player.setPlayerState(PlayerState.IDLE);
+        }
     }
 
     private handlePressedKeys(): void {
@@ -152,8 +203,6 @@ export default class PlayerControls implements Tickable {
 
                 case "s":
                 case "arrowdown":
-                    if (this._pressedKeyType === KeyType.MOVE) return;
-
                     this._pressedKeyType = KeyType.MOVE;
                     this.moveBackwards();
                     return;
@@ -190,7 +239,6 @@ export default class PlayerControls implements Tickable {
         if (this._pressedKeyType === KeyType.MOVE) {
             this.stopOrbiting();
         } else if (this._pressedKeyType === KeyType.EMOTE) {
-
         } else {
             this._player.setPlayerState(PlayerState.IDLE);
         }
@@ -203,24 +251,38 @@ export default class PlayerControls implements Tickable {
     private moveForwards(): void {
         if (this._keysDown.has("shift")) {
             this._player.setPlayerState(PlayerState.RUNNING);
-            this._player.futurePosition = this._player.currentPosition.add(this.character.getDirectionY().multiplyScalar(-ControlConstants.PLAYER_RUN_SPEED / 10));
+            this._player.futurePosition = this._player.currentPosition.add(
+                this.character
+                    .getDirectionY()
+                    .multiplyScalar(-ControlConstants.PLAYER_RUN_SPEED / 10)
+            );
         } else {
             this._player.setPlayerState(PlayerState.WALKING);
-            this._player.futurePosition = this._player.currentPosition.add(this.character.getDirectionY().multiplyScalar(-ControlConstants.PLAYER_WALK_SPEED / 10));
+            this._player.futurePosition = this._player.currentPosition.add(
+                this.character
+                    .getDirectionY()
+                    .multiplyScalar(-ControlConstants.PLAYER_WALK_SPEED / 10)
+            );
         }
     }
 
     private moveBackwards(): void {
         this._player.setPlayerState(PlayerState.WALKING);
-        this._player.futurePosition = this._player.currentPosition.add(this.character.getDirectionY().multiplyScalar(ControlConstants.PLAYER_WALK_SPEED / 10));
+        this._player.futurePosition = this._player.currentPosition.add(
+            this.character.getDirectionY().multiplyScalar(ControlConstants.PLAYER_WALK_SPEED / 10)
+        );
     }
 
     private moveLeft(): void {
-        this._player.futureRotation = this._player.currentRotation.add(new Vector3(0, ControlConstants.PLAYER_ROTATION_SPEED, 0));
+        this._player.futureRotation = this._player.currentRotation.add(
+            new Vector3(0, ControlConstants.PLAYER_ROTATION_SPEED, 0)
+        );
     }
 
     private moveRight(): void {
-        this._player.futureRotation = this._player.currentRotation.add(new Vector3(0, -ControlConstants.PLAYER_ROTATION_SPEED, 0));
+        this._player.futureRotation = this._player.currentRotation.add(
+            new Vector3(0, -ControlConstants.PLAYER_ROTATION_SPEED, 0)
+        );
     }
 
     private jump(): void {

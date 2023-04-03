@@ -28,7 +28,7 @@ export default class Player {
 
     constructor(application: Application) {
         this._application = application;
-        this._loaded = false;
+        this._loaded = true;
 
         this._playerModel = new PlayerModel(this);
         this._playerControls = new PlayerControls(this);
@@ -124,13 +124,17 @@ export default class Player {
                 return;
             case PlayerState.WAVING:
                 this._playerControls.keyboardControlsEnabled = false;
-                this.playerModel.wave().then(() => this._playerControls.keyboardControlsEnabled = true);
+                this.playerModel
+                    .wave()
+                    .then(() => (this._playerControls.keyboardControlsEnabled = true));
                 return;
             case PlayerState.JUMPING:
                 this._playerControls.keyboardControlsEnabled = false;
                 this._jumpStartHeight = this.currentPosition.y;
                 this._jumpTime = 0;
-                this.playerModel.jump().then(() => this._playerControls.keyboardControlsEnabled = true);
+                this.playerModel
+                    .jump()
+                    .then(() => (this._playerControls.keyboardControlsEnabled = true));
                 return;
         }
     }
@@ -155,21 +159,39 @@ export default class Player {
         let angleYRight = angleY + Math.PI / 2;
 
         const loopStartValue = backwards ? 0.8 : 0;
-        const loopCondition = (num: number) => backwards ? num > 0 : num < 0.8;
-        const loopIncrement = (num: number) => backwards ? num -= 0.02 : num += 0.02;
+        const loopCondition = (num: number) => (backwards ? num > 0 : num < 0.8);
+        const loopIncrement = (num: number) => (backwards ? (num -= 0.02) : (num += 0.02));
 
         for (let i = loopStartValue; loopCondition(i); i = loopIncrement(i)) {
             const radius = 0.4 * Math.pow(1 - i, 1 / 2);
-            const positionLeft = center.clone().add(MathUtils.directionFromAngleY(angleYLeft).multiplyScalar(radius)).add(new Vector3(0, i, 0));
-            const positionRight = center.clone().add(MathUtils.directionFromAngleY(angleYRight).multiplyScalar(radius)).add(new Vector3(0, i, 0));
+            const positionLeft = center
+                .clone()
+                .add(MathUtils.directionFromAngleY(angleYLeft).multiplyScalar(radius))
+                .add(new Vector3(0, i, 0));
+            const positionRight = center
+                .clone()
+                .add(MathUtils.directionFromAngleY(angleYRight).multiplyScalar(radius))
+                .add(new Vector3(0, i, 0));
 
-            this._application.particleManager.spawnParticleExplosion(positionLeft, 2, 1000, new Color(0xb3e595), 4);
-            this._application.particleManager.spawnParticleExplosion(positionRight, 2, 1000, new Color(0xb3e595), 4);
+            this._application.particleManager.spawnParticleExplosion(
+                positionLeft,
+                2,
+                1000,
+                new Color(0xb3e595),
+                4
+            );
+            this._application.particleManager.spawnParticleExplosion(
+                positionRight,
+                2,
+                1000,
+                new Color(0xb3e595),
+                4
+            );
 
             angleYLeft += 0.2;
             angleYRight += 0.2;
 
-            await new Promise((resolve) => setTimeout(resolve, 20));
+            await new Promise((resolve) => setTimeout(resolve, 40));
         }
     }
 
@@ -184,12 +206,18 @@ export default class Player {
 
         // Rotation
         const rotationVec = new Vector3().subVectors(this._futureRotation, this.currentRotation);
-        this._currentRotation.add(rotationVec.multiplyScalar(deltaTime * 0.01 / ControlConstants.PLAYER_ROTATION_DAMPING));
-
+        this._currentRotation.add(
+            rotationVec.multiplyScalar(
+                (deltaTime * 0.01) / ControlConstants.PLAYER_ROTATION_DAMPING
+            )
+        );
 
         // Height
         if (this._playerState !== PlayerState.JUMPING) {
-            this._futurePosition.y += CollisionUtils.getHeightDifference(this._futurePosition, this._application.world.floorCollisionMeshes);
+            this._futurePosition.y += CollisionUtils.getHeightDifference(
+                this._futurePosition,
+                this._application.world.floorCollisionMeshes
+            );
         }
 
         this._futurePosition.y += ModelConstants.PLAYER_HEIGHT_MODIFIER;
@@ -198,8 +226,19 @@ export default class Player {
         const movementVec = new Vector3().subVectors(this._futurePosition, this.currentPosition);
 
         // Don't execute movement if future position will collide with walls
-        if (CollisionUtils.hasCollisionInMovement(this._currentPosition, movementVec, this._application.world.wallsCollisionMeshes)) return;
-        this._currentPosition.add(movementVec.multiplyScalar(deltaTime * 0.01 / ControlConstants.PLAYER_MOVEMENT_DAMPING));
+        if (
+            CollisionUtils.hasCollisionInMovement(
+                this._currentPosition,
+                movementVec,
+                this._application.world.wallsCollisionMeshes
+            )
+        )
+            return;
+        this._currentPosition.add(
+            movementVec.multiplyScalar(
+                (deltaTime * 0.01) / ControlConstants.PLAYER_MOVEMENT_DAMPING
+            )
+        );
     }
 
     private updateAvailableActions(): void {
@@ -208,15 +247,28 @@ export default class Player {
         const forwardsDirection = MathUtils.directionFromAngleY(this._currentRotation.y);
 
         const forwardsRay = new Raycaster(this._currentPosition, forwardsDirection);
-        const backwardsRay = new Raycaster(this._currentPosition, forwardsDirection.clone().negate());
+        const backwardsRay = new Raycaster(
+            this._currentPosition,
+            forwardsDirection.clone().negate()
+        );
 
-        const forwardsIntersections = forwardsRay.intersectObjects(this._application.world.actionCollisionMeshes).map((intersection) => intersection.object.name);
-        const backwardsIntersections = backwardsRay.intersectObjects(this._application.world.actionCollisionMeshes).map((intersection) => intersection.object.name);
+        const forwardsIntersections = forwardsRay
+            .intersectObjects(this._application.world.actionCollisionMeshes)
+            .map((intersection) => intersection.object.name);
+        const backwardsIntersections = backwardsRay
+            .intersectObjects(this._application.world.actionCollisionMeshes)
+            .map((intersection) => intersection.object.name);
 
-        const activeZones = forwardsIntersections.filter((intersection) => backwardsIntersections.includes(intersection));
+        const activeZones = forwardsIntersections.filter((intersection) =>
+            backwardsIntersections.includes(intersection)
+        );
 
-        if (activeZones.length === 0) this._application.world.worldEventManager.handleWorldZoneChange(WorldZone.NONE);
-        else this._application.world.worldEventManager.handleWorldZoneChange(worldZoneValueOf(activeZones[activeZones.length - 1].replace("action_box_", "")));
+        if (activeZones.length === 0)
+            this._application.world.worldEventManager.handleWorldZoneChange(WorldZone.NONE);
+        else
+            this._application.world.worldEventManager.handleWorldZoneChange(
+                worldZoneValueOf(activeZones[activeZones.length - 1].replace("action_box_", ""))
+            );
     }
 
     private updateJumpPosition(deltaTime: number): void {
@@ -230,7 +282,10 @@ export default class Player {
         this._futurePosition.setY(currentY);
 
         if (jumpHeight > 0) {
-            const directionY = this._playerModel.getDirectionY().divideScalar(-deltaTime * 5).setY(0);
+            const directionY = this._playerModel
+                .getDirectionY()
+                .divideScalar(-deltaTime * 5)
+                .setY(0);
             this._futurePosition.add(directionY);
         }
     }

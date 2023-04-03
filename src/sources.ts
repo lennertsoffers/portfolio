@@ -58,9 +58,8 @@ const sources: LoadCycleEntry[] = [
     },
     {
         name: "world 2 textures",
-        sourceEntries: [
-        ]
+        sourceEntries: []
     }
 ];
 
-export default sources; 
+export default sources;

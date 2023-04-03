@@ -2,6 +2,7 @@ import { Vector3 } from "three";
 import ClassConstants from "../constants/ClassConstants";
 import ElementNotFoundError from "../error/ElementNotFoundError";
 import Hud from "./Hud";
+import SoundType from "../enum/SoundType";
 
 export default class Menu {
     private _hud: Hud;
@@ -13,20 +14,15 @@ export default class Menu {
     constructor(hud: Hud) {
         this._hud = hud;
 
-        const element = document.querySelector(
-            `.${ClassConstants.MENU_CLASS_NAME}`
-        ) as HTMLElement;
-        if (!element)
-            throw new ElementNotFoundError(ClassConstants.MENU_CLASS_NAME);
+        const element = document.querySelector(`.${ClassConstants.MENU_CLASS_NAME}`) as HTMLElement;
+        if (!element) throw new ElementNotFoundError(ClassConstants.MENU_CLASS_NAME);
         this._htmlElement = element;
 
         const navigationElement = document.querySelector(
             `.${ClassConstants.MENU_NAVIGATION_CLASS_NAME}`
         ) as HTMLElement;
         if (!navigationElement)
-            throw new ElementNotFoundError(
-                ClassConstants.MENU_NAVIGATION_CLASS_NAME
-            );
+            throw new ElementNotFoundError(ClassConstants.MENU_NAVIGATION_CLASS_NAME);
         this._navigationElement = navigationElement;
 
         this._navigationActive = false;
@@ -47,9 +43,7 @@ export default class Menu {
 
     public animate(): void {
         this.show();
-        this._htmlElement.classList.add(
-            ClassConstants.MENU_ANIMATED_CLASS_NAME
-        );
+        this._htmlElement.classList.add(ClassConstants.MENU_ANIMATED_CLASS_NAME);
     }
 
     public hide(): void {
@@ -58,6 +52,7 @@ export default class Menu {
 
     public toggleNavigation(): void {
         if (this._animating) return;
+        this._hud.application.audioManager.playSound(SoundType.CLICK);
         this._navigationElement.classList.remove(ClassConstants.HIDDEN);
 
         if (this._navigationActive) this.hideNavigation();
@@ -96,16 +91,9 @@ export default class Menu {
         }, 1200);
     }
 
-    private async handleNavigationClickCv(): Promise<void> {
-        if (!this._hud.application.player) return;
-
-        this._hud.application.player.teleport(
-            new Vector3(1.808, -0.277, -0.835),
-            new Vector3(0, -3.271, 0)
-        );
-    }
-
-    private async handleNavigationClickProjects(): Promise<void> {
+    private async handleNavigationClickInternship(): Promise<void> {
+        this._hud.application.audioManager.playSound(SoundType.CLICK);
+        this._hud.application.audioManager.playSound(SoundType.TELEPORT);
         if (!this._hud.application.player) return;
 
         this._hud.application.player.teleport(
@@ -114,7 +102,20 @@ export default class Menu {
         );
     }
 
+    private async handleNavigationClickProjects(): Promise<void> {
+        this._hud.application.audioManager.playSound(SoundType.CLICK);
+        this._hud.application.audioManager.playSound(SoundType.TELEPORT);
+        if (!this._hud.application.player) return;
+
+        this._hud.application.player.teleport(
+            new Vector3(1.808, -0.277, -0.835),
+            new Vector3(0, -3.271, 0)
+        );
+    }
+
     private async handleNavigationClickAboutMe(): Promise<void> {
+        this._hud.application.audioManager.playSound(SoundType.CLICK);
+        this._hud.application.audioManager.playSound(SoundType.TELEPORT);
         if (!this._hud.application.player) return;
 
         this._hud.application.player.teleport(
@@ -127,43 +128,28 @@ export default class Menu {
         const mapButton = this._htmlElement.querySelector(
             `.${ClassConstants.MENU_BUTTON_MAP_CLASS_NAME}`
         );
-        if (!mapButton)
-            throw new ElementNotFoundError(
-                ClassConstants.MENU_BUTTON_MAP_CLASS_NAME
-            );
+        if (!mapButton) throw new ElementNotFoundError(ClassConstants.MENU_BUTTON_MAP_CLASS_NAME);
         mapButton.addEventListener("click", () => this.toggleNavigation());
 
-        const cvButton = this._htmlElement.querySelector(
-            `.${ClassConstants.MENU_BUTTON_CV_CLASS_NAME}`
+        const internshipButton = this._htmlElement.querySelector(
+            `.${ClassConstants.MENU_BUTTON_INTERNSHIP_CLASS_NAME}`
         );
-        if (!cvButton)
-            throw new ElementNotFoundError(
-                ClassConstants.MENU_BUTTON_CV_CLASS_NAME
-            );
-        cvButton.addEventListener("click", () =>
-            this.handleNavigationClickCv()
-        );
+        if (!internshipButton)
+            throw new ElementNotFoundError(ClassConstants.MENU_BUTTON_INTERNSHIP_CLASS_NAME);
+        internshipButton.addEventListener("click", () => this.handleNavigationClickInternship());
 
         const projectsButton = this._htmlElement.querySelector(
             `.${ClassConstants.MENU_BUTTON_PROJECTS_CLASS_NAME}`
         );
         if (!projectsButton)
-            throw new ElementNotFoundError(
-                ClassConstants.MENU_BUTTON_PROJECTS_CLASS_NAME
-            );
-        projectsButton.addEventListener("click", () =>
-            this.handleNavigationClickProjects()
-        );
+            throw new ElementNotFoundError(ClassConstants.MENU_BUTTON_PROJECTS_CLASS_NAME);
+        projectsButton.addEventListener("click", () => this.handleNavigationClickProjects());
 
         const aboutMeButton = this._htmlElement.querySelector(
             `.${ClassConstants.MENU_BUTTON_ABOUT_ME_CLASS_NAME}`
         );
         if (!aboutMeButton)
-            throw new ElementNotFoundError(
-                ClassConstants.MENU_BUTTON_ABOUT_ME_CLASS_NAME
-            );
-        aboutMeButton.addEventListener("click", () =>
-            this.handleNavigationClickAboutMe()
-        );
+            throw new ElementNotFoundError(ClassConstants.MENU_BUTTON_ABOUT_ME_CLASS_NAME);
+        aboutMeButton.addEventListener("click", () => this.handleNavigationClickAboutMe());
     }
 }

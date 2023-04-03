@@ -36,7 +36,7 @@ export default class BookConstants {
             className: "book--about_me"
         },
         {
-            title: "CV",
+            title: "INTERNSHIP",
             className: "book--internship"
         }
     ];

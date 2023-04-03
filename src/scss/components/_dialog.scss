@@ -21,21 +21,21 @@
         width: 100%;
         z-index: 0;
 
-        .cls-1 {
+        .dialog__bg--white {
             fill: #fff;
         }
 
-        .cls-2 {
+        .dialog__button--next__rect {
             fill: #290e2b;
         }
 
-        .cls-3 {
+        .dialog__stroke {
             fill: none;
             stroke: #000;
             stroke-miterlimit: 10;
         }
 
-        .cls-4 {
+        .dialog__bg--black {
             fill: #000 !important;
         }
 
@@ -92,7 +92,7 @@
     }
 
     .dialog__button--skip {
-        cursor: pointer;
+        cursor: $cursor_pointer;
         pointer-events: all;
 
         line {
@@ -108,7 +108,7 @@
     }
 
     .dialog__button--next {
-        cursor: pointer;
+        cursor: $cursor_pointer;
         pointer-events: all;
 
         > rect {

@@ -1,0 +1,22 @@
+.mobile_controls {
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
+    z-index: 1001;
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+
+    > div {
+        &.mobile_controls--right {
+            display: flex;
+            align-items: end;
+        }
+
+        > div {
+            margin: 10px;
+            height: 50px;
+            width: 50px;
+        }
+    }
+}

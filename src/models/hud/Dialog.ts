@@ -1,6 +1,7 @@
 import DomUtils from "../../utils/DomUtils";
 import EventEmitter from "../../utils/EventEmitter";
 import ClassConstants from "../constants/ClassConstants";
+import SoundType from "../enum/SoundType";
 import Observable from "../logic/Observable";
 import Hud from "./Hud";
 
@@ -20,10 +21,7 @@ export default class Dialog extends EventEmitter {
         this._hud = hud;
         this._textQueue = [];
 
-        this._element = DomUtils.getElement(
-            document,
-            `.${ClassConstants.DIALOG_CLASS_NAME}`
-        );
+        this._element = DomUtils.getElement(document, `.${ClassConstants.DIALOG_CLASS_NAME}`);
         this._textElement = DomUtils.getElement(
             this._element,
             `.${ClassConstants.DIALOG_CONTENT_CLASS_NAME} div`
@@ -66,10 +64,7 @@ export default class Dialog extends EventEmitter {
             await new Promise((resolve) => {
                 const resolveCallback = () => {
                     resolve(null);
-                    this._continue.removeEventListener(
-                        "activate",
-                        resolveCallback
-                    );
+                    this._continue.removeEventListener("activate", resolveCallback);
                 };
 
                 this._continue.addEventListener("activate", resolveCallback);
@@ -82,12 +77,14 @@ export default class Dialog extends EventEmitter {
     private addEventListeners(): void {
         this._nextButtonElements.forEach((nextButton) =>
             nextButton.addEventListener("click", () => {
+                this._hud.application.audioManager.playSound(SoundType.CLICK);
                 this._continue.activate();
             })
         );
 
         this._skipButtonElements.forEach((skipButton) =>
             skipButton.addEventListener("click", () => {
+                this._hud.application.audioManager.playSound(SoundType.CLICK);
                 this._textQueue = [];
                 this._textElement.innerHTML = "";
                 this._skip.activate();

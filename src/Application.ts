@@ -15,12 +15,14 @@ import LoadingPage from "./models/pages/LoadingPage";
 import StartSequence from "./models/startsSequence/StartSequence";
 import Hud from "./models/hud/Hud";
 import ParticleManager from "./models/animation/ParticleManager";
-import WorldZone from "./models/enum/WorldZone";
 import BookManager from "./models/pages/BookManager";
 import TouchControls from "./models/controls/TouchControls";
 import BookControls from "./models/controls/BookControls";
 import Pointer from "./models/startsSequence/Pointer";
 import LinkContainer from "./models/pages/LinkContainer";
+import MouseControls from "./models/controls/MouseControls";
+import MobileControls from "./models/controls/MobileControls";
+import AudioManager from "./models/three/AudioManager";
 
 export default class Application implements Tickable {
     private _canvas: HTMLCanvasElement;
@@ -43,8 +45,11 @@ export default class Application implements Tickable {
     private _bookManager: BookManager;
     private _touchControls: TouchControls;
     private _bookControls: BookControls;
+    private _mouseControls: MouseControls;
+    private _mobileControls: MobileControls;
     private _pointer: Pointer;
     private _linkContainer: LinkContainer;
+    private _audioManager: AudioManager;
 
     constructor(canvas: HTMLCanvasElement) {
         this._canvas = canvas;
@@ -52,6 +57,8 @@ export default class Application implements Tickable {
         this._debug = new Debug();
         this._touchControls = new TouchControls();
         this._bookControls = new BookControls();
+        this._mouseControls = new MouseControls();
+        this._mobileControls = new MobileControls();
         this._linkContainer = new LinkContainer();
         this._resourceManager = new ResourceManager();
         this._dimensions = new Dimensions();
@@ -60,6 +67,9 @@ export default class Application implements Tickable {
         this._attachableCamera = new AttachableCamera(this);
         this._cinematicCamera = new CinematicCamera(this);
         this._currentCamera = this._attachableCamera;
+        this._audioManager = new AudioManager();
+        this._attachableCamera.instance.add(this._audioManager.audioListener);
+        this._cinematicCamera.instance.add(this._audioManager.audioListener);
         this._renderer = new Renderer(this);
         this._player = new Player(this);
         this._world = new MainWorld(this);
@@ -77,18 +87,22 @@ export default class Application implements Tickable {
         this._resourceManager.addEventListener("loadCycleEntryLoaded", () =>
             this.onLoadCycleEntryLoaded()
         );
+
         this._dimensions.addEventListener("resize", () => this.resize());
+        this._dimensions.addEventListener("usemobile", () => this._mobileControls.show());
+        this._dimensions.addEventListener("usepc", () => this._mobileControls.hide());
+
         this._timedLoop.addEventListener("tick", () =>
             this.tick(this._timedLoop.deltaTime, this._timedLoop.elapsedTime)
         );
 
         // TODO - Uncomment production code
-        // this.showLoadingPage();
-        // this._resourceManager.startLoading();
+        this.showLoadingPage();
+        this._resourceManager.startLoading();
 
         // TODO - Remove debug code
-        this._world.worldEventManager.handleWorldZoneChange(WorldZone.PROJECTS);
-        this._world.worldEventManager.handleInteraction();
+        // this._world.worldEventManager.handleWorldZoneChange(WorldZone.PROJECTS);
+        // this._world.worldEventManager.handleInteraction();
 
         // TODO - Remove lights
         const light = new PointLight(0xffffff, 100, 0);
@@ -105,6 +119,9 @@ export default class Application implements Tickable {
         // this._scene.add(
         //     mesh
         // );
+
+        this._mouseControls.addEventListener("mousedown", () => canvas.classList.add("mousedown"));
+        this._mouseControls.addEventListener("mouseup", () => canvas.classList.remove("mousedown"));
     }
 
     public get canvas(): HTMLCanvasElement {
@@ -129,6 +146,10 @@ export default class Application implements Tickable {
 
     public get bookControls(): BookControls {
         return this._bookControls;
+    }
+
+    public get mobileControls(): MobileControls {
+        return this._mobileControls;
     }
 
     public get resourceManager(): ResourceManager {
@@ -181,6 +202,10 @@ export default class Application implements Tickable {
 
     public get linkContainer(): LinkContainer {
         return this._linkContainer;
+    }
+
+    public get audioManager(): AudioManager {
+        return this._audioManager;
     }
 
     public showLoadingPage(): void {

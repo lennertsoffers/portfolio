@@ -74,7 +74,7 @@ $book_controls_movement_button_hover_colour: #3f5be8;
                 width: $book_controls_button_dimensions_large;
             }
 
-            cursor: pointer;
+            cursor: $cursor_pointer;
             display: flex;
             justify-content: center;
 

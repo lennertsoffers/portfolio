@@ -8,7 +8,7 @@ export default class PageConstants {
             className: "page_overlay_about_me"
         },
         {
-            pageType: PageOverlayType.CV,
+            pageType: PageOverlayType.INTERNSHIP,
             className: "page_overlay_internship"
         },
         {

@@ -1,6 +1,7 @@
 import Application from "../../Application";
 import ClassConstants from "../constants/ClassConstants";
 import PageConstants from "../constants/PageConstants";
+import SoundType from "../enum/SoundType";
 import PageNotFoundError from "../error/PageNotFoundError";
 
 export default class LoadingPage {
@@ -9,7 +10,11 @@ export default class LoadingPage {
     private _onLoaded: Function | null;
     private _onContinue: Function | null;
 
-    constructor(application: Application, onLoaded: Function | null = null, onContinue: Function | null = null) {
+    constructor(
+        application: Application,
+        onLoaded: Function | null = null,
+        onContinue: Function | null = null
+    ) {
         this._application = application;
         this._page = null;
         this._onLoaded = onLoaded;
@@ -23,13 +28,14 @@ export default class LoadingPage {
         if (!loadingPage) throw new PageNotFoundError("loading page", className);
 
         this._page = loadingPage;
-        this._page.classList.remove(PageConstants.PAGE_OVERLAY_HIDDEN_CLASS);
     }
 
     public loaded(): void {
         if (!this._page) return;
 
-        const continueButton = this._page.querySelector(`.${ClassConstants.LOADING_CONTINUE_BUTTON_CLASS_NAME}`);
+        const continueButton = this._page.querySelector(
+            `.${ClassConstants.LOADING_CONTINUE_BUTTON_CLASS_NAME}`
+        );
 
         if (!continueButton) return;
 
@@ -41,8 +47,5 @@ export default class LoadingPage {
         continueButton.classList.remove(ClassConstants.HIDDEN);
 
         if (this._onLoaded) this._onLoaded();
-
-        if (this._page) this._page.classList.add(PageConstants.PAGE_OVERLAY_HIDDEN_CLASS);
-        if (this._onContinue) this._onContinue();
     }
 }

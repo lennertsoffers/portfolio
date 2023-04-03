@@ -21,6 +21,7 @@ $aspect_ratio_projects: 2.79;
     .menu__map {
         img {
             width: $map_height;
+            cursor: $cursor_pointer;
         }
 
         &:hover {
@@ -30,6 +31,7 @@ $aspect_ratio_projects: 2.79;
 
     .menu__navigation {
         .navigation__link {
+            cursor: $cursor_pointer;
             height: $navigation_link_height;
 
             img {
@@ -50,7 +52,7 @@ $aspect_ratio_projects: 2.79;
                 animation: moveIn 0.7s 0.2s ease-in-out forwards;
             }
 
-            .menu__cv {
+            .menu__internship {
                 animation: moveIn 0.7s 0.4s ease-in-out forwards;
             }
         }
@@ -64,7 +66,7 @@ $aspect_ratio_projects: 2.79;
                 animation: moveOut 0.7s 0.2s ease-in-out forwards;
             }
 
-            .menu__cv {
+            .menu__internship {
                 animation: moveOut 0.7s ease-in-out forwards;
             }
         }
