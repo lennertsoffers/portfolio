@@ -1,24 +1,19 @@
-import Application from "../../Application";
+import DomUtils from "../../utils/DomUtils";
 import ClassConstants from "../constants/ClassConstants";
 import PageConstants from "../constants/PageConstants";
-import SoundType from "../enum/SoundType";
 import PageNotFoundError from "../error/PageNotFoundError";
 
 export default class LoadingPage {
-    private _application: Application;
     private _page: HTMLElement | null;
     private _onLoaded: Function | null;
     private _onContinue: Function | null;
+    private _pressedContinue: boolean;
 
-    constructor(
-        application: Application,
-        onLoaded: Function | null = null,
-        onContinue: Function | null = null
-    ) {
-        this._application = application;
+    constructor(onLoaded: Function | null = null, onContinue: Function | null = null) {
         this._page = null;
         this._onLoaded = onLoaded;
         this._onContinue = onContinue;
+        this._pressedContinue = false;
     }
 
     public show(): void {
@@ -33,17 +28,25 @@ export default class LoadingPage {
     public loaded(): void {
         if (!this._page) return;
 
-        const continueButton = this._page.querySelector(
+        const continueButton = DomUtils.getElement(
+            this._page,
             `.${ClassConstants.LOADING_CONTINUE_BUTTON_CLASS_NAME}`
         );
+        const loadingText = DomUtils.getElement(
+            this._page,
+            `.${ClassConstants.LOADING_TEXT_CLASS_NAME}`
+        );
 
-        if (!continueButton) return;
+        continueButton.addEventListener("click", async () => {
+            if (!this._onContinue || !this._page || this._pressedContinue) return;
 
-        continueButton.addEventListener("click", () => {
-            if (this._onContinue) this._onContinue();
-            if (this._page) this._page.classList.add(PageConstants.PAGE_OVERLAY_HIDDEN_CLASS);
+            this._pressedContinue = true;
+
+            await this._onContinue();
+            this._page.classList.add(PageConstants.PAGE_OVERLAY_HIDDEN_CLASS);
         });
 
+        loadingText.classList.add(ClassConstants.HIDDEN);
         continueButton.classList.remove(ClassConstants.HIDDEN);
 
         if (this._onLoaded) this._onLoaded();

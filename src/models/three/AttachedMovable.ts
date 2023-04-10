@@ -77,7 +77,14 @@ export default abstract class AttachedMovable implements Movable, Attachable, Ti
 
         const attachedPosition = this._attachedTo.getPosition();
         const direction = this._attachedTo.getDirectionY().normalize();
-        this._futurePosition = new Vector3().subVectors(attachedPosition, direction.clone().multiplyScalar(this.distanceModifier).setY(attachedPosition.y + AttachableConstants.HEIGHT).multiplyScalar(-1));
+        this._futurePosition = new Vector3().subVectors(
+            attachedPosition,
+            direction
+                .clone()
+                .multiplyScalar(this.distanceModifier)
+                .setY(attachedPosition.y + AttachableConstants.HEIGHT)
+                .multiplyScalar(-1)
+        );
     }
 
     private moveMovable(deltaTime: number): void {
@@ -85,31 +92,58 @@ export default abstract class AttachedMovable implements Movable, Attachable, Ti
 
         let movementVec = this.calculateMovementVector(deltaTime);
 
-        const thisToAttachedDirection = new Vector3().subVectors(this._attachedTo.getCenterPosition(), this.getPosition());
+        const thisToAttachedDirection = new Vector3().subVectors(
+            this._attachedTo.getCenterPosition(),
+            this.getPosition()
+        );
         const attachedToThisDirection = thisToAttachedDirection.clone().negate();
 
-        const rayFromThisToAttached = new Raycaster(this.getPosition(), thisToAttachedDirection.clone().normalize());
-        const rayFromAttachedToThis = new Raycaster(this._attachedTo.getCenterPosition(), attachedToThisDirection.clone().normalize());
+        const rayFromThisToAttached = new Raycaster(
+            this.getPosition(),
+            thisToAttachedDirection.clone().normalize()
+        );
+        const rayFromAttachedToThis = new Raycaster(
+            this._attachedTo.getCenterPosition(),
+            attachedToThisDirection.clone().normalize()
+        );
 
-        const intersectionsThisToAttached = rayFromThisToAttached.intersectObjects(this._collisionMeshes);
-        const intersectionsAttachedToThis = rayFromAttachedToThis.intersectObjects(this._collisionMeshes);
+        const intersectionsThisToAttached = rayFromThisToAttached.intersectObjects(
+            this._collisionMeshes
+        );
+        const intersectionsAttachedToThis = rayFromAttachedToThis.intersectObjects(
+            this._collisionMeshes
+        );
 
         const toDistance = thisToAttachedDirection.length();
 
-        const filteredIntersectionsThisToAttached = intersectionsThisToAttached.filter((intersection) => intersection.distance - CollisionConstants.COLLISION_DISTANCE <= toDistance);
-        const filteredIntersectionsAttachedToThis = intersectionsAttachedToThis.filter((intersection) => intersection.distance - CollisionConstants.COLLISION_DISTANCE <= toDistance);
+        const filteredIntersectionsThisToAttached = intersectionsThisToAttached.filter(
+            (intersection) =>
+                intersection.distance - CollisionConstants.COLLISION_DISTANCE <= toDistance
+        );
+        const filteredIntersectionsAttachedToThis = intersectionsAttachedToThis.filter(
+            (intersection) =>
+                intersection.distance - CollisionConstants.COLLISION_DISTANCE <= toDistance
+        );
 
-        if (filteredIntersectionsThisToAttached.length > 0 || filteredIntersectionsAttachedToThis.length > 0) {
+        if (
+            filteredIntersectionsThisToAttached.length > 0 ||
+            filteredIntersectionsAttachedToThis.length > 0
+        ) {
             if (!this.zoom(-0.1)) {
                 this._distanceDueToCollision -= 0.1;
             }
             movementVec = this.calculateMovementVector(deltaTime);
         } else if (Math.round(this._distanceDueToCollision * 100) / 100 !== 0) {
             // Only zoom out if no collision backwards
-            const rayProximityCheck = new Raycaster(this.getPosition(), attachedToThisDirection.clone().normalize());
-            const proximityIntersections = rayProximityCheck.intersectObjects(this._collisionMeshes).filter((intersection) => {
-                return intersection.distance <= 0.5;
-            });
+            const rayProximityCheck = new Raycaster(
+                this.getPosition(),
+                attachedToThisDirection.clone().normalize()
+            );
+            const proximityIntersections = rayProximityCheck
+                .intersectObjects(this._collisionMeshes)
+                .filter((intersection) => {
+                    return intersection.distance <= 0.5;
+                });
 
             if (proximityIntersections.length === 0) {
                 this.zoom(0.02);
@@ -124,7 +158,9 @@ export default abstract class AttachedMovable implements Movable, Attachable, Ti
     }
 
     private calculateMovementVector(deltaTime: number): Vector3 {
-        return new Vector3().subVectors(this._futurePosition, this.getPosition()).multiplyScalar(deltaTime * 0.01);
+        return new Vector3()
+            .subVectors(this._futurePosition, this.getPosition())
+            .multiplyScalar(deltaTime * 0.01);
     }
 
     abstract getRotation(): Vector3;

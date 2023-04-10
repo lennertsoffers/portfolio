@@ -3,13 +3,13 @@
 @import "core/fonts";
 @import "core/reset";
 @import "core/colours";
-@import "core/global";
 @import "core/breakpoints";
 @import "core/flex";
 @import "core/spacing";
 @import "core/sizes";
 @import "core/animations";
 @import "core/cursor";
+@import "core/global";
 
 // Mixins
 @import "mixins/children";
@@ -32,6 +32,7 @@
 @import "components/menu";
 @import "components/dialog";
 @import "components/link_container";
+@import "components/keyboard_key";
 @import "components/pages/page1";
 @import "components/pages/page2";
 @import "components/pages/page3";
@@ -43,72 +44,4 @@
 @import "components/pages/page9";
 @import "components/pages/page10";
 @import "components/pages/about_me1";
-
-* {
-    margin: 0;
-    padding: 0;
-}
-
-:root {
-    --vh: 0px;
-}
-
-html,
-body {
-    overflow: hidden;
-    background-color: #000;
-}
-
-.webgl {
-    z-index: 0;
-
-    position: fixed;
-    top: 0;
-    left: 0;
-    outline: none;
-}
-
-.page_overlay {
-    z-index: 1;
-    position: fixed;
-    width: 100vw;
-    height: 100%;
-}
-
-.page_overlay_hidden {
-    display: none;
-}
-
-.hidden {
-    display: none !important;
-}
-
-.page_overlay_loading {
-    z-index: 2000;
-    background-color: #fff;
-    font-size: 40px;
-    text-align: center;
-    overflow: scroll;
-}
-
-.page_overlay_continue_button {
-    background-color: #000;
-}
-
-.page_overlay_hide_button {
-    position: fixed;
-    display: block;
-    background-color: #fff;
-    height: 100px;
-    width: 100px;
-    top: 0;
-    left: 0;
-}
-
-body {
-    cursor: $cursor_grab;
-}
-
-canvas.mousedown {
-    cursor: $cursor_grabbing;
-}
+@import "components/pages/page_overlay";

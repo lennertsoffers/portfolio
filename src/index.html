@@ -9,19 +9,45 @@
     </head>
 
     <body>
-        <div class="page_overlay page_overlay_loading">
+        <div
+            class="page_overlay page_overlay_loading"
+            style="overflow: hidden">
             <div
                 style="
                     height: 100vh;
                     width: 100vw;
+
                     text-align: center;
                     display: flex;
                     flex-direction: column;
                     align-items: center;
                     justify-content: center;
+                    background: rgb(0, 0, 0);
+                    background: rgb(0, 0, 0);
+                    background: radial-gradient(
+                        circle,
+                        rgba(0, 0, 0, 1) 0%,
+                        rgba(17, 7, 20, 1) 81%
+                    );
+                    color: #fff;
                 ">
-                <div>loading</div>
-                <div class="page_overlay_loading_continue hidden">continue</div>
+                <div>
+                    <img
+                        src="assets/loading_transparant.gif"
+                        alt="loading" />
+                </div>
+                <div class="page_overlay_loading_text">Loading...</div>
+                <div class="page_overlay_loading_continue hidden">
+                    <div>Continue</div>
+                    <div>
+                        <svg viewBox="0 0 77 77">
+                            <path
+                                d="m23.76,69.18c-2.35,0-4.88-.76-5.77-6.4-3.11-19.77-3.73-37.41-1.79-51,.47-3.3,1.86-3.96,3.94-3.96,5.68,0,16.21,5.75,29.66,16.18,5.68,4.41,10.2,8.36,11.88,9.85,2.12,1.89,2.29,3.52,2.23,4.58-.4,7.11-13.64,16.44-20,20.93-.86.6-1.63,1.15-2.29,1.62-7.2,5.22-13.71,8.21-17.87,8.21h0Z" />
+                            <path
+                                d="m20.14,10.82c1.82,0,9.22,1.12,27.82,15.55,5.6,4.34,10.07,8.25,11.73,9.72,1.28,1.14,1.25,1.81,1.23,2.17-.05.96-.77,3.74-6.2,8.85-4.03,3.8-8.95,7.26-12.54,9.79-.87.61-1.65,1.16-2.31,1.64-6.6,4.78-12.62,7.64-16.11,7.64-1.08,0-2.2,0-2.8-3.87-3.06-19.48-3.68-36.81-1.79-50.11.1-.73.26-1.16.36-1.34.1-.02.3-.05.61-.05m0-6c-3.67,0-6.24,1.86-6.91,6.54-2.33,16.41-.77,35.54,1.8,51.89,1.04,6.63,4.47,8.94,8.73,8.94,6.44,0,14.77-5.26,19.63-8.78,7.87-5.71,32.25-21.18,20.28-31.8-1.63-1.45-6.24-5.47-12.04-9.98C41.7,13.92,28.25,4.82,20.14,4.82h0Z" />
+                        </svg>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -387,30 +413,35 @@
                         <div class="page__description">
                             <p>
                                 People describe me as enthusiastic, motivated, hardworking and
-                                precise. I am a full stack software developer with a focus on Java
-                                backends. In my free time, I try to keep myself up to date and
-                                develop diverse projects.
+                                precise. I am a <span class="highlight">full stack</span> software
+                                developer with a focus on Java backends. In my free time, I try to
+                                keep myself up to date with the latest technologies and develop
+                                diverse projects.
                             </p>
                             <p>
-                                I regularly take part in hackathons together with friends and have
-                                already won a few. I am looking for opportunities where I can learn
-                                new concepts and gain work experience.
+                                Occasionally I like to take part in
+                                <span class="highlight">hackathons</span> together with friends and
+                                I’m pleased to say I already won a few. I am always looking for
+                                opportunities where I can learn new concepts and gain work
+                                experience.
                             </p>
                             <p>
                                 Furthermore, I'm not afraid of undertaking challenges. A great
-                                example was going on Erasmus to Finland for half a year. Here I
-                                enhanced my social skills and my English.
+                                example was going on <span class="highlight">Erasmus</span> to
+                                Finland for half a year. Here, I enhanced my social skills and my
+                                English.
                             </p>
                             <p>
-                                Before going to Finland, I was a leader at my local Scouts for three
-                                years. Here, I helped organizing camps and coming up with games. In
-                                retrospect, it fun, and also useful. I learned to be flexible,
-                                problem-solving and working in team.
+                                Before going to Finland, I was a leader at my local
+                                <span class="highlight">Scouts</span> for three years. Here, I
+                                helped organizing camps and coming up with games. In retrospect, it
+                                was fun, but also useful. I learned to be flexible, problem-solving
+                                and working in team.
                             </p>
                             <p>
                                 <img
                                     class="CHONK"
-                                    src="assets/AR_.png"
+                                    src="assets/finland.png"
                                     alt="finland" />
                             </p>
                         </div>
@@ -458,25 +489,28 @@
                         <div class="page__description">
                             <p>
                                 This portfolio website was also a huge undertaking. Around January
-                                2023, I got really interested in WebGL and using the power of
-                                Three.js to easily use it. I took the ‘three-js-journey’ course by
-                                Bruno Simon, in which I went from someone with a passion for 3d on
-                                the web, to someone who was able to create whole 3d experiences.
+                                2023, I got really interested in WebGL and discovering the power of
+                                Three.js. I took the ‘three-js-journey’ course by Bruno Simon, in
+                                which I went from someone with a passion for 3d on the web, to
+                                someone who was able to create whole
+                                <span class="highlight">3d experiences</span>.
                             </p>
                             <p>
-                                For my portfolio website, I wanted to defer myself from other
-                                developers, and why not broaden the definition of a ‘website’ for
-                                this. The real challenge came in trying to write a very custom
-                                application, without the use of any Three.js extension libraries. It
-                                was really hard for parts like moving the camera or placing objects
-                                in the world. I even got a little lower and wrote custom shaders in
-                                GLSL to really customize the experience.
+                                For my portfolio website, I want to stand out from other developers,
+                                and why not broaden the definition of a ‘website’ for this. The real
+                                challenge came in trying to write a very custom application, without
+                                the use of any Three.js extension libraries. It was really hard for
+                                parts like moving the camera or placing objects in the world. I went
+                                even more in-depth and wrote
+                                <span class="highlight">custom shaders</span> in GLSL to really
+                                customize the experience.
                             </p>
                             <p>
                                 I learned how to set up Typescript without a framework, used WebPack
                                 as a development server and bundler and learned a lot about
-                                Typescript in general. Also the assets you can see in the website
-                                are completely self made in Blender which is another skill I now
+                                Typescript in general. Besides that, all the assets you can see in
+                                the website are completely self-made in
+                                <span class="highlight">Blender</span> which is another skill I now
                                 have.
                             </p>
                         </div>
@@ -520,23 +554,25 @@
                         <div class="page__description">
                             <p>
                                 Already since the start of my programming career, I’m very
-                                interested in understanding the magic behind the frameworks I use. I
+                                interested in understanding the
+                                <span class="highlight">magic behind the frameworks</span> I use. I
                                 especially got interested in Java annotations and how frameworks
                                 such as Spring Boot or JPA do with them.
                             </p>
                             <p>
                                 This is when I decided to create a project about annotations and
                                 what they can be used for, with a deep dive into annotation
-                                processing. In this project, I took a look at the annotation
-                                processor of Room, a simple persistence API for Android development.
-                                After understanding how this worked, I recreated this from scratch
-                                in a library that generates persistence code by just adding specific
-                                annotations to your entity models.
+                                processing. In this project, I looked at the annotation processor of
+                                Room, a simple persistence API for Android development. After
+                                understanding how this worked, I recreated this library from scratch
+                                that generates persistence code by just adding specific annotations
+                                to your entity models.
                             </p>
                             <p>
-                                This was for me one of the most important projects, because I really
-                                learned a lot about using frameworks in Java and what exactly they
-                                do behind the scenes.
+                                For me, this was one of the
+                                <span class="highlight">most important projects</span>, because I
+                                really learned a lot about using frameworks in Java and what exactly
+                                they do behind the scenes.
                             </p>
                         </div>
 
@@ -584,24 +620,26 @@
                             <p>
                                 During my exchange in Finland, I took a mobile, web and server
                                 programming course. For all three of these, we could make an
-                                optional project. Since we were allowed to combine the projects, it
-                                was the perfect opportunity for me to create a larger scale project.
+                                optional project. Since we were allowed to
+                                <span class="highlight">combine the projects</span>, it was the
+                                perfect opportunity for me to create a larger scale project.
                             </p>
                             <p>
-                                I created a city builder browser game made with React and Spring
+                                I created a city builder browser game written in React and Spring
                                 Boot secured with JWT. Besides that, I made a mobile application
                                 with React Native, where the user could see his/her stats.
                             </p>
                             <p>
                                 Bringing these three parts together needed the necessary project
-                                planning and really maintainable code. The project also has
+                                planning and really maintainable code. This project also has
                                 extensive documentation on GitHub.
                             </p>
                             <p>
                                 I’m really proud that I was able to pull this off and create a full
-                                blown browser game. I learned a lot during the planning and
-                                development process. The most interesting parts for me were game
-                                design principles, React optimization and Spring Security.
+                                blown <span class="highlight">browser game</span>. I learned a lot
+                                during the planning and development process. The most interesting
+                                parts for me were game design principles, React optimization and
+                                Spring Security.
                             </p>
                         </div>
 
@@ -644,23 +682,24 @@
                         <div class="page__description">
                             <p>
                                 For the course "PHP Project" we were asked to build a Laravel
-                                application of an agenda for people with dementia. The
-                                functionalities that were required, were specified by a fictitious
-                                customer. First, we had to translate her story into a Use Case
-                                Diagram and create a data model from it. After that, we had to do
-                                the actual programming of the application in Laravel.
+                                application of an <span class="highlight">agenda</span> for people
+                                with dementia. The functionalities that were required, were
+                                specified by a fictitious customer. First, we translated her story
+                                into a Use Case Diagram and create a data model from it. After that,
+                                we did the actual programming of the application in Laravel.
                             </p>
                             <p>
                                 I was mainly involved in building the agenda itself and the
                                 creation, editing and deletion of tasks. The biggest challenge was
-                                to do this without a library.
+                                to do this <span class="highlight">without a library</span>.
                             </p>
                             <p>
-                                Teamwork was at the heart of this project, which I really
-                                experienced as an added value. The team could work very
-                                individually, but also help each other out when someone was stuck. I
-                                also saw the importance of multiple solutions for certain
-                                challenges, where you can decide as a team which is the best.
+                                <span class="highlight">Teamwork</span> was at the heart of this
+                                project, which I really experienced as an added value. The team
+                                could work very individually, but also help each other out when
+                                someone was stuck. I also saw the importance of multiple solutions
+                                for certain challenges, where you can decide as a team which is the
+                                best.
                             </p>
                             <p>
                                 From this project I learned a lot. We went through the design
@@ -722,22 +761,22 @@
 
                         <div class="page__description">
                             <p>
-                                As the final project of the C# course, we had to create a very basic
+                                As our final project of the C# course, we had to create a very basic
                                 WPF application. This application had to fetch data from an API, and
                                 also use an SQLite database with Dapper as ORM. Furthermore, we
                                 needed to use a CI/CD pipeline to publish the application to GitHub.
                             </p>
                             <p>
                                 I took this assignment to the next level by challenging myself with
-                                building a game in WPF. PokePlayer was my solution, this is a game
-                                that offers the same functionality as the old Pokemon games on the
-                                Nintendo DS. I made use of the PokeAPI to fetch various data about
-                                the Pokémon's in the game.
+                                building a <span class="highlight">game in WPF</span>. PokePlayer
+                                was my solution, this is a game that offers the same functionality
+                                as the old Pokemon games on the Nintendo DS. I made use of the
+                                PokeAPI to fetch various data about the Pokémon in the game.
                             </p>
                             <p>
                                 It was my first time using an ORM. It’s easy to use, yes, but it
                                 brought up the question in me: “How does it work?” This question got
-                                answered in a later project of mine.
+                                answered in a later project of mine (see annotation processor).
                             </p>
                         </div>
 
@@ -799,22 +838,16 @@
                         <div class="page__description">
                             <p>
                                 A classmate and I decided to participate as a team in the Drupal
-                                challenge of Hack the Future 2021. For the assignment, we got the
-                                front-end for a Cluedo game. Our goal, finish as many milestones as
-                                possible in an afternoon. There were small assignments we had to
-                                complete to create the back-end of the Cluedo game.
+                                challenge of <span class="highlight">Hack the Future</span> 2021. As
+                                a kick-start for the assignment, we already received the front-end
+                                for a Cluedo game. Our goal: create a backend where we finish as
+                                many milestones as possible in one afternoon
                             </p>
                             <p>
-                                Working with Drupal was a very good introduction to the topic of
-                                CMS’s. I didn’t know what they were and what they were used for, but
-                                now I see how they can be used to speed up the creation process of
-                                web apps.
-                            </p>
-                            <p>
-                                Working with Drupal was a very good introduction to the topic of
-                                CMS’s. I didn’t know what they were and what they were used for, but
-                                now I see how they can be used to speed up the creation process of
-                                web apps.
+                                Working with <span class="highlight">Drupal</span> was a very good
+                                introduction to the topic of CMSs. I didn’t know what they were and
+                                what they were used for, but now I see how they can be used to speed
+                                up the creation process of web apps.
                             </p>
                         </div>
                     </section>
@@ -848,7 +881,8 @@
                                 In the Cordova course, we had to create a mobile application as an
                                 individual project. The application had to communicate with an API
                                 and use some Cordova Plugins. It was the perfect opportunity as I
-                                was thinking of creating a planning app as a personal project
+                                was thinking of creating a
+                                <span class="highlight">planning app</span> as a personal project
                                 already.
                             </p>
                             <p>
@@ -859,9 +893,10 @@
                                 voice. The backend is created with Spring Boot.
                             </p>
                             <p>
-                                Cordova was the first cross-platform mobile technology I used. It
-                                was interesting to be able to write code and deploy it to multiple
-                                devices.
+                                Cordova was the first
+                                <span class="highlight">cross-platform</span> mobile technology I
+                                used. It was interesting to be able to write code and deploy it to
+                                multiple devices.
                             </p>
                             <p>
                                 Even while the project wasn’t focussed on it, I learned about
@@ -917,23 +952,24 @@
                             <p>
                                 Knowing that the game ‘Minecraft’ is written in Java, I jumped into
                                 a little side project with a very basic understanding of the
-                                language. It turned out to become maybe my biggest and certainly
+                                language. It turned out to become one of my biggest and certainly
                                 longest running project so far.
                             </p>
                             <p>
                                 While Minecraft in itself is fun, it’s even better to hook your
                                 custom features in the game. This is exactly what a plugin does. The
                                 goal of my plugin, titled Elemental Stones, is to add a little bit
-                                of spice to the game with magical stones. These stones can be used
-                                against other players, or just to help yourself out in dangerous
-                                situations.
+                                of spice to the game with
+                                <span class="highlight">magical stones</span>. These stones can be
+                                used against other players, or just to help yourself out in
+                                dangerous situations.
                             </p>
                             <p>
-                                In this project, I learned an important topic: code maintainability.
-                                This I learned the hard way with a lot of rewrites and
-                                optimizations. Also testing became significantly harder due to the
-                                size. Never user test your own software is a great lesson I will
-                                remember forever.
+                                In this project, I learned an important topic:
+                                <span class="highlight">code maintainability</span>. This, I learned
+                                the hard way with a lot of rewrites and optimizations. Also testing
+                                became significantly harder due to the size. “Let somebody else test
+                                your software” is a great lesson I will remember forever.
                             </p>
                             <p>
                                 With great features comes great documentation… The project became
@@ -941,8 +977,8 @@
                                 page for players was necessary. I really focussed on great
                                 communication to the player base and supporting them with new
                                 updates and bug fixes. Continuously improving the plugin and
-                                updating it really paid off in the end, the plugin has over 300
-                                downloads on Spigot.mc!
+                                updating it really paid off in the end, the plugin has
+                                <span class="highlight">over 300 downloads</span> on Spigot.mc!
                             </p>
                         </div>
 
@@ -1003,17 +1039,20 @@
                         <div class="page__description">
                             <p>
                                 In October 2021, I went to Brussels with a team of 5 students to
-                                participate in the hackathon organized by Microsoft and Ypto. They
-                                challenged us with the following problem: “How can we inventorise
-                                the components of a train wagon efficiently, while it is under
-                                maintenance?”.
+                                participate in the
+                                <span class="highlight">hackathon</span> organized by Microsoft and
+                                Ypto. They challenged us with the following problem: “How can we
+                                inventorise the components of a train wagon efficiently, while it is
+                                under maintenance?”.
                             </p>
                             <p>
-                                We came up with an inventorisation application, with which mechanics
-                                can easily scan each component and enter its status (if it needs
-                                reparation, replacement…). Since we would also keep track of the
-                                circumstances in which components break, we can act preventive on
-                                future problems. With this solution we won the main prize of the
+                                We came up with an
+                                <span class="highlight">inventorisation application</span>, with
+                                which mechanics can easily scan each component and enter its status
+                                (if it needs reparation, replacement…). Since we would also keep
+                                track of the circumstances in which components break, we can act
+                                preventive on future problems. With this solution
+                                <span class="highlight">we won the main prize</span> of the
                                 hackathon, an exclusive tour of the Microsoft headquarters in Paris.
                             </p>
                             <p>
@@ -1090,8 +1129,8 @@
                             <p>
                                 During the first year's project week, we were challenged to create 3
                                 AR implementations: a business card for our team, a moving AR model
-                                and an AR treasure hunt. While my team focussed on the first two, I
-                                created the treasure hunt.
+                                and an <span class="highlight">AR treasure hunt</span>. While my
+                                team focussed on the first two, I created the treasure hunt.
                             </p>
                             <p>
                                 For this project we worked together with ZappWorks, a software tool
@@ -1102,10 +1141,10 @@
                                 project week's AR challenge!
                             </p>
                             <p>
-                                I wrote the This was the first project I did, where I took more
-                                responsibility as the team leader in a team of 4. I learned to check
-                                up with team members about the statuses of their individual tasks,
-                                and also tried to divide the work equally.
+                                This was the first project I did, where I took more responsibility
+                                as the team leader in a team of 4. I learned to check up with team
+                                members about the statuses of their individual tasks, and also tried
+                                to divide the work equally.
                             </p>
                         </div>
 

@@ -95,20 +95,51 @@ export default class Dialog extends EventEmitter {
     private async writeLine(line: string): Promise<void> {
         this._textElement.innerHTML = "";
 
-        for (const character of line) {
-            this._textElement.innerHTML += character;
-            const skip = await new Promise((resolve) => {
-                const resolveCallback = () => {
-                    resolve(true);
-                    this._skip.removeEventListener("activate", resolveCallback);
-                };
+        let highlightStartIndex = null;
+        let highlightEndIndex = null;
+        let waitingForEndIndex = false;
 
-                this._skip.addEventListener("activate", resolveCallback);
+        for (let currentLineIndex = 0; currentLineIndex < line.length; currentLineIndex++) {
+            const character = line[currentLineIndex];
 
-                setTimeout(() => resolve(false), 20);
-            });
+            if (character === "^") {
+                highlightStartIndex = currentLineIndex;
+                waitingForEndIndex = true;
+            } else if (character === "$") {
+                if (!highlightStartIndex) return;
 
-            if (skip) return;
+                highlightEndIndex = currentLineIndex;
+                waitingForEndIndex = false;
+
+                const highlightedElement = document.createElement("span");
+                const highlightedElementContent = document.createElement("span");
+                highlightedElement.classList.add("keyboard_key");
+                highlightedElementContent.innerHTML = line.substring(
+                    highlightStartIndex + 1,
+                    highlightEndIndex
+                );
+
+                highlightedElement.appendChild(highlightedElementContent);
+                this._textElement.appendChild(highlightedElement);
+                this._textElement.appendChild(document.createTextNode("\u00A0"));
+            } else {
+                if (!waitingForEndIndex) {
+                    this._textElement.innerHTML += character;
+
+                    const skip = await new Promise((resolve) => {
+                        const resolveCallback = () => {
+                            resolve(true);
+                            this._skip.removeEventListener("activate", resolveCallback);
+                        };
+
+                        this._skip.addEventListener("activate", resolveCallback);
+
+                        setTimeout(() => resolve(false), 20);
+                    });
+
+                    if (skip) return;
+                }
+            }
         }
     }
 }

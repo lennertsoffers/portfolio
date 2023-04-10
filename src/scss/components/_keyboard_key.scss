@@ -1,0 +1,46 @@
+.keyboard_key {
+    transform: translateY(5px);
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    background-color: #290e2b;
+    color: #fff;
+    border-radius: 5px;
+    padding: 2px;
+    position: relative;
+
+    @media screen and (min-width: $medium) {
+        transform: translateY(6px);
+
+        border-radius: 7px;
+        height: 26px;
+        width: 26px;
+        padding: 4px;
+    }
+
+    @media screen and (min-width: $large) {
+        border-radius: 7px;
+        height: 26px;
+        width: 26px;
+        padding: 4px;
+    }
+
+    @media screen and (min-width: $extra_large) {
+        transform: translateY(7px);
+
+        border-radius: 10px;
+        height: 30px;
+        width: 30px;
+        padding: 5px;
+    }
+
+    > span {
+        display: block;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+    }
+}

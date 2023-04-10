@@ -49,3 +49,34 @@
         }
     }
 }
+
+:root {
+    --vh: 0px;
+}
+
+html,
+body {
+    overflow: hidden;
+    background-color: #000;
+}
+
+.webgl {
+    z-index: 0;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    outline: none;
+}
+
+.hidden {
+    display: none !important;
+}
+
+body {
+    cursor: $cursor_grab;
+}
+
+canvas.mousedown {
+    cursor: $cursor_grabbing;
+}

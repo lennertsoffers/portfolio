@@ -107,6 +107,7 @@ export default class AudioManager {
                 path: "/sounds/book.mp3"
             }
         };
+
         this._audioLoader = new AudioLoader();
     }
 
@@ -115,14 +116,7 @@ export default class AudioManager {
     }
 
     public playSound(sound: SoundType): void {
-        const audio = this._audioMapping[sound];
-
-        this._audioLoader.load(audio.path, (buffer) => {
-            audio.audio.setBuffer(buffer);
-            audio.audio.setLoop(audio.loop);
-            audio.audio.setVolume(audio.volume);
-            audio.audio.play();
-        });
+        this._audioMapping[sound].audio.play();
     }
 
     public stopSound(sound: SoundType[]): void {
@@ -130,6 +124,25 @@ export default class AudioManager {
             const audio = this._audioMapping[s];
 
             if (audio.audio.isPlaying) audio.audio.stop();
+        });
+    }
+
+    public loadAllAudios(): Promise<void> {
+        return new Promise((resolve) => {
+            const audioMappings = Object.values(this._audioMapping);
+            const audioMappingsLength = audioMappings.length;
+            let loadedAudios = 0;
+
+            audioMappings.forEach((audioMapping) => {
+                this._audioLoader.load(audioMapping.path, (buffer) => {
+                    audioMapping.audio.setBuffer(buffer);
+                    audioMapping.audio.setLoop(audioMapping.loop);
+                    audioMapping.audio.setVolume(audioMapping.volume);
+                    loadedAudios++;
+
+                    if (loadedAudios === audioMappingsLength) return resolve();
+                });
+            });
         });
     }
 }

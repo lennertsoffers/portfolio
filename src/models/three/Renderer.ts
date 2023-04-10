@@ -21,12 +21,18 @@ export default class Renderer implements Tickable {
         this._instance.shadowMap.enabled = true;
         this._instance.shadowMap.type = PCFSoftShadowMap;
         this._instance.setClearColor(0x000000);
-        this._instance.setSize(this._application.dimensions.width, this._application.dimensions.height);
+        this._instance.setSize(
+            this._application.dimensions.width,
+            this._application.dimensions.height
+        );
         this._instance.setPixelRatio(Math.min(this._application.dimensions.pixelRatio, 2));
     }
 
     public resize(): void {
-        this._instance.setSize(this._application.dimensions.width, this._application.dimensions.height);
+        this._instance.setSize(
+            this._application.dimensions.width,
+            this._application.dimensions.height
+        );
         this._instance.setPixelRatio(Math.min(this._application.dimensions.pixelRatio, 2));
     }
 

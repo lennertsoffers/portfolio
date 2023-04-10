@@ -76,9 +76,11 @@ export default class Application implements Tickable {
         this._pageManager = new PageManager(this);
         this._particleManager = new ParticleManager(this);
         this._loadingPage = new LoadingPage(
-            this,
             () => this.createWorld(),
-            () => this._startSequence.play()
+            async () => {
+                await this.audioManager.loadAllAudios();
+                this._startSequence.play();
+            }
         );
         this._startSequence = new StartSequence(this);
         this._bookManager = new BookManager(this);

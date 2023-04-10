@@ -1,0 +1,56 @@
+.page_overlay_loading {
+    z-index: 2000;
+    background-color: #fff;
+    font-size: 40px;
+    text-align: center;
+    overflow: scroll;
+
+    div.page_overlay_loading_continue {
+        display: flex;
+        cursor: $cursor_pointer;
+
+        > div:last-of-type {
+            svg {
+                margin: 15px 0 0 10px;
+                height: 30px;
+            }
+
+            path {
+                fill: #fff;
+            }
+        }
+    }
+
+    div.page_overlay_loading_continue:hover {
+        > div:last-of-type {
+            svg {
+                animation: pointRight $book_controls_animation_duration ease-in-out;
+            }
+        }
+    }
+}
+
+.page_overlay_continue_button {
+    background-color: #000;
+}
+
+.page_overlay_hide_button {
+    position: fixed;
+    display: block;
+    background-color: #fff;
+    height: 100px;
+    width: 100px;
+    top: 0;
+    left: 0;
+}
+
+.page_overlay {
+    z-index: 1;
+    position: fixed;
+    width: 100vw;
+    height: 100%;
+}
+
+.page_overlay_hidden {
+    display: none;
+}

@@ -10,7 +10,12 @@ export default class AttachableCamera extends AttachedMovable {
         super();
 
         this._application = application;
-        this._instance = new PerspectiveCamera(35, this._application.dimensions.getAspectRatio(), 0.1, 100);
+        this._instance = new PerspectiveCamera(
+            35,
+            this._application.dimensions.getAspectRatio(),
+            0.1,
+            100
+        );
         this._instance.position.set(0, 0, 5);
 
         this._application.scene.add(this._instance);

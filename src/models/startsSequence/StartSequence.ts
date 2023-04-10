@@ -87,7 +87,6 @@ export default class StartSequence {
     private async playDialog(): Promise<void> {
         return new Promise(async (resolve) => {
             this._application.hud.dialog.addOnSkipCallback(() => {
-                this._application.audioManager.playSound(SoundType.NOTIFICATION);
                 this._application.hud.menu.animate();
 
                 this._application.hud.dialog.hide();
@@ -111,7 +110,6 @@ export default class StartSequence {
 
             await this._application.hud.dialog.writeText(...DialogConstants.HAVE_FUN_TEXT_QUEUE);
 
-            this._application.audioManager.playSound(SoundType.NOTIFICATION);
             resolve();
         });
     }
