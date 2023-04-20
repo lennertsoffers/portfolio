@@ -1,46 +1,62 @@
 .keyboard_key {
-    transform: translateY(5px);
     display: inline-block;
+    transform: translateY(2px);
     height: 16px;
-    width: 16px;
+    min-width: 16px;
     background-color: #290e2b;
     color: #fff;
     border-radius: 5px;
     padding: 2px;
-    position: relative;
 
-    @media screen and (min-width: $medium) {
-        transform: translateY(6px);
-
-        border-radius: 7px;
-        height: 26px;
-        width: 26px;
-        padding: 4px;
+    > svg {
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        height: 16px;
+        width: 16px;
     }
 
-    @media screen and (min-width: $large) {
+    @media screen and (min-width: $medium) {
+        transform: translateY(-1px);
+
         border-radius: 7px;
         height: 26px;
-        width: 26px;
+        min-width: 26px;
+        line-height: 20px;
         padding: 4px;
+        margin-bottom: 2px;
+
+        > svg {
+
+            height: 26px;
+            width: 26px;
+        }
     }
 
     @media screen and (min-width: $extra_large) {
-        transform: translateY(7px);
+        transform: translateY(1px);
 
         border-radius: 10px;
         height: 30px;
-        width: 30px;
+        min-width: 30px;
         padding: 5px;
+
+        > svg {
+            height: 30px;
+            width: 30px;
+        }
     }
 
-    > span {
-        display: block;
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        margin: auto;
+}
+
+.keyboard_key--svg {
+    transform: translateY(4px);
+
+    @media screen and (min-width: $medium) {
+        transform: translateY(6px);
+    }
+
+    @media screen and (min-width: $extra_large) {
+        transform: translateY(8px);
     }
 }

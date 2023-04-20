@@ -20,7 +20,6 @@ export default class StartSequence {
 
     public play(): void {
         this._application.audioManager.playSound(SoundType.AMBIENT);
-        this.resumeControls();
         this._application.mobileControls.hide();
         this.setupPlayer();
         this.playAnimation();
@@ -88,8 +87,10 @@ export default class StartSequence {
         return new Promise(async (resolve) => {
             this._application.hud.dialog.addOnSkipCallback(() => {
                 this._application.hud.menu.animate();
-
                 this._application.hud.dialog.hide();
+
+                this.enableMovement();
+
                 resolve();
             });
 
@@ -110,8 +111,14 @@ export default class StartSequence {
 
             await this._application.hud.dialog.writeText(...DialogConstants.HAVE_FUN_TEXT_QUEUE);
 
+            this.enableMovement();
+
             resolve();
         });
+    }
+
+    private enableMovement(): void {
+        this._player.playerControls.loadControls();
     }
 
     private resumeControls(): void {

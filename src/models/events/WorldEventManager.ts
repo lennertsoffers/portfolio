@@ -62,14 +62,14 @@ export default class WorldEventManager {
         const cameraPath = new CameraPath(
             [
                 attachableCameraPosition.clone(),
-                new Vector3(2.008, 1.5, -1.4),
-                new Vector3(2.008, 0.3, -1.88)
+                new Vector3(-2.2, 2.0, 2.7),
+                new Vector3(-2.2, -0.3, 2.7)
             ],
             1000,
             1
         );
         this._application.cinematicCamera.cameraPath = cameraPath;
-        this._application.cinematicCamera.lookAt(new Vector3(2.02, 0.1, -1.9));
+        this._application.cinematicCamera.lookAt(new Vector3(-2.2, -0.45, 2.7));
 
         this._activeTriggerableWorldEvent = new PageOverlayWorldEvent(
             PageOverlayType.ABOUT_ME,
@@ -77,15 +77,15 @@ export default class WorldEventManager {
             () => {
                 const zoomOutPath = new CameraPath(
                     [
-                        new Vector3(2.008, 0.3, -1.88),
-                        new Vector3(2.008, 1.5, -1.4),
+                        new Vector3(-2.2, -0.3, 2.7),
+                        new Vector3(-2.2, 2.0, 2.7),
                         attachableCameraPosition.clone()
                     ],
                     1000,
                     1
                 );
                 this._application.cinematicCamera.cameraPath = zoomOutPath;
-                this._application.cinematicCamera.lookAt(new Vector3(2.02, 0.1, -1.9));
+                this._application.cinematicCamera.lookAt(new Vector3(-2.2, -0.3, 2.7));
                 zoomOutPath.start();
                 this._application.audioManager.playSound(SoundType.BOOK);
                 zoomOutPath.addEventListener("completed", () => {
@@ -115,15 +115,14 @@ export default class WorldEventManager {
         const cameraPath = new CameraPath(
             [
                 attachableCameraPosition.clone(),
-                new Vector3(-1.2, 0.8, -4.9),
-                new Vector3(-1.25, 1, -4.96),
-                new Vector3(-1.25, -0.42, -4.96)
+                new Vector3(-1.2, 0.5, -4.7),
+                new Vector3(-1.15, -0.12, -4.65)
             ],
             1000,
             1
         );
         this._application.cinematicCamera.cameraPath = cameraPath;
-        this._application.cinematicCamera.lookAt(new Vector3(-1.25, -0.7, -4.96));
+        this._application.cinematicCamera.lookAt(new Vector3(-1.2, -0.12, -4.7));
 
         this._activeTriggerableWorldEvent = new PageOverlayWorldEvent(
             PageOverlayType.INTERNSHIP,
@@ -131,16 +130,15 @@ export default class WorldEventManager {
             () => {
                 const zoomOutPath = new CameraPath(
                     [
-                        new Vector3(-1.25, -0.42, -4.96),
-                        new Vector3(-1.25, 1, -4.96),
-                        new Vector3(-1.2, 0.8, -4.9),
+                        new Vector3(-1.2, -0.12, -4.7),
+                        new Vector3(-1.2, 1, -4.7),
                         attachableCameraPosition.clone()
                     ],
                     1000,
                     1
                 );
                 this._application.cinematicCamera.cameraPath = zoomOutPath;
-                this._application.cinematicCamera.lookAt(new Vector3(-1.25, -0.7, -4.96));
+                this._application.cinematicCamera.lookAt(new Vector3(-1.2, -0.12, -4.7));
                 zoomOutPath.start();
                 this._application.audioManager.playSound(SoundType.BOOK);
                 zoomOutPath.addEventListener("completed", () => {

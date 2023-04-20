@@ -6,7 +6,8 @@ enum SoundType {
     NOTIFICATION = "NOTIFICATION",
     TELEPORT = "TELEPORT",
     PAGE = "PAGE",
-    BOOK = "BOOK"
+    BOOK = "BOOK",
+    SPARKLE = "SPARKLE"
 }
 
 export default SoundType;

@@ -56,6 +56,10 @@ export default class Player {
         return this._playerModel;
     }
 
+    public get playerControls(): PlayerControls {
+        return this._playerControls;
+    }
+
     public get currentPosition(): Vector3 {
         return this._currentPosition.clone();
     }
@@ -98,7 +102,6 @@ export default class Player {
 
     public loadPlayer() {
         this._playerModel.loadModel();
-        this._playerControls.loadControls();
 
         this._loaded = true;
     }

@@ -112,16 +112,27 @@ export default class Dialog extends EventEmitter {
                 waitingForEndIndex = false;
 
                 const highlightedElement = document.createElement("span");
-                const highlightedElementContent = document.createElement("span");
                 highlightedElement.classList.add("keyboard_key");
-                highlightedElementContent.innerHTML = line.substring(
+                highlightedElement.innerHTML = line.substring(
                     highlightStartIndex + 1,
                     highlightEndIndex
                 );
 
-                highlightedElement.appendChild(highlightedElementContent);
                 this._textElement.appendChild(highlightedElement);
-                this._textElement.appendChild(document.createTextNode("\u00A0"));
+            } else if (character === "@") {
+                if (!highlightStartIndex) return;
+
+                highlightEndIndex = currentLineIndex;
+                waitingForEndIndex = false;
+
+                const highlightedElement = document.createElement("span");
+                highlightedElement.classList.add("keyboard_key", "keyboard_key--svg");
+                highlightedElement.innerHTML = line.substring(
+                    highlightStartIndex + 1,
+                    highlightEndIndex
+                );
+
+                this._textElement.appendChild(highlightedElement);
             } else {
                 if (!waitingForEndIndex) {
                     this._textElement.innerHTML += character;

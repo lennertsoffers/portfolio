@@ -217,10 +217,10 @@ export default class PlayerControls implements Tickable {
                     this.moveRight();
                     return;
 
-                case "q":
-                    this._pressedKeyType = KeyType.EMOTE;
-                    this.jump();
-                    return;
+                // case "q":
+                    // this._pressedKeyType = KeyType.EMOTE;
+                    // this.jump();
+                    // return;
 
                 case "e":
                     this.interact();

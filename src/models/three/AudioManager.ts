@@ -53,6 +53,12 @@ export default class AudioManager {
             loop: boolean;
             path: string;
         };
+        SPARKLE: {
+            audio: Audio;
+            volume: number;
+            loop: boolean;
+            path: string;
+        };
     };
 
     constructor() {
@@ -105,6 +111,12 @@ export default class AudioManager {
                 volume: 1,
                 loop: false,
                 path: "/sounds/book.mp3"
+            },
+            SPARKLE: {
+                audio: new Audio(this._audioListener),
+                volume: 0.7,
+                loop: false,
+                path: "/sounds/sparkle.mp3"
             }
         };
 

@@ -1,0 +1,15 @@
+.book__extra_small {
+    .page.page--internship_1 {
+        .logo {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 10px;
+
+            img {
+                width: 150px;
+                height: 150px;
+            }
+        }
+    }    
+}

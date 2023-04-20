@@ -55,18 +55,26 @@ $aspect_ratio_projects: 2.79;
             .menu__internship {
                 animation: moveIn 0.7s 0.4s ease-in-out forwards;
             }
+
+            .menu__cv {
+                animation: moveIn 0.7s 0.6s ease-in-out forwards;
+            }
         }
 
         &.menu__navigation--out {
             .menu__about_me {
-                animation: moveOut 0.7s 0.4s ease-in-out forwards;
+                animation: moveOut 0.7s 0.6s ease-in-out forwards;
             }
 
             .menu__projects {
-                animation: moveOut 0.7s 0.2s ease-in-out forwards;
+                animation: moveOut 0.7s 0.4s ease-in-out forwards;
             }
 
             .menu__internship {
+                animation: moveOut 0.7s 0.2s ease-in-out forwards;
+            }
+
+            .menu__cv {
                 animation: moveOut 0.7s ease-in-out forwards;
             }
         }

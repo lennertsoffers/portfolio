@@ -72,7 +72,7 @@ export default class Menu {
             this._navigationElement.classList.remove("menu__navigation--in");
 
             this._animating = false;
-        }, 1200);
+        }, 1600);
     }
 
     public hideNavigation(): void {
@@ -88,7 +88,7 @@ export default class Menu {
             this._navigationElement.classList.remove("menu__navigation--out");
 
             this._animating = false;
-        }, 1200);
+        }, 1600);
     }
 
     private async handleNavigationClickInternship(): Promise<void> {

@@ -1,4 +1,4 @@
-import { AmbientLight, PointLight, Scene } from "three";
+import { AmbientLight, BoxGeometry, Mesh, MeshBasicMaterial, PointLight, Scene } from "three";
 import TimedLoop from "./models/logic/TimedLoop";
 import Dimensions from "./utils/Dimensions";
 import Renderer from "./models/three/Renderer";
@@ -98,29 +98,8 @@ export default class Application implements Tickable {
             this.tick(this._timedLoop.deltaTime, this._timedLoop.elapsedTime)
         );
 
-        // TODO - Uncomment production code
         this.showLoadingPage();
         this._resourceManager.startLoading();
-
-        // TODO - Remove debug code
-        // this._world.worldEventManager.handleWorldZoneChange(WorldZone.PROJECTS);
-        // this._world.worldEventManager.handleInteraction();
-
-        // TODO - Remove lights
-        const light = new PointLight(0xffffff, 100, 0);
-        light.position.set(5, 5, 5);
-        this._scene.add(light);
-        const sun = new AmbientLight(0xffffff, 0.5);
-        this._scene.add(sun);
-
-        // const mesh = new Mesh(
-        //     new BoxGeometry(0.1, 0.1, 0.1),
-        //     new MeshBasicMaterial({ color: 0x00ff00 })
-        // );
-        // mesh.position.set(-2, 0, -3);
-        // this._scene.add(
-        //     mesh
-        // );
 
         this._mouseControls.addEventListener("mousedown", () => canvas.classList.add("mousedown"));
         this._mouseControls.addEventListener("mouseup", () => canvas.classList.remove("mousedown"));
