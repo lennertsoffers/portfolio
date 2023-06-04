@@ -227,7 +227,7 @@ export default class Book {
                         characters -= 200;
                     }
 
-                    if (pageHeader && pageDescription) {
+                    if (pageHeader && pageDescription && !page.classList.contains("page--internship_3")) {
                         let paragraphLeft = false;
                         let pCount = 0;
 
@@ -236,11 +236,14 @@ export default class Book {
                                 pCount++;
                                 characters += p.innerHTML.length;
                                 if (
-                                    (((this._bookManager.getHeight() < 900 && characters > 500) ||
-                                        characters > 1000 ||
-                                        (this._bookManager.getWidth() / 2 < 800 &&
-                                            characters > 500)) &&
-                                        paragraphLeft) ||
+                                    (
+                                        (
+                                            (this._bookManager.getHeight() < 900 && characters > 500) ||
+                                            (characters > 1000) ||
+                                            (this._bookManager.getWidth() / 2 < 800 && characters > 500)
+                                        ) &&
+                                        paragraphLeft
+                                    ) ||
                                     (pCount > 3 && this._bookManager.getBookName() === "ABOUT_ME")
                                 ) {
                                     const duplicatedParagraph = p.cloneNode(true) as HTMLElement;
@@ -257,7 +260,7 @@ export default class Book {
                     classList.push("page__extended");
 
                     newPageList.push(page);
-                    newPageList.push(this.getNewExtendedPage(null, newPageParagraphs, classList));
+                    if (newPageParagraphs.length > 0) newPageList.push(this.getNewExtendedPage(null, newPageParagraphs, classList));
                 });
             } else {
                 newPageList.push(...this._pageList);

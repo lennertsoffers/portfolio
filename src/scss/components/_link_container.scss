@@ -102,5 +102,9 @@
         &.fadeOut {
             animation: fadeOut 0.25s ease-in forwards;
         }
+
+        a:hover {
+            cursor: $cursor_pointer;
+        }
     }
 }

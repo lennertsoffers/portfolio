@@ -23,6 +23,7 @@ import LinkContainer from "./models/pages/LinkContainer";
 import MouseControls from "./models/controls/MouseControls";
 import MobileControls from "./models/controls/MobileControls";
 import AudioManager from "./models/three/AudioManager";
+import PageOverlayType from "./models/enum/PageOverlayType";
 
 export default class Application implements Tickable {
     private _canvas: HTMLCanvasElement;
