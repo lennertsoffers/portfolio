@@ -6,11 +6,14 @@ enum TriggerableWorldActionType {
     PROJECTS = "PROJECTS"
 }
 
-export const valueOf = (literal: string): TriggerableWorldActionType => {
+export const from = (literal: string): TriggerableWorldActionType => {
     const uppercaseLiteral = literal.toUpperCase();
 
     if (!Object.keys(TriggerableWorldActionType).includes(uppercaseLiteral))
-        throw new EnumLiteralDoesNotExistError(literal, "TriggerableWorldActionType");
+        throw new EnumLiteralDoesNotExistError(
+            literal,
+            "TriggerableWorldActionType"
+        );
 
     return uppercaseLiteral as TriggerableWorldActionType;
 };

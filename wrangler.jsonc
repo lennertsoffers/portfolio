@@ -1,0 +1,9 @@
+{
+    "$schema": "node_modules/wrangler/config-schema.json",
+    "name": "portfolio-website",
+    "compatibility_date": "2026-01-15",
+    "assets": {
+        "directory": "./dist",
+        "run_worker_first": false
+    }
+}

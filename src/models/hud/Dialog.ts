@@ -21,7 +21,10 @@ export default class Dialog extends EventEmitter {
         this._hud = hud;
         this._textQueue = [];
 
-        this._element = DomUtils.getElement(document, `.${ClassConstants.DIALOG_CLASS_NAME}`);
+        this._element = DomUtils.getElement(
+            document,
+            `.${ClassConstants.DIALOG_CLASS_NAME}`
+        );
         this._textElement = DomUtils.getElement(
             this._element,
             `.${ClassConstants.DIALOG_CONTENT_CLASS_NAME} div`
@@ -64,7 +67,10 @@ export default class Dialog extends EventEmitter {
             await new Promise((resolve) => {
                 const resolveCallback = () => {
                     resolve(null);
-                    this._continue.removeEventListener("activate", resolveCallback);
+                    this._continue.removeEventListener(
+                        "activate",
+                        resolveCallback
+                    );
                 };
 
                 this._continue.addEventListener("activate", resolveCallback);
@@ -99,7 +105,11 @@ export default class Dialog extends EventEmitter {
         let highlightEndIndex = null;
         let waitingForEndIndex = false;
 
-        for (let currentLineIndex = 0; currentLineIndex < line.length; currentLineIndex++) {
+        for (
+            let currentLineIndex = 0;
+            currentLineIndex < line.length;
+            currentLineIndex++
+        ) {
             const character = line[currentLineIndex];
 
             if (character === "^") {
@@ -126,7 +136,10 @@ export default class Dialog extends EventEmitter {
                 waitingForEndIndex = false;
 
                 const highlightedElement = document.createElement("span");
-                highlightedElement.classList.add("keyboard_key", "keyboard_key--svg");
+                highlightedElement.classList.add(
+                    "keyboard_key",
+                    "keyboard_key--svg"
+                );
                 highlightedElement.innerHTML = line.substring(
                     highlightStartIndex + 1,
                     highlightEndIndex
@@ -140,10 +153,16 @@ export default class Dialog extends EventEmitter {
                     const skip = await new Promise((resolve) => {
                         const resolveCallback = () => {
                             resolve(true);
-                            this._skip.removeEventListener("activate", resolveCallback);
+                            this._skip.removeEventListener(
+                                "activate",
+                                resolveCallback
+                            );
                         };
 
-                        this._skip.addEventListener("activate", resolveCallback);
+                        this._skip.addEventListener(
+                            "activate",
+                            resolveCallback
+                        );
 
                         setTimeout(() => resolve(false), 20);
                     });

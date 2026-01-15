@@ -1,8 +1,9 @@
 import { Vector3 } from "three";
+
 import ClassConstants from "../constants/ClassConstants";
+import SoundType from "../enum/SoundType";
 import ElementNotFoundError from "../error/ElementNotFoundError";
 import Hud from "./Hud";
-import SoundType from "../enum/SoundType";
 
 export default class Menu {
     private _hud: Hud;
@@ -14,15 +15,20 @@ export default class Menu {
     constructor(hud: Hud) {
         this._hud = hud;
 
-        const element = document.querySelector(`.${ClassConstants.MENU_CLASS_NAME}`) as HTMLElement;
-        if (!element) throw new ElementNotFoundError(ClassConstants.MENU_CLASS_NAME);
+        const element = document.querySelector(
+            `.${ClassConstants.MENU_CLASS_NAME}`
+        ) as HTMLElement;
+        if (!element)
+            throw new ElementNotFoundError(ClassConstants.MENU_CLASS_NAME);
         this._htmlElement = element;
 
         const navigationElement = document.querySelector(
             `.${ClassConstants.MENU_NAVIGATION_CLASS_NAME}`
         ) as HTMLElement;
         if (!navigationElement)
-            throw new ElementNotFoundError(ClassConstants.MENU_NAVIGATION_CLASS_NAME);
+            throw new ElementNotFoundError(
+                ClassConstants.MENU_NAVIGATION_CLASS_NAME
+            );
         this._navigationElement = navigationElement;
 
         this._navigationActive = false;
@@ -43,7 +49,9 @@ export default class Menu {
 
     public animate(): void {
         this.show();
-        this._htmlElement.classList.add(ClassConstants.MENU_ANIMATED_CLASS_NAME);
+        this._htmlElement.classList.add(
+            ClassConstants.MENU_ANIMATED_CLASS_NAME
+        );
     }
 
     public hide(): void {
@@ -66,7 +74,10 @@ export default class Menu {
 
         setTimeout(() => {
             this._navigationElement.childNodes.forEach((childNode) => {
-                (childNode as HTMLElement).style.transform = "translateX(0)";
+                if ((childNode as HTMLElement).style) {
+                    (childNode as HTMLElement).style.transform =
+                        "translateX(0)";
+                }
             });
 
             this._navigationElement.classList.remove("menu__navigation--in");
@@ -82,7 +93,10 @@ export default class Menu {
 
         setTimeout(() => {
             this._navigationElement.childNodes.forEach((childNode) => {
-                (childNode as HTMLElement).style.transform = "translateX(100%)";
+                if ((childNode as HTMLElement).style) {
+                    (childNode as HTMLElement).style.transform =
+                        "translateX(100%)";
+                }
             });
 
             this._navigationElement.classList.remove("menu__navigation--out");
@@ -128,28 +142,43 @@ export default class Menu {
         const mapButton = this._htmlElement.querySelector(
             `.${ClassConstants.MENU_BUTTON_MAP_CLASS_NAME}`
         );
-        if (!mapButton) throw new ElementNotFoundError(ClassConstants.MENU_BUTTON_MAP_CLASS_NAME);
+        if (!mapButton)
+            throw new ElementNotFoundError(
+                ClassConstants.MENU_BUTTON_MAP_CLASS_NAME
+            );
         mapButton.addEventListener("click", () => this.toggleNavigation());
 
         const internshipButton = this._htmlElement.querySelector(
             `.${ClassConstants.MENU_BUTTON_INTERNSHIP_CLASS_NAME}`
         );
         if (!internshipButton)
-            throw new ElementNotFoundError(ClassConstants.MENU_BUTTON_INTERNSHIP_CLASS_NAME);
-        internshipButton.addEventListener("click", () => this.handleNavigationClickInternship());
+            throw new ElementNotFoundError(
+                ClassConstants.MENU_BUTTON_INTERNSHIP_CLASS_NAME
+            );
+        internshipButton.addEventListener("click", () =>
+            this.handleNavigationClickInternship()
+        );
 
         const projectsButton = this._htmlElement.querySelector(
             `.${ClassConstants.MENU_BUTTON_PROJECTS_CLASS_NAME}`
         );
         if (!projectsButton)
-            throw new ElementNotFoundError(ClassConstants.MENU_BUTTON_PROJECTS_CLASS_NAME);
-        projectsButton.addEventListener("click", () => this.handleNavigationClickProjects());
+            throw new ElementNotFoundError(
+                ClassConstants.MENU_BUTTON_PROJECTS_CLASS_NAME
+            );
+        projectsButton.addEventListener("click", () =>
+            this.handleNavigationClickProjects()
+        );
 
         const aboutMeButton = this._htmlElement.querySelector(
             `.${ClassConstants.MENU_BUTTON_ABOUT_ME_CLASS_NAME}`
         );
         if (!aboutMeButton)
-            throw new ElementNotFoundError(ClassConstants.MENU_BUTTON_ABOUT_ME_CLASS_NAME);
-        aboutMeButton.addEventListener("click", () => this.handleNavigationClickAboutMe());
+            throw new ElementNotFoundError(
+                ClassConstants.MENU_BUTTON_ABOUT_ME_CLASS_NAME
+            );
+        aboutMeButton.addEventListener("click", () =>
+            this.handleNavigationClickAboutMe()
+        );
     }
 }

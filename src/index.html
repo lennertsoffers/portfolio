@@ -2,6 +2,8 @@
 <html lang="en">
 
 <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
     <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
@@ -10,6 +12,8 @@
     <link rel="manifest" href="assets/site.webmanifest">
     <link rel="mask-icon" href="assets/safari-pinned-tab.svg" color="#5bbad5">
     <link rel="shortcut icon" href="assets/favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+        rel="stylesheet">
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="msapplication-config" content="assets/browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
@@ -19,10 +23,24 @@
     <meta property="og:description" content="Portfolio of Lennert Soffers">
     <meta property="og:image" content="https://lennertsoffers.be/hosting/loading_transparant.gif">
     <title>Lennert Soffers</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: "Shantell Sans", cursive;
+            font-optical-sizing: auto;
+            font-style: normal;
+            font-variation-settings:
+                "BNCE" 0,
+                "INFM" 0,
+                "SPAC" 0;
+        }
+    </style>
 </head>
 
 
-<body>
+<body style="overflow: hidden">
     <div class="page_overlay page_overlay_loading" style="overflow: hidden">
         <div style="
                     height: 100vh;
@@ -346,31 +364,39 @@
 
                     <div class="page__description">
                         <p>
-                            People describe me as enthusiastic, motivated, hardworking and
-                            precise. I am a <span class="highlight">full stack</span> software
-                            developer with a focus on Java backends. In my free time, I try to
-                            keep myself up to date with the latest technologies and develop
-                            diverse projects.
+                            People describe me as enthusiastic, motivated,
+                            hardworking and precise. I am a
+                            <span class="highlight">full stack</span>
+                            software developer with a focus on Java
+                            backends. In my free time, I try to keep myself
+                            up to date with the latest technologies and
+                            develop diverse projects.
                         </p>
                         <p>
                             Occasionally I like to take part in
-                            <span class="highlight">hackathons</span> together with friends and
-                            I’m pleased to say I already won a few. I am always looking for
-                            opportunities where I can learn new concepts and gain work
-                            experience.
+                            <span class="highlight">hackathons</span>
+                            together with friends and I’m pleased to say I
+                            already won a few. I am always looking for
+                            opportunities where I can learn new concepts and
+                            gain work experience.
                         </p>
                         <p>
-                            Furthermore, I'm not afraid of undertaking challenges. A great
-                            example was going on <span class="highlight">Erasmus</span> to
-                            Finland for half a year. Here, I enhanced my social skills and my
-                            English.
+                            I am the developer of
+                            <a href="https://handsoffapp.com">Hands Off</a>,
+                            the desktop app that helps you stop nail biting,
+                            skin picking, hair pulling and other sorts of
+                            these annoying habits. Hands Off works by
+                            monitoring your hands in the background. It will
+                            show you a popup when it notices that you are
+                            starting your habit mitigating it before it
+                            could even start.
                         </p>
                         <p>
-                            Before going to Finland, I was a leader at my local
-                            <span class="highlight">Scouts</span> for three years. Here, I
-                            helped organizing camps and coming up with games. In retrospect, it
-                            was fun, but also useful. I learned to be flexible, problem-solving
-                            and working in team.
+                            Furthermore, I'm not afraid of undertaking
+                            challenges. A great example was going on
+                            <span class="highlight">Erasmus</span> to
+                            Finland for half a year. Here, I enhanced my
+                            social skills and my English.
                         </p>
                         <p>
                             <img class="CHONK" src="assets/finland.png" alt="finland" />
@@ -474,26 +500,30 @@
 
                     <div class="page__description">
                         <p>
-                            Already since the start of my programming career, I’m very
-                            interested in understanding the
-                            <span class="highlight">magic behind the frameworks</span> I use. I
-                            especially got interested in Java annotations and how frameworks
-                            such as Spring Boot or JPA do with them.
+                            Already since the start of my programming
+                            career, I’m very interested in understanding the
+                            <span class="highlight">magic behind the frameworks</span>
+                            I use. I especially got interested in Java
+                            annotations and how frameworks such as Spring
+                            Boot or JPA do with them.
                         </p>
                         <p>
-                            This is when I decided to create a project about annotations and
-                            what they can be used for, with a deep dive into annotation
-                            processing. In this project, I looked at the annotation processor of
-                            Room, a simple persistence API for Android development. After
-                            understanding how this worked, I recreated this library from scratch
-                            that generates persistence code by just adding specific annotations
-                            to your entity models.
+                            This is when I decided to create a project about
+                            annotations and what they can be used for, with
+                            a deep dive into annotation processing. In this
+                            project, I looked at the annotation processor of
+                            Room, a simple persistence API for Android
+                            development. After understanding how this
+                            worked, I recreated this library from scratch
+                            that generates persistence code by just adding
+                            specific annotations to your entity models.
                         </p>
                         <p>
                             For me, this was one of the
-                            <span class="highlight">most important projects</span>, because I
-                            really learned a lot about using frameworks in Java and what exactly
-                            they do behind the scenes.
+                            <span class="highlight">most important projects</span>, because I really learned a lot about
+                            using
+                            frameworks in Java and what exactly they do
+                            behind the scenes.
                         </p>
                     </div>
 
@@ -1036,7 +1066,8 @@
 
                     <div class="page__description">
                         <p>
-                            From February 27th to May 26th, 2023, I was an intern at <span class="highlight">Lykios</span>, a Java consultancy. I'm
+                            From February 27th to May 26th, 2023, I was an intern at <span
+                                class="highlight">Lykios</span>, a Java consultancy. I'm
                             extremely grateful to Nico and Philippe, my internship mentors, for their consistent support
                             and direction. Their knowledge and commitment have made my internship a rewarding and
                             educative experience.
@@ -1064,7 +1095,8 @@
 
                     <div class="page__description">
                         <p>
-                            I developed <span class="highlight">Lykiosbay</span>, a web-based auction platform. It is a Java Spring-based web
+                            I developed <span class="highlight">Lykiosbay</span>, a web-based auction platform. It is a
+                            Java Spring-based web
                             application with a decoupled front-end in React offering a user-friendly interface. My
                             primary responsibility was to develop the Minimum Viable Product (MVP)
                             for Lykiosbay, which enables employees to place bids on products in auctions.
@@ -1080,7 +1112,8 @@
                     <div class="page__description">
                         <p>
                             It has been nothing short of incredible working on this project. I've been able to give
-                            <span class="highlight">testing</span> my full attention in order to ensure that the application is operating at its best.
+                            <span class="highlight">testing</span> my full attention in order to ensure that the
+                            application is operating at its best.
                             Furthermore, I became quite familiar with the Scrum workflow by taking part in its
                             well-known meetings.
                         </p>
@@ -1101,7 +1134,8 @@
                         <p>
                             The project plan is a document that was used as a guide during the execution of my
                             internship
-                            project. It contains information about Lykios, the project and its <span class="highlight">business case</span>, the
+                            project. It contains information about Lykios, the project and its <span
+                                class="highlight">business case</span>, the
                             planning
                             of the project, a risk analysis and a plan of reporting.
                         </p>
@@ -1113,10 +1147,18 @@
                     <div class="page__link">
                         <a href="https://lennertsoffers.be/documents/project_plan.pdf" target="_blank">
                             <svg viewBox="0 0 96.23 137.98">
-                                <path d="m69.12,137.98c-16.04,0-32.16-.94-48.05-2.81-3.47-.41-9.93-1.17-13.77-5.97-1.99-2.49-2.74-5.36-3.34-8.08C1.56,110.29.24,99.19.03,88.1c-.15-7.87.26-15.79.66-23.45L3.66,7.7c.06-1.19.21-3.98,2.44-5.95C8.15-.06,10.64-.02,11.84,0l56.64,1.07v.33c2.38-.22,4.84.95,6.1,2.96.65,1.03.96,2.09,1.08,3.1,4.48,3.88,8.94,8.28,12.2,13.65,7.27,11.94,7.45,26.59,7.6,38.35l.76,60.42c.04,3.17.1,7.96-2.69,11.85-4.25,5.91-12.15,6.08-15.94,6.15-2.82.06-5.64.09-8.47.09ZM12.6,9.02l-2.92,56.08c-.39,7.52-.8,15.28-.65,22.83.2,10.49,1.45,21,3.72,31.24.39,1.76.8,3.42,1.59,4.41,1.41,1.77,4.76,2.29,7.78,2.65,18.28,2.15,36.88,3.04,55.28,2.66,3.56-.07,7.39-.42,8.82-2.41.98-1.37,1.03-3.74,1-6.48l-.76-60.43c-.06-4.64-.12-9.54-.6-14.39-1.33-.03-2.67-.06-4-.08-5.05-.1-10.28-.21-15.44-.44-2.46-.11-3.77-1.32-4.44-2.32-1.14-1.71-.88-3.42-.79-3.98,1.02-6.67,2.35-13.34,3.64-19.78.48-2.42.96-4.84,1.43-7.27-.46-.38-.91-.75-1.37-1.13l-.21-.17-52.07-.98Zm58.11,26.8c3.79.13,7.61.21,11.33.28.77.02,1.55.03,2.32.05-.91-3.66-2.25-7.17-4.19-10.37-1.67-2.74-3.77-5.23-6.1-7.56-.14.7-.28,1.4-.42,2.1-1.01,5.08-2.05,10.29-2.93,15.49Z" style="fill:#212121;"/>
-                                <path d="m22.7,80.21c17.53-.63,35.09-.45,52.61.53,2.35.13,4.6-2.16,4.5-4.5-.11-2.55-1.98-4.36-4.5-4.5-17.52-.98-35.08-1.16-52.61-.53-2.35.08-4.61,2.01-4.5,4.5s1.98,4.59,4.5,4.5h0Z" style="fill:#212121;"/>
-                                <path d="m23.26,101.36c14.9-1.93,29.87-3.33,44.87-4.19,2.35-.14,4.61-1.97,4.5-4.5-.1-2.32-1.98-4.64-4.5-4.5-15,.86-29.97,2.26-44.87,4.19-2.33.3-4.62,1.85-4.5,4.5.1,2.18,2,4.82,4.5,4.5h0Z" style="fill:#212121;"/>
-                                <path d="m25.77,118.95c15.82-.55,31.66-.75,47.49-.59,2.35.02,4.61-2.09,4.5-4.5s-1.98-4.47-4.5-4.5c-15.83-.16-31.66.04-47.49.59-2.35.08-4.61,2.01-4.5,4.5s1.98,4.59,4.5,4.5h0Z" style="fill:#212121;"/>
+                                <path
+                                    d="m69.12,137.98c-16.04,0-32.16-.94-48.05-2.81-3.47-.41-9.93-1.17-13.77-5.97-1.99-2.49-2.74-5.36-3.34-8.08C1.56,110.29.24,99.19.03,88.1c-.15-7.87.26-15.79.66-23.45L3.66,7.7c.06-1.19.21-3.98,2.44-5.95C8.15-.06,10.64-.02,11.84,0l56.64,1.07v.33c2.38-.22,4.84.95,6.1,2.96.65,1.03.96,2.09,1.08,3.1,4.48,3.88,8.94,8.28,12.2,13.65,7.27,11.94,7.45,26.59,7.6,38.35l.76,60.42c.04,3.17.1,7.96-2.69,11.85-4.25,5.91-12.15,6.08-15.94,6.15-2.82.06-5.64.09-8.47.09ZM12.6,9.02l-2.92,56.08c-.39,7.52-.8,15.28-.65,22.83.2,10.49,1.45,21,3.72,31.24.39,1.76.8,3.42,1.59,4.41,1.41,1.77,4.76,2.29,7.78,2.65,18.28,2.15,36.88,3.04,55.28,2.66,3.56-.07,7.39-.42,8.82-2.41.98-1.37,1.03-3.74,1-6.48l-.76-60.43c-.06-4.64-.12-9.54-.6-14.39-1.33-.03-2.67-.06-4-.08-5.05-.1-10.28-.21-15.44-.44-2.46-.11-3.77-1.32-4.44-2.32-1.14-1.71-.88-3.42-.79-3.98,1.02-6.67,2.35-13.34,3.64-19.78.48-2.42.96-4.84,1.43-7.27-.46-.38-.91-.75-1.37-1.13l-.21-.17-52.07-.98Zm58.11,26.8c3.79.13,7.61.21,11.33.28.77.02,1.55.03,2.32.05-.91-3.66-2.25-7.17-4.19-10.37-1.67-2.74-3.77-5.23-6.1-7.56-.14.7-.28,1.4-.42,2.1-1.01,5.08-2.05,10.29-2.93,15.49Z"
+                                    style="fill:#212121;" />
+                                <path
+                                    d="m22.7,80.21c17.53-.63,35.09-.45,52.61.53,2.35.13,4.6-2.16,4.5-4.5-.11-2.55-1.98-4.36-4.5-4.5-17.52-.98-35.08-1.16-52.61-.53-2.35.08-4.61,2.01-4.5,4.5s1.98,4.59,4.5,4.5h0Z"
+                                    style="fill:#212121;" />
+                                <path
+                                    d="m23.26,101.36c14.9-1.93,29.87-3.33,44.87-4.19,2.35-.14,4.61-1.97,4.5-4.5-.1-2.32-1.98-4.64-4.5-4.5-15,.86-29.97,2.26-44.87,4.19-2.33.3-4.62,1.85-4.5,4.5.1,2.18,2,4.82,4.5,4.5h0Z"
+                                    style="fill:#212121;" />
+                                <path
+                                    d="m25.77,118.95c15.82-.55,31.66-.75,47.49-.59,2.35.02,4.61-2.09,4.5-4.5s-1.98-4.47-4.5-4.5c-15.83-.16-31.66.04-47.49.59-2.35.08-4.61,2.01-4.5,4.5s1.98,4.59,4.5,4.5h0Z"
+                                    style="fill:#212121;" />
                             </svg>
                         </a>
                     </div>
@@ -1140,10 +1182,18 @@
                     <div class="page__link">
                         <a href="https://lennertsoffers.be/documents/lykiosbay-user_manual.pdf" target="_blank">
                             <svg viewBox="0 0 96.23 137.98">
-                                <path d="m69.12,137.98c-16.04,0-32.16-.94-48.05-2.81-3.47-.41-9.93-1.17-13.77-5.97-1.99-2.49-2.74-5.36-3.34-8.08C1.56,110.29.24,99.19.03,88.1c-.15-7.87.26-15.79.66-23.45L3.66,7.7c.06-1.19.21-3.98,2.44-5.95C8.15-.06,10.64-.02,11.84,0l56.64,1.07v.33c2.38-.22,4.84.95,6.1,2.96.65,1.03.96,2.09,1.08,3.1,4.48,3.88,8.94,8.28,12.2,13.65,7.27,11.94,7.45,26.59,7.6,38.35l.76,60.42c.04,3.17.1,7.96-2.69,11.85-4.25,5.91-12.15,6.08-15.94,6.15-2.82.06-5.64.09-8.47.09ZM12.6,9.02l-2.92,56.08c-.39,7.52-.8,15.28-.65,22.83.2,10.49,1.45,21,3.72,31.24.39,1.76.8,3.42,1.59,4.41,1.41,1.77,4.76,2.29,7.78,2.65,18.28,2.15,36.88,3.04,55.28,2.66,3.56-.07,7.39-.42,8.82-2.41.98-1.37,1.03-3.74,1-6.48l-.76-60.43c-.06-4.64-.12-9.54-.6-14.39-1.33-.03-2.67-.06-4-.08-5.05-.1-10.28-.21-15.44-.44-2.46-.11-3.77-1.32-4.44-2.32-1.14-1.71-.88-3.42-.79-3.98,1.02-6.67,2.35-13.34,3.64-19.78.48-2.42.96-4.84,1.43-7.27-.46-.38-.91-.75-1.37-1.13l-.21-.17-52.07-.98Zm58.11,26.8c3.79.13,7.61.21,11.33.28.77.02,1.55.03,2.32.05-.91-3.66-2.25-7.17-4.19-10.37-1.67-2.74-3.77-5.23-6.1-7.56-.14.7-.28,1.4-.42,2.1-1.01,5.08-2.05,10.29-2.93,15.49Z" style="fill:#212121;"/>
-                                <path d="m22.7,80.21c17.53-.63,35.09-.45,52.61.53,2.35.13,4.6-2.16,4.5-4.5-.11-2.55-1.98-4.36-4.5-4.5-17.52-.98-35.08-1.16-52.61-.53-2.35.08-4.61,2.01-4.5,4.5s1.98,4.59,4.5,4.5h0Z" style="fill:#212121;"/>
-                                <path d="m23.26,101.36c14.9-1.93,29.87-3.33,44.87-4.19,2.35-.14,4.61-1.97,4.5-4.5-.1-2.32-1.98-4.64-4.5-4.5-15,.86-29.97,2.26-44.87,4.19-2.33.3-4.62,1.85-4.5,4.5.1,2.18,2,4.82,4.5,4.5h0Z" style="fill:#212121;"/>
-                                <path d="m25.77,118.95c15.82-.55,31.66-.75,47.49-.59,2.35.02,4.61-2.09,4.5-4.5s-1.98-4.47-4.5-4.5c-15.83-.16-31.66.04-47.49.59-2.35.08-4.61,2.01-4.5,4.5s1.98,4.59,4.5,4.5h0Z" style="fill:#212121;"/>
+                                <path
+                                    d="m69.12,137.98c-16.04,0-32.16-.94-48.05-2.81-3.47-.41-9.93-1.17-13.77-5.97-1.99-2.49-2.74-5.36-3.34-8.08C1.56,110.29.24,99.19.03,88.1c-.15-7.87.26-15.79.66-23.45L3.66,7.7c.06-1.19.21-3.98,2.44-5.95C8.15-.06,10.64-.02,11.84,0l56.64,1.07v.33c2.38-.22,4.84.95,6.1,2.96.65,1.03.96,2.09,1.08,3.1,4.48,3.88,8.94,8.28,12.2,13.65,7.27,11.94,7.45,26.59,7.6,38.35l.76,60.42c.04,3.17.1,7.96-2.69,11.85-4.25,5.91-12.15,6.08-15.94,6.15-2.82.06-5.64.09-8.47.09ZM12.6,9.02l-2.92,56.08c-.39,7.52-.8,15.28-.65,22.83.2,10.49,1.45,21,3.72,31.24.39,1.76.8,3.42,1.59,4.41,1.41,1.77,4.76,2.29,7.78,2.65,18.28,2.15,36.88,3.04,55.28,2.66,3.56-.07,7.39-.42,8.82-2.41.98-1.37,1.03-3.74,1-6.48l-.76-60.43c-.06-4.64-.12-9.54-.6-14.39-1.33-.03-2.67-.06-4-.08-5.05-.1-10.28-.21-15.44-.44-2.46-.11-3.77-1.32-4.44-2.32-1.14-1.71-.88-3.42-.79-3.98,1.02-6.67,2.35-13.34,3.64-19.78.48-2.42.96-4.84,1.43-7.27-.46-.38-.91-.75-1.37-1.13l-.21-.17-52.07-.98Zm58.11,26.8c3.79.13,7.61.21,11.33.28.77.02,1.55.03,2.32.05-.91-3.66-2.25-7.17-4.19-10.37-1.67-2.74-3.77-5.23-6.1-7.56-.14.7-.28,1.4-.42,2.1-1.01,5.08-2.05,10.29-2.93,15.49Z"
+                                    style="fill:#212121;" />
+                                <path
+                                    d="m22.7,80.21c17.53-.63,35.09-.45,52.61.53,2.35.13,4.6-2.16,4.5-4.5-.11-2.55-1.98-4.36-4.5-4.5-17.52-.98-35.08-1.16-52.61-.53-2.35.08-4.61,2.01-4.5,4.5s1.98,4.59,4.5,4.5h0Z"
+                                    style="fill:#212121;" />
+                                <path
+                                    d="m23.26,101.36c14.9-1.93,29.87-3.33,44.87-4.19,2.35-.14,4.61-1.97,4.5-4.5-.1-2.32-1.98-4.64-4.5-4.5-15,.86-29.97,2.26-44.87,4.19-2.33.3-4.62,1.85-4.5,4.5.1,2.18,2,4.82,4.5,4.5h0Z"
+                                    style="fill:#212121;" />
+                                <path
+                                    d="m25.77,118.95c15.82-.55,31.66-.75,47.49-.59,2.35.02,4.61-2.09,4.5-4.5s-1.98-4.47-4.5-4.5c-15.83-.16-31.66.04-47.49.59-2.35.08-4.61,2.01-4.5,4.5s1.98,4.59,4.5,4.5h0Z"
+                                    style="fill:#212121;" />
                             </svg>
                         </a>
                     </div>
@@ -1155,7 +1205,8 @@
 
                     <div class="page__description">
                         <p>
-                            The technical manual covers the <span class="highlight">technical aspects</span> in depth and gives information on how
+                            The technical manual covers the <span class="highlight">technical aspects</span> in depth
+                            and gives information on how
                             Lykiosbay is built up. This document is the goto for new developers on Lykiosbay.
                         </p>
                         <p>
@@ -1166,10 +1217,18 @@
                     <div class="page__link">
                         <a href="https://lennertsoffers.be/documents/lykiosbay-technical_manual.pdf" target="_blank">
                             <svg viewBox="0 0 96.23 137.98">
-                                <path d="m69.12,137.98c-16.04,0-32.16-.94-48.05-2.81-3.47-.41-9.93-1.17-13.77-5.97-1.99-2.49-2.74-5.36-3.34-8.08C1.56,110.29.24,99.19.03,88.1c-.15-7.87.26-15.79.66-23.45L3.66,7.7c.06-1.19.21-3.98,2.44-5.95C8.15-.06,10.64-.02,11.84,0l56.64,1.07v.33c2.38-.22,4.84.95,6.1,2.96.65,1.03.96,2.09,1.08,3.1,4.48,3.88,8.94,8.28,12.2,13.65,7.27,11.94,7.45,26.59,7.6,38.35l.76,60.42c.04,3.17.1,7.96-2.69,11.85-4.25,5.91-12.15,6.08-15.94,6.15-2.82.06-5.64.09-8.47.09ZM12.6,9.02l-2.92,56.08c-.39,7.52-.8,15.28-.65,22.83.2,10.49,1.45,21,3.72,31.24.39,1.76.8,3.42,1.59,4.41,1.41,1.77,4.76,2.29,7.78,2.65,18.28,2.15,36.88,3.04,55.28,2.66,3.56-.07,7.39-.42,8.82-2.41.98-1.37,1.03-3.74,1-6.48l-.76-60.43c-.06-4.64-.12-9.54-.6-14.39-1.33-.03-2.67-.06-4-.08-5.05-.1-10.28-.21-15.44-.44-2.46-.11-3.77-1.32-4.44-2.32-1.14-1.71-.88-3.42-.79-3.98,1.02-6.67,2.35-13.34,3.64-19.78.48-2.42.96-4.84,1.43-7.27-.46-.38-.91-.75-1.37-1.13l-.21-.17-52.07-.98Zm58.11,26.8c3.79.13,7.61.21,11.33.28.77.02,1.55.03,2.32.05-.91-3.66-2.25-7.17-4.19-10.37-1.67-2.74-3.77-5.23-6.1-7.56-.14.7-.28,1.4-.42,2.1-1.01,5.08-2.05,10.29-2.93,15.49Z" style="fill:#212121;"/>
-                                <path d="m22.7,80.21c17.53-.63,35.09-.45,52.61.53,2.35.13,4.6-2.16,4.5-4.5-.11-2.55-1.98-4.36-4.5-4.5-17.52-.98-35.08-1.16-52.61-.53-2.35.08-4.61,2.01-4.5,4.5s1.98,4.59,4.5,4.5h0Z" style="fill:#212121;"/>
-                                <path d="m23.26,101.36c14.9-1.93,29.87-3.33,44.87-4.19,2.35-.14,4.61-1.97,4.5-4.5-.1-2.32-1.98-4.64-4.5-4.5-15,.86-29.97,2.26-44.87,4.19-2.33.3-4.62,1.85-4.5,4.5.1,2.18,2,4.82,4.5,4.5h0Z" style="fill:#212121;"/>
-                                <path d="m25.77,118.95c15.82-.55,31.66-.75,47.49-.59,2.35.02,4.61-2.09,4.5-4.5s-1.98-4.47-4.5-4.5c-15.83-.16-31.66.04-47.49.59-2.35.08-4.61,2.01-4.5,4.5s1.98,4.59,4.5,4.5h0Z" style="fill:#212121;"/>
+                                <path
+                                    d="m69.12,137.98c-16.04,0-32.16-.94-48.05-2.81-3.47-.41-9.93-1.17-13.77-5.97-1.99-2.49-2.74-5.36-3.34-8.08C1.56,110.29.24,99.19.03,88.1c-.15-7.87.26-15.79.66-23.45L3.66,7.7c.06-1.19.21-3.98,2.44-5.95C8.15-.06,10.64-.02,11.84,0l56.64,1.07v.33c2.38-.22,4.84.95,6.1,2.96.65,1.03.96,2.09,1.08,3.1,4.48,3.88,8.94,8.28,12.2,13.65,7.27,11.94,7.45,26.59,7.6,38.35l.76,60.42c.04,3.17.1,7.96-2.69,11.85-4.25,5.91-12.15,6.08-15.94,6.15-2.82.06-5.64.09-8.47.09ZM12.6,9.02l-2.92,56.08c-.39,7.52-.8,15.28-.65,22.83.2,10.49,1.45,21,3.72,31.24.39,1.76.8,3.42,1.59,4.41,1.41,1.77,4.76,2.29,7.78,2.65,18.28,2.15,36.88,3.04,55.28,2.66,3.56-.07,7.39-.42,8.82-2.41.98-1.37,1.03-3.74,1-6.48l-.76-60.43c-.06-4.64-.12-9.54-.6-14.39-1.33-.03-2.67-.06-4-.08-5.05-.1-10.28-.21-15.44-.44-2.46-.11-3.77-1.32-4.44-2.32-1.14-1.71-.88-3.42-.79-3.98,1.02-6.67,2.35-13.34,3.64-19.78.48-2.42.96-4.84,1.43-7.27-.46-.38-.91-.75-1.37-1.13l-.21-.17-52.07-.98Zm58.11,26.8c3.79.13,7.61.21,11.33.28.77.02,1.55.03,2.32.05-.91-3.66-2.25-7.17-4.19-10.37-1.67-2.74-3.77-5.23-6.1-7.56-.14.7-.28,1.4-.42,2.1-1.01,5.08-2.05,10.29-2.93,15.49Z"
+                                    style="fill:#212121;" />
+                                <path
+                                    d="m22.7,80.21c17.53-.63,35.09-.45,52.61.53,2.35.13,4.6-2.16,4.5-4.5-.11-2.55-1.98-4.36-4.5-4.5-17.52-.98-35.08-1.16-52.61-.53-2.35.08-4.61,2.01-4.5,4.5s1.98,4.59,4.5,4.5h0Z"
+                                    style="fill:#212121;" />
+                                <path
+                                    d="m23.26,101.36c14.9-1.93,29.87-3.33,44.87-4.19,2.35-.14,4.61-1.97,4.5-4.5-.1-2.32-1.98-4.64-4.5-4.5-15,.86-29.97,2.26-44.87,4.19-2.33.3-4.62,1.85-4.5,4.5.1,2.18,2,4.82,4.5,4.5h0Z"
+                                    style="fill:#212121;" />
+                                <path
+                                    d="m25.77,118.95c15.82-.55,31.66-.75,47.49-.59,2.35.02,4.61-2.09,4.5-4.5s-1.98-4.47-4.5-4.5c-15.83-.16-31.66.04-47.49.59-2.35.08-4.61,2.01-4.5,4.5s1.98,4.59,4.5,4.5h0Z"
+                                    style="fill:#212121;" />
                             </svg>
                         </a>
                     </div>
@@ -1181,7 +1240,8 @@
 
                     <div class="page__description">
                         <p>
-                            In the reflection, I go in depth about my <span class="highlight">personal experiences</span> Lykios as an Intern. You will
+                            In the reflection, I go in depth about my <span class="highlight">personal
+                                experiences</span> Lykios as an Intern. You will
                             also find more information about the current state and the future of Lykiosbay.
                         </p>
                         <p>
@@ -1192,10 +1252,18 @@
                     <div class="page__link">
                         <a href="https://lennertsoffers.be/documents/reflection.pdf" target="_blank">
                             <svg viewBox="0 0 96.23 137.98">
-                                <path d="m69.12,137.98c-16.04,0-32.16-.94-48.05-2.81-3.47-.41-9.93-1.17-13.77-5.97-1.99-2.49-2.74-5.36-3.34-8.08C1.56,110.29.24,99.19.03,88.1c-.15-7.87.26-15.79.66-23.45L3.66,7.7c.06-1.19.21-3.98,2.44-5.95C8.15-.06,10.64-.02,11.84,0l56.64,1.07v.33c2.38-.22,4.84.95,6.1,2.96.65,1.03.96,2.09,1.08,3.1,4.48,3.88,8.94,8.28,12.2,13.65,7.27,11.94,7.45,26.59,7.6,38.35l.76,60.42c.04,3.17.1,7.96-2.69,11.85-4.25,5.91-12.15,6.08-15.94,6.15-2.82.06-5.64.09-8.47.09ZM12.6,9.02l-2.92,56.08c-.39,7.52-.8,15.28-.65,22.83.2,10.49,1.45,21,3.72,31.24.39,1.76.8,3.42,1.59,4.41,1.41,1.77,4.76,2.29,7.78,2.65,18.28,2.15,36.88,3.04,55.28,2.66,3.56-.07,7.39-.42,8.82-2.41.98-1.37,1.03-3.74,1-6.48l-.76-60.43c-.06-4.64-.12-9.54-.6-14.39-1.33-.03-2.67-.06-4-.08-5.05-.1-10.28-.21-15.44-.44-2.46-.11-3.77-1.32-4.44-2.32-1.14-1.71-.88-3.42-.79-3.98,1.02-6.67,2.35-13.34,3.64-19.78.48-2.42.96-4.84,1.43-7.27-.46-.38-.91-.75-1.37-1.13l-.21-.17-52.07-.98Zm58.11,26.8c3.79.13,7.61.21,11.33.28.77.02,1.55.03,2.32.05-.91-3.66-2.25-7.17-4.19-10.37-1.67-2.74-3.77-5.23-6.1-7.56-.14.7-.28,1.4-.42,2.1-1.01,5.08-2.05,10.29-2.93,15.49Z" style="fill:#212121;"/>
-                                <path d="m22.7,80.21c17.53-.63,35.09-.45,52.61.53,2.35.13,4.6-2.16,4.5-4.5-.11-2.55-1.98-4.36-4.5-4.5-17.52-.98-35.08-1.16-52.61-.53-2.35.08-4.61,2.01-4.5,4.5s1.98,4.59,4.5,4.5h0Z" style="fill:#212121;"/>
-                                <path d="m23.26,101.36c14.9-1.93,29.87-3.33,44.87-4.19,2.35-.14,4.61-1.97,4.5-4.5-.1-2.32-1.98-4.64-4.5-4.5-15,.86-29.97,2.26-44.87,4.19-2.33.3-4.62,1.85-4.5,4.5.1,2.18,2,4.82,4.5,4.5h0Z" style="fill:#212121;"/>
-                                <path d="m25.77,118.95c15.82-.55,31.66-.75,47.49-.59,2.35.02,4.61-2.09,4.5-4.5s-1.98-4.47-4.5-4.5c-15.83-.16-31.66.04-47.49.59-2.35.08-4.61,2.01-4.5,4.5s1.98,4.59,4.5,4.5h0Z" style="fill:#212121;"/>
+                                <path
+                                    d="m69.12,137.98c-16.04,0-32.16-.94-48.05-2.81-3.47-.41-9.93-1.17-13.77-5.97-1.99-2.49-2.74-5.36-3.34-8.08C1.56,110.29.24,99.19.03,88.1c-.15-7.87.26-15.79.66-23.45L3.66,7.7c.06-1.19.21-3.98,2.44-5.95C8.15-.06,10.64-.02,11.84,0l56.64,1.07v.33c2.38-.22,4.84.95,6.1,2.96.65,1.03.96,2.09,1.08,3.1,4.48,3.88,8.94,8.28,12.2,13.65,7.27,11.94,7.45,26.59,7.6,38.35l.76,60.42c.04,3.17.1,7.96-2.69,11.85-4.25,5.91-12.15,6.08-15.94,6.15-2.82.06-5.64.09-8.47.09ZM12.6,9.02l-2.92,56.08c-.39,7.52-.8,15.28-.65,22.83.2,10.49,1.45,21,3.72,31.24.39,1.76.8,3.42,1.59,4.41,1.41,1.77,4.76,2.29,7.78,2.65,18.28,2.15,36.88,3.04,55.28,2.66,3.56-.07,7.39-.42,8.82-2.41.98-1.37,1.03-3.74,1-6.48l-.76-60.43c-.06-4.64-.12-9.54-.6-14.39-1.33-.03-2.67-.06-4-.08-5.05-.1-10.28-.21-15.44-.44-2.46-.11-3.77-1.32-4.44-2.32-1.14-1.71-.88-3.42-.79-3.98,1.02-6.67,2.35-13.34,3.64-19.78.48-2.42.96-4.84,1.43-7.27-.46-.38-.91-.75-1.37-1.13l-.21-.17-52.07-.98Zm58.11,26.8c3.79.13,7.61.21,11.33.28.77.02,1.55.03,2.32.05-.91-3.66-2.25-7.17-4.19-10.37-1.67-2.74-3.77-5.23-6.1-7.56-.14.7-.28,1.4-.42,2.1-1.01,5.08-2.05,10.29-2.93,15.49Z"
+                                    style="fill:#212121;" />
+                                <path
+                                    d="m22.7,80.21c17.53-.63,35.09-.45,52.61.53,2.35.13,4.6-2.16,4.5-4.5-.11-2.55-1.98-4.36-4.5-4.5-17.52-.98-35.08-1.16-52.61-.53-2.35.08-4.61,2.01-4.5,4.5s1.98,4.59,4.5,4.5h0Z"
+                                    style="fill:#212121;" />
+                                <path
+                                    d="m23.26,101.36c14.9-1.93,29.87-3.33,44.87-4.19,2.35-.14,4.61-1.97,4.5-4.5-.1-2.32-1.98-4.64-4.5-4.5-15,.86-29.97,2.26-44.87,4.19-2.33.3-4.62,1.85-4.5,4.5.1,2.18,2,4.82,4.5,4.5h0Z"
+                                    style="fill:#212121;" />
+                                <path
+                                    d="m25.77,118.95c15.82-.55,31.66-.75,47.49-.59,2.35.02,4.61-2.09,4.5-4.5s-1.98-4.47-4.5-4.5c-15.83-.16-31.66.04-47.49.59-2.35.08-4.61,2.01-4.5,4.5s1.98,4.59,4.5,4.5h0Z"
+                                    style="fill:#212121;" />
                             </svg>
                         </a>
                     </div>

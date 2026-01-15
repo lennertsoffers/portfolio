@@ -1,4 +1,5 @@
 import { Audio, AudioListener, AudioLoader } from "three";
+
 import SoundType from "../enum/SoundType";
 
 export default class AudioManager {
@@ -68,55 +69,55 @@ export default class AudioManager {
                 audio: new Audio(this._audioListener),
                 volume: 0.4,
                 loop: true,
-                path: "/sounds/run.mp3"
+                path: "sounds/run.opus"
             },
             WALK: {
                 audio: new Audio(this._audioListener),
                 volume: 1,
                 loop: true,
-                path: "/sounds/walk.mp3"
+                path: "sounds/walk.opus"
             },
             AMBIENT: {
                 audio: new Audio(this._audioListener),
                 volume: 0.5,
                 loop: true,
-                path: "/sounds/ambient.mp3"
+                path: "sounds/ambient.opus"
             },
             CLICK: {
                 audio: new Audio(this._audioListener),
                 volume: 0.5,
                 loop: false,
-                path: "/sounds/click.mp3"
+                path: "sounds/click.opus"
             },
             NOTIFICATION: {
                 audio: new Audio(this._audioListener),
                 volume: 0.8,
                 loop: false,
-                path: "/sounds/notification.mp3"
+                path: "sounds/notification.opus"
             },
             TELEPORT: {
                 audio: new Audio(this._audioListener),
                 volume: 1,
                 loop: false,
-                path: "/sounds/teleport.mp3"
+                path: "sounds/teleport.opus"
             },
             PAGE: {
                 audio: new Audio(this._audioListener),
                 volume: 1,
                 loop: false,
-                path: "/sounds/page.mp3"
+                path: "sounds/page.opus"
             },
             BOOK: {
                 audio: new Audio(this._audioListener),
                 volume: 1,
                 loop: false,
-                path: "/sounds/book.mp3"
+                path: "sounds/book.opus"
             },
             SPARKLE: {
                 audio: new Audio(this._audioListener),
                 volume: 0.7,
                 loop: false,
-                path: "/sounds/sparkle.mp3"
+                path: "sounds/sparkle.opus"
             }
         };
 

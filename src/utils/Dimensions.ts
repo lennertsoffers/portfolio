@@ -27,8 +27,8 @@ export default class Dimensions extends EventEmitter {
     }
 
     private updateOnResize(): void {
-        let root = document.documentElement;
-        root.style.setProperty("--vh", root.clientHeight + "px");
+        const root = document.documentElement;
+        root.style.setProperty("--vh", `${root.clientHeight}px`);
 
         window.addEventListener("resize", () => {
             this._width = window.innerWidth;
@@ -60,7 +60,10 @@ export default class Dimensions extends EventEmitter {
     }
 
     private getDeviceType(): DeviceType {
-        if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/iPhone/i))
+        if (
+            navigator.userAgent.match(/Android/i) ||
+            navigator.userAgent.match(/iPhone/i)
+        )
             return DeviceType.MOBILE;
         return DeviceType.PC;
     }

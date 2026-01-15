@@ -1,4 +1,5 @@
 import GUI from "lil-gui";
+
 import DebugFolderEntry from "../types/entries/DebugFolderEntry";
 
 export default class Debug {
@@ -7,7 +8,7 @@ export default class Debug {
     private _folderStructure: DebugFolderEntry[];
 
     constructor() {
-        this._active = window.location.hash == "#debug";
+        this._active = window.location.hash === "#debug";
         this._folderStructure = [];
 
         if (this._active) {
@@ -36,7 +37,9 @@ export default class Debug {
     }
 
     private getGuiFolder(name: string): GUI | undefined {
-        const debugFolderEntry = this._folderStructure.find((debugFolderEntry) => debugFolderEntry.name === name);
+        const debugFolderEntry = this._folderStructure.find(
+            (debugFolderEntry) => debugFolderEntry.name === name
+        );
 
         if (debugFolderEntry) return debugFolderEntry.folder;
         return undefined;

@@ -1,4 +1,10 @@
-import { CineonToneMapping, PCFSoftShadowMap, sRGBEncoding, WebGLRenderer } from "three";
+import {
+    CineonToneMapping,
+    PCFSoftShadowMap,
+    sRGBEncoding,
+    WebGLRenderer
+} from "three";
+
 import Application from "../../Application";
 import Tickable from "../../types/interfaces/Tickable";
 
@@ -25,7 +31,9 @@ export default class Renderer implements Tickable {
             this._application.dimensions.width,
             this._application.dimensions.height
         );
-        this._instance.setPixelRatio(Math.min(this._application.dimensions.pixelRatio, 2));
+        this._instance.setPixelRatio(
+            Math.min(this._application.dimensions.pixelRatio, 2)
+        );
     }
 
     public resize(): void {
@@ -33,10 +41,15 @@ export default class Renderer implements Tickable {
             this._application.dimensions.width,
             this._application.dimensions.height
         );
-        this._instance.setPixelRatio(Math.min(this._application.dimensions.pixelRatio, 2));
+        this._instance.setPixelRatio(
+            Math.min(this._application.dimensions.pixelRatio, 2)
+        );
     }
 
     public tick(_deltaTime: number, _elapsedTime: number): void {
-        this._instance.render(this._application.scene, this._application.currentCamera.instance);
+        this._instance.render(
+            this._application.scene,
+            this._application.currentCamera.instance
+        );
     }
 }

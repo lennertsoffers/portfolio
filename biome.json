@@ -1,0 +1,122 @@
+{
+    "$schema": "https://biomejs.dev/schemas/2.3.11/schema.json",
+    "vcs": {
+        "enabled": true,
+        "clientKind": "git",
+        "useIgnoreFile": true
+    },
+    "files": {
+        "ignoreUnknown": false,
+        "includes": [
+            "**",
+            "!**/index.css",
+            "!**/z-index.css",
+            "!packages/scripts/src/*.js",
+            "!**/*d.ts",
+            "!**/*.ejs",
+            "!**/package.json",
+            "!static/*",
+            "!dist/*"
+        ]
+    },
+    "formatter": {
+        "enabled": true,
+        "indentStyle": "space",
+        "indentWidth": 4,
+        "attributePosition": "multiline",
+        "bracketSameLine": false,
+        "bracketSpacing": true,
+        "expand": "auto",
+        "formatWithErrors": true,
+        "lineWidth": 80
+    },
+    "linter": {
+        "enabled": true,
+        "rules": {
+            "recommended": true,
+            "complexity": {
+                "noBannedTypes": "off",
+                "noStaticOnlyClass": "off",
+                "useLiteralKeys": "off"
+            },
+            "suspicious": {
+                "noExplicitAny": "off",
+                "noImplicitAnyLet": "off",
+                "useIterableCallbackReturn": "off",
+                "noArrayIndexKey": "off",
+                "noNonNullAssertedOptionalChain": "off",
+                "noThenProperty": "off",
+                "noDocumentCookie": "off",
+                "noConfusingVoidType": "off"
+            },
+            "performance": {
+                "noAccumulatingSpread": "off"
+            },
+            "style": {
+                "useImportType": "off",
+                "noNonNullAssertion": "off",
+                "useNodejsImportProtocol": "off"
+            },
+            "correctness": {
+                "noUnusedImports": "error",
+                "noUnusedPrivateClassMembers": "off"
+            },
+            "security": {
+                "noDangerouslySetInnerHtml": "off"
+            },
+            "a11y": {
+                "useValidAnchor": "off",
+                "useKeyWithClickEvents": "off",
+                "noStaticElementInteractions": "off",
+                "noSvgWithoutTitle": "off",
+                "useIframeTitle": "off",
+                "noNoninteractiveTabindex": "off"
+            }
+        }
+    },
+    "javascript": {
+        "formatter": {
+            "enabled": true,
+            "quoteStyle": "double",
+            "arrowParentheses": "always",
+            "jsxQuoteStyle": "double",
+            "operatorLinebreak": "after",
+            "quoteProperties": "preserve",
+            "semicolons": "always",
+            "trailingCommas": "none"
+        },
+        "linter": {
+            "enabled": true
+        }
+    },
+    "css": {
+        "parser": {
+            "tailwindDirectives": true
+        }
+    },
+    "assist": {
+        "enabled": true,
+        "actions": {
+            "source": {
+                "organizeImports": {
+                    "level": "on",
+                    "options": {
+                        "groups": [
+                            ":PACKAGE:",
+                            ":BLANK_LINE:",
+                            ":NODE:",
+                            ":BLANK_LINE:",
+                            "@omni/**",
+                            ":BLANK_LINE:",
+                            "~/**",
+                            ":BLANK_LINE:",
+                            "@/**",
+                            ":BLANK_LINE:"
+                        ]
+                    }
+                },
+                "recommended": true
+            }
+        }
+    }
+}

@@ -1,4 +1,5 @@
 import { Vector2 } from "three";
+
 import Application from "../../Application";
 import MathUtils from "../../utils/MathUtils";
 import ClassConstants from "../constants/ClassConstants";
@@ -11,8 +12,11 @@ export default class Pointer {
     constructor(application: Application) {
         this._application = application;
 
-        const htmlElement = document.querySelector(`.${ClassConstants.POINTER_CLASS_NAME}`) as HTMLElement;
-        if (!htmlElement) throw new ElementNotFoundError(ClassConstants.POINTER_CLASS_NAME);
+        const htmlElement = document.querySelector(
+            `.${ClassConstants.POINTER_CLASS_NAME}`
+        ) as HTMLElement;
+        if (!htmlElement)
+            throw new ElementNotFoundError(ClassConstants.POINTER_CLASS_NAME);
         this._htmlElement = htmlElement;
 
         this.hide();
@@ -36,14 +40,13 @@ export default class Pointer {
             this._application.dimensions.height / 2
         );
 
-        const point = new Vector2(
-            boundingBox.bottom,
-            boundingBox.left - 100
-        );
+        const point = new Vector2(boundingBox.bottom, boundingBox.left - 100);
 
         const direction = new Vector2().subVectors(center, point).normalize();
 
-        const angle = MathUtils.radiansToDegrees(MathUtils.getAngleFromVector2(direction));
+        const angle = MathUtils.radiansToDegrees(
+            MathUtils.getAngleFromVector2(direction)
+        );
 
         this._htmlElement.style.top = `${point.x + direction.x * 30}px`;
         this._htmlElement.style.left = `${point.y + direction.y * 30}px`;

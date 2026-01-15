@@ -1,4 +1,5 @@
 import { Object3D, Vector3 } from "three";
+
 import Movable from "../../types/interfaces/Movable";
 
 export default class MovableObject3D implements Movable {
@@ -70,7 +71,11 @@ export default class MovableObject3D implements Movable {
 
     public getDirectionY(): Vector3 {
         const rotation = this.getRotation();
-        const direction = new Vector3(-Math.sin(rotation.y), 0, -Math.cos(rotation.y));
+        const direction = new Vector3(
+            -Math.sin(rotation.y),
+            0,
+            -Math.cos(rotation.y)
+        );
         return direction.normalize();
     }
 

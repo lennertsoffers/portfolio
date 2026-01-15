@@ -16,7 +16,9 @@ export default class Observable extends EventEmitter {
     public set(value: boolean): boolean {
         if (value && !this._value) this.trigger("activate");
 
-        return (this._value = value);
+        this._value = value;
+
+        return value;
     }
 
     public activate(): void {

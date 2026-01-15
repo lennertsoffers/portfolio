@@ -16,6 +16,8 @@ export default class MouseControls extends EventEmitter {
         this._canvasElement.addEventListener("mousedown", () =>
             this.trigger("mousedown")
         );
-        this._canvasElement.addEventListener("mouseup", () => this.trigger("mouseup"));
+        this._canvasElement.addEventListener("mouseup", () =>
+            this.trigger("mouseup")
+        );
     }
 }

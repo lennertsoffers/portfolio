@@ -1,4 +1,5 @@
 import { Object3D } from "three";
+
 import Tickable from "../../types/interfaces/Tickable";
 import AnimationManager from "../animation/AnimationManager";
 import AnimationMappings from "../constants/AnimationMappings";
@@ -35,7 +36,9 @@ export default class PlayerModel extends MovableObject3D implements Tickable {
             .getGltf();
         this.character = characterGltf.scene;
         this.character.position.copy(ModelConstants.PLAYER_INITIAL_POSITION);
-        this.character.rotation.setFromVector3(ModelConstants.PLAYER_INITIAL_ROTATION);
+        this.character.rotation.setFromVector3(
+            ModelConstants.PLAYER_INITIAL_ROTATION
+        );
         this.character.scale.copy(ModelConstants.PLAYER_SCALE);
         this.centerModifier = ModelConstants.PLAYER_CENTER_MODIFIER.clone();
 
@@ -48,12 +51,12 @@ export default class PlayerModel extends MovableObject3D implements Tickable {
         this._player.application.scene.add(this.character);
     }
 
-    public tick(deltaTime: number, elapsedTime: number): void {
+    public tick(deltaTime: number): void {
         if (!this._animationManager) return;
 
         this.updatePositionRotation();
 
-        this._animationManager.tick(deltaTime, elapsedTime);
+        this._animationManager.tick(deltaTime);
     }
 
     public toIdle(): void {
@@ -63,7 +66,10 @@ export default class PlayerModel extends MovableObject3D implements Tickable {
             AnimationMappings.PlayerAnimations.SPEED_IDLE
         );
 
-        this._player.application.audioManager.stopSound([SoundType.RUN, SoundType.WALK]);
+        this._player.application.audioManager.stopSound([
+            SoundType.RUN,
+            SoundType.WALK
+        ]);
     }
 
     public toWalking(): void {

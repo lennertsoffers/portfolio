@@ -34,12 +34,7 @@ export default class TouchControls extends EventEmitter {
         this._touchStartLocation.y = touch.clientY;
     }
 
-    private handleTouchEnd(): void {
-        const movementX = this._touchEndLocation.x - this._touchStartLocation.x;
-
-        // if (movementX < -100) this.trigger("swipeLeft");
-        // if (movementX > 100) this.trigger("swipeRight");
-    }
+    private handleTouchEnd(): void {}
 
     private handleTouchMove(touchEvent: TouchEvent): void {
         const touch = touchEvent.touches[0];

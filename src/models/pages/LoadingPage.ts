@@ -9,7 +9,10 @@ export default class LoadingPage {
     private _onContinue: Function | null;
     private _pressedContinue: boolean;
 
-    constructor(onLoaded: Function | null = null, onContinue: Function | null = null) {
+    constructor(
+        onLoaded: Function | null = null,
+        onContinue: Function | null = null
+    ) {
         this._page = null;
         this._onLoaded = onLoaded;
         this._onContinue = onContinue;
@@ -18,9 +21,12 @@ export default class LoadingPage {
 
     public show(): void {
         const className = ClassConstants.LOADING_CLASS_NAME;
-        const loadingPage = document.querySelector(`.${className}`) as HTMLElement;
+        const loadingPage = document.querySelector(
+            `.${className}`
+        ) as HTMLElement;
 
-        if (!loadingPage) throw new PageNotFoundError("loading page", className);
+        if (!loadingPage)
+            throw new PageNotFoundError("loading page", className);
 
         this._page = loadingPage;
     }
@@ -38,7 +44,8 @@ export default class LoadingPage {
         );
 
         continueButton.addEventListener("click", async () => {
-            if (!this._onContinue || !this._page || this._pressedContinue) return;
+            if (!this._onContinue || !this._page || this._pressedContinue)
+                return;
 
             this._pressedContinue = true;
 

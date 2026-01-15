@@ -1,11 +1,12 @@
 import { Color, Raycaster, Vector3 } from "three";
+
 import Application from "../../Application";
 import CollisionUtils from "../../utils/CollisionUtils";
 import MathUtils from "../../utils/MathUtils";
 import ControlConstants from "../constants/ControlsConstants";
 import ModelConstants from "../constants/ModelConstants";
 import PlayerState from "../enum/PlayerState";
-import WorldZone, { valueOf as worldZoneValueOf } from "../enum/WorldZone";
+import WorldZone, { from } from "../enum/WorldZone";
 import PlayerControls from "./PlayerControls";
 import PlayerModel from "./PlayerModel";
 
@@ -94,7 +95,7 @@ export default class Player {
         this.movePlayer(deltaTime);
 
         // Draw the player on the correct position
-        this._playerModel.tick(deltaTime, elapsedTime);
+        this._playerModel.tick(deltaTime);
 
         // Check if the player is inside an action box
         this.updateAvailableActions();
@@ -127,22 +128,25 @@ export default class Player {
                 return;
             case PlayerState.WAVING:
                 this._playerControls.keyboardControlsEnabled = false;
-                this.playerModel
-                    .wave()
-                    .then(() => (this._playerControls.keyboardControlsEnabled = true));
+                this.playerModel.wave().then(() => {
+                    this._playerControls.keyboardControlsEnabled = true;
+                });
                 return;
             case PlayerState.JUMPING:
                 this._playerControls.keyboardControlsEnabled = false;
                 this._jumpStartHeight = this.currentPosition.y;
                 this._jumpTime = 0;
-                this.playerModel
-                    .jump()
-                    .then(() => (this._playerControls.keyboardControlsEnabled = true));
+                this.playerModel.jump().then(() => {
+                    this._playerControls.keyboardControlsEnabled = true;
+                });
                 return;
         }
     }
 
-    public async teleport(toPosition: Vector3, toRotation: Vector3): Promise<void> {
+    public async teleport(
+        toPosition: Vector3,
+        toRotation: Vector3
+    ): Promise<void> {
         await this.playTeleportAnimation();
 
         this._currentPosition = toPosition;
@@ -154,7 +158,9 @@ export default class Player {
         await this.playTeleportAnimation(true);
     }
 
-    private async playTeleportAnimation(backwards: boolean = false): Promise<void> {
+    private async playTeleportAnimation(
+        backwards: boolean = false
+    ): Promise<void> {
         const center = this.currentPosition;
         const angleY = this._currentRotation.y;
 
@@ -162,18 +168,28 @@ export default class Player {
         let angleYRight = angleY + Math.PI / 2;
 
         const loopStartValue = backwards ? 0.8 : 0;
-        const loopCondition = (num: number) => (backwards ? num > 0 : num < 0.8);
-        const loopIncrement = (num: number) => (backwards ? (num -= 0.02) : (num += 0.02));
+        const loopCondition = (num: number) =>
+            backwards ? num > 0 : num < 0.8;
+        const loopIncrement = (num: number) =>
+            backwards ? num - 0.02 : num + 0.02;
 
         for (let i = loopStartValue; loopCondition(i); i = loopIncrement(i)) {
-            const radius = 0.4 * Math.pow(1 - i, 1 / 2);
+            const radius = 0.4 * (1 - i) ** (1 / 2);
             const positionLeft = center
                 .clone()
-                .add(MathUtils.directionFromAngleY(angleYLeft).multiplyScalar(radius))
+                .add(
+                    MathUtils.directionFromAngleY(angleYLeft).multiplyScalar(
+                        radius
+                    )
+                )
                 .add(new Vector3(0, i, 0));
             const positionRight = center
                 .clone()
-                .add(MathUtils.directionFromAngleY(angleYRight).multiplyScalar(radius))
+                .add(
+                    MathUtils.directionFromAngleY(angleYRight).multiplyScalar(
+                        radius
+                    )
+                )
                 .add(new Vector3(0, i, 0));
 
             this._application.particleManager.spawnParticleExplosion(
@@ -208,7 +224,10 @@ export default class Player {
         if (!this._application.world) return;
 
         // Rotation
-        const rotationVec = new Vector3().subVectors(this._futureRotation, this.currentRotation);
+        const rotationVec = new Vector3().subVectors(
+            this._futureRotation,
+            this.currentRotation
+        );
         this._currentRotation.add(
             rotationVec.multiplyScalar(
                 (deltaTime * 0.01) / ControlConstants.PLAYER_ROTATION_DAMPING
@@ -226,7 +245,10 @@ export default class Player {
         this._futurePosition.y += ModelConstants.PLAYER_HEIGHT_MODIFIER;
 
         // Position
-        const movementVec = new Vector3().subVectors(this._futurePosition, this.currentPosition);
+        const movementVec = new Vector3().subVectors(
+            this._futurePosition,
+            this.currentPosition
+        );
 
         // Don't execute movement if future position will collide with walls
         if (
@@ -247,9 +269,14 @@ export default class Player {
     private updateAvailableActions(): void {
         if (!this._application.world) return;
 
-        const forwardsDirection = MathUtils.directionFromAngleY(this._currentRotation.y);
+        const forwardsDirection = MathUtils.directionFromAngleY(
+            this._currentRotation.y
+        );
 
-        const forwardsRay = new Raycaster(this._currentPosition, forwardsDirection);
+        const forwardsRay = new Raycaster(
+            this._currentPosition,
+            forwardsDirection
+        );
         const backwardsRay = new Raycaster(
             this._currentPosition,
             forwardsDirection.clone().negate()
@@ -267,10 +294,17 @@ export default class Player {
         );
 
         if (activeZones.length === 0)
-            this._application.world.worldEventManager.handleWorldZoneChange(WorldZone.NONE);
+            this._application.world.worldEventManager.handleWorldZoneChange(
+                WorldZone.NONE
+            );
         else
             this._application.world.worldEventManager.handleWorldZoneChange(
-                worldZoneValueOf(activeZones[activeZones.length - 1].replace("action_box_", ""))
+                from(
+                    activeZones[activeZones.length - 1].replace(
+                        "action_box_",
+                        ""
+                    )
+                )
             );
     }
 
@@ -279,7 +313,10 @@ export default class Player {
 
         this._jumpTime += deltaTime / 1000;
 
-        const jumpHeight = Math.max(-Math.pow(2 * this._jumpTime - 1.3, 2) + 0.3, 0);
+        const jumpHeight = Math.max(
+            -((2 * this._jumpTime - 1.3) ** 2) + 0.3,
+            0
+        );
         const currentY = this._jumpStartHeight + jumpHeight;
 
         this._futurePosition.setY(currentY);

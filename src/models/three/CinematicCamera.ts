@@ -1,4 +1,5 @@
 import { PerspectiveCamera, Vector3 } from "three";
+
 import Application from "../../Application";
 import Tickable from "../../types/interfaces/Tickable";
 import CameraPath from "./CameraPath";
@@ -11,7 +12,12 @@ export default class CinematicCamera implements Tickable {
 
     constructor(application: Application) {
         this._application = application;
-        this._instance = new PerspectiveCamera(35, this._application.dimensions.getAspectRatio(), 0.1, 100);
+        this._instance = new PerspectiveCamera(
+            35,
+            this._application.dimensions.getAspectRatio(),
+            0.1,
+            100
+        );
         this._instance.position.set(0, 0, 5);
 
         this._cameraPath = null;
@@ -39,7 +45,10 @@ export default class CinematicCamera implements Tickable {
         this._cameraPath.tryComplete(this._instance.position);
         this._cameraPath.tick(deltaTime, elapsedTime);
 
-        const direction = new Vector3().subVectors(this._cameraPath.currentPosition, this._instance.position);
+        const direction = new Vector3().subVectors(
+            this._cameraPath.currentPosition,
+            this._instance.position
+        );
         this.instance.position.add(direction.multiplyScalar(deltaTime * 0.001));
 
         if (this._lookAt) this.instance.lookAt(this._lookAt);

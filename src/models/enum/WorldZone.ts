@@ -7,7 +7,7 @@ enum WorldZone {
     PROJECTS = "PROJECTS"
 }
 
-export const valueOf = (literal: string): WorldZone => {
+export const from = (literal: string): WorldZone => {
     const uppercaseLiteral = literal.toUpperCase();
 
     if (!Object.keys(WorldZone).includes(uppercaseLiteral))

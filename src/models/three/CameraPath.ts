@@ -1,4 +1,5 @@
 import { Vector3 } from "three";
+
 import Tickable from "../../types/interfaces/Tickable";
 import EventEmitter from "../../utils/EventEmitter";
 import EmptyWaypointsError from "../error/EmptyWaypointsError";
@@ -53,7 +54,8 @@ export default class CameraPath extends EventEmitter implements Tickable {
     }
 
     public start(): void {
-        this._previousWaypoint = this._waypoints[this._nextWaypointIndex].clone();
+        this._previousWaypoint =
+            this._waypoints[this._nextWaypointIndex].clone();
         this._nextWaypointIndex++;
         this._nextWaypoint = this.getNextWaypoint();
 
@@ -69,9 +71,21 @@ export default class CameraPath extends EventEmitter implements Tickable {
     public tryComplete(currentPosition: Vector3): void {
         if (!this._canComplete) return;
 
-        if (Math.abs(currentPosition.x - this._currentPublishedPosition.x) > 0.05) return;
-        if (Math.abs(currentPosition.y - this._currentPublishedPosition.y) > 0.05) return;
-        if (Math.abs(currentPosition.z - this._currentPublishedPosition.z) > 0.05) return;
+        if (
+            Math.abs(currentPosition.x - this._currentPublishedPosition.x) >
+            0.05
+        )
+            return;
+        if (
+            Math.abs(currentPosition.y - this._currentPublishedPosition.y) >
+            0.05
+        )
+            return;
+        if (
+            Math.abs(currentPosition.z - this._currentPublishedPosition.z) >
+            0.05
+        )
+            return;
 
         this._completed = true;
         this.trigger("completed");
@@ -82,7 +96,7 @@ export default class CameraPath extends EventEmitter implements Tickable {
         if (this._completed) return;
 
         const percentageOfDuration = deltaTime / this._duration;
-        let toMoveLength = this._totalPathLength * percentageOfDuration;
+        const toMoveLength = this._totalPathLength * percentageOfDuration;
         this.updatePosition(toMoveLength);
 
         if (this._publishCounter >= this._publishSpeed) {
@@ -97,14 +111,20 @@ export default class CameraPath extends EventEmitter implements Tickable {
         if (!this._nextWaypoint) {
             this._canComplete = true;
             return;
-        };
+        }
 
-        const remainingMovementInStep = new Vector3().subVectors(this._currentPosition, this._nextWaypoint);
+        const remainingMovementInStep = new Vector3().subVectors(
+            this._currentPosition,
+            this._nextWaypoint
+        );
         const remainingLength = remainingMovementInStep.length();
 
         // Doesn't reach the next waypoint
         if (toMoveLength < remainingLength) {
-            this._currentPosition.addScaledVector(this._currentStepDirection, toMoveLength);
+            this._currentPosition.addScaledVector(
+                this._currentStepDirection,
+                toMoveLength
+            );
         }
         // Exactly reaches the next waypoint
         else if (toMoveLength === remainingLength) {
@@ -137,7 +157,9 @@ export default class CameraPath extends EventEmitter implements Tickable {
         if (!this._nextWaypoint) {
             this._currentStepDirection = new Vector3();
         } else {
-            this._currentStepDirection = new Vector3().subVectors(this._nextWaypoint, this._previousWaypoint).normalize();
+            this._currentStepDirection = new Vector3()
+                .subVectors(this._nextWaypoint, this._previousWaypoint)
+                .normalize();
         }
     }
 
@@ -158,7 +180,9 @@ export default class CameraPath extends EventEmitter implements Tickable {
             const currentWaypoint = this._waypoints[i - 1];
             const nextWaypoint = this._waypoints[i];
 
-            length += new Vector3().subVectors(currentWaypoint, nextWaypoint).length();
+            length += new Vector3()
+                .subVectors(currentWaypoint, nextWaypoint)
+                .length();
         }
 
         return length;

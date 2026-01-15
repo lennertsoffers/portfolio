@@ -11,12 +11,18 @@ export default class ActionTriggerableWorldEvent extends WorldEvent {
     private _triggerableWorldActionType: TriggerableWorldActionType;
     private _interactButton: HTMLElement;
 
-    constructor(triggerableWorldActionType: TriggerableWorldActionType, application: Application) {
+    constructor(
+        triggerableWorldActionType: TriggerableWorldActionType,
+        application: Application
+    ) {
         super();
         this._triggerableWorldActionType = triggerableWorldActionType;
         this._application = application;
 
-        this._interactButton = DomUtils.getElement(document, ".interact_button");
+        this._interactButton = DomUtils.getElement(
+            document,
+            ".interact_button"
+        );
     }
 
     public handleTrigger(): void {
@@ -26,7 +32,7 @@ export default class ActionTriggerableWorldEvent extends WorldEvent {
             this.showInteract();
         }
 
-        this._application.audioManager.playSound(SoundType.SPARKLE)
+        this._application.audioManager.playSound(SoundType.SPARKLE);
     }
     public handleEnd(): void {
         if (this._application.dimensions.deviceType === DeviceType.MOBILE) {
@@ -37,9 +43,11 @@ export default class ActionTriggerableWorldEvent extends WorldEvent {
     }
 
     private showInteract(): void {
-        this._interactButton.classList.remove(ClassConstants.FADE_OUT, ClassConstants.HIDDEN);
+        this._interactButton.classList.remove(
+            ClassConstants.FADE_OUT,
+            ClassConstants.HIDDEN
+        );
         this._interactButton.classList.add(ClassConstants.FADE_IN);
-
     }
 
     private hideInteract(): void {

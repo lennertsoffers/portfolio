@@ -1,5 +1,6 @@
-import Application from "../../Application";
 import { PerspectiveCamera, Vector3 } from "three";
+
+import Application from "../../Application";
 import AttachedMovable from "./AttachedMovable";
 
 export default class AttachableCamera extends AttachedMovable {
@@ -54,7 +55,11 @@ export default class AttachableCamera extends AttachedMovable {
 
     public getDirectionY(): Vector3 {
         const rotation = this.getRotation();
-        const direction = new Vector3(-Math.sin(rotation.y), 0, -Math.cos(rotation.y));
+        const direction = new Vector3(
+            -Math.sin(rotation.y),
+            0,
+            -Math.cos(rotation.y)
+        );
         return direction.normalize();
     }
 

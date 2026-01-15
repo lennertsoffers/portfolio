@@ -20,5 +20,4 @@ export default class DialogWorldEvent extends WorldEvent {
     public handleEnd(): void {
         this._dialog.hide();
     }
-
 }

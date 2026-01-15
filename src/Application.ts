@@ -1,29 +1,29 @@
-import { AmbientLight, BoxGeometry, Mesh, MeshBasicMaterial, PointLight, Scene } from "three";
+import { Scene } from "three";
+
+import ParticleManager from "./models/animation/ParticleManager";
+import BookControls from "./models/controls/BookControls";
+import MobileControls from "./models/controls/MobileControls";
+import MouseControls from "./models/controls/MouseControls";
+import TouchControls from "./models/controls/TouchControls";
+import Hud from "./models/hud/Hud";
 import TimedLoop from "./models/logic/TimedLoop";
-import Dimensions from "./utils/Dimensions";
-import Renderer from "./models/three/Renderer";
+import BookManager from "./models/pages/BookManager";
+import LinkContainer from "./models/pages/LinkContainer";
+import LoadingPage from "./models/pages/LoadingPage";
+import PageManager from "./models/pages/PageManager";
+import Player from "./models/player/Player";
+import Pointer from "./models/startsSequence/Pointer";
+import StartSequence from "./models/startsSequence/StartSequence";
 import AttachableCamera from "./models/three/AttachableCamera";
+import AudioManager from "./models/three/AudioManager";
+import CinematicCamera from "./models/three/CinematicCamera";
+import Renderer from "./models/three/Renderer";
 import ResourceManager from "./models/three/ResourceManager";
 import MainWorld from "./models/worlds/MainWorld";
-import Player from "./models/player/Player";
+import World from "./models/worlds/World";
 import Tickable from "./types/interfaces/Tickable";
 import Debug from "./utils/Debug";
-import World from "./models/worlds/World";
-import PageManager from "./models/pages/PageManager";
-import CinematicCamera from "./models/three/CinematicCamera";
-import LoadingPage from "./models/pages/LoadingPage";
-import StartSequence from "./models/startsSequence/StartSequence";
-import Hud from "./models/hud/Hud";
-import ParticleManager from "./models/animation/ParticleManager";
-import BookManager from "./models/pages/BookManager";
-import TouchControls from "./models/controls/TouchControls";
-import BookControls from "./models/controls/BookControls";
-import Pointer from "./models/startsSequence/Pointer";
-import LinkContainer from "./models/pages/LinkContainer";
-import MouseControls from "./models/controls/MouseControls";
-import MobileControls from "./models/controls/MobileControls";
-import AudioManager from "./models/three/AudioManager";
-import PageOverlayType from "./models/enum/PageOverlayType";
+import Dimensions from "./utils/Dimensions";
 
 export default class Application implements Tickable {
     private _canvas: HTMLCanvasElement;
@@ -92,8 +92,12 @@ export default class Application implements Tickable {
         );
 
         this._dimensions.addEventListener("resize", () => this.resize());
-        this._dimensions.addEventListener("usemobile", () => this._mobileControls.show());
-        this._dimensions.addEventListener("usepc", () => this._mobileControls.hide());
+        this._dimensions.addEventListener("usemobile", () =>
+            this._mobileControls.show()
+        );
+        this._dimensions.addEventListener("usepc", () =>
+            this._mobileControls.hide()
+        );
 
         this._timedLoop.addEventListener("tick", () =>
             this.tick(this._timedLoop.deltaTime, this._timedLoop.elapsedTime)
@@ -102,8 +106,12 @@ export default class Application implements Tickable {
         this.showLoadingPage();
         this._resourceManager.startLoading();
 
-        this._mouseControls.addEventListener("mousedown", () => canvas.classList.add("mousedown"));
-        this._mouseControls.addEventListener("mouseup", () => canvas.classList.remove("mousedown"));
+        this._mouseControls.addEventListener("mousedown", () =>
+            canvas.classList.add("mousedown")
+        );
+        this._mouseControls.addEventListener("mouseup", () =>
+            canvas.classList.remove("mousedown")
+        );
     }
 
     public get canvas(): HTMLCanvasElement {

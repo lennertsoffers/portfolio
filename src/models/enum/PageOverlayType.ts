@@ -6,7 +6,7 @@ enum PageOverlayType {
     PROJECTS = "PROJECTS"
 }
 
-export const valueOf = (literal: string): PageOverlayType => {
+export const from = (literal: string): PageOverlayType => {
     const uppercaseLiteral = literal.toUpperCase();
 
     if (!Object.keys(PageOverlayType).includes(uppercaseLiteral))

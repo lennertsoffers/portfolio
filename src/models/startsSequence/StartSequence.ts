@@ -1,11 +1,12 @@
 import { Color, Vector3 } from "three";
+
 import Application from "../../Application";
 import DialogConstants from "../constants/DialogConstants";
 import DeviceType from "../enum/DeviceType";
+import SoundType from "../enum/SoundType";
 import ApplicationNotLoadedError from "../error/ApplicationNotLoadedError";
 import Player from "../player/Player";
 import CameraPath from "../three/CameraPath";
-import SoundType from "../enum/SoundType";
 
 export default class StartSequence {
     private _application: Application;
@@ -84,7 +85,7 @@ export default class StartSequence {
     }
 
     private async playDialog(): Promise<void> {
-        return new Promise(async (resolve) => {
+        const waitForSkip = new Promise<void>((resolve) => {
             this._application.hud.dialog.addOnSkipCallback(() => {
                 this._application.hud.menu.animate();
                 this._application.hud.dialog.hide();
@@ -93,10 +94,14 @@ export default class StartSequence {
 
                 resolve();
             });
+        });
 
+        const waitForDialog = (async () => {
             this._application.hud.dialog.show();
 
-            await this._application.hud.dialog.writeText(...DialogConstants.WELCOME_TEXT_QUEUE);
+            await this._application.hud.dialog.writeText(
+                ...DialogConstants.WELCOME_TEXT_QUEUE
+            );
 
             this._application.hud.menu.animate();
             setTimeout(() => {
@@ -107,14 +112,18 @@ export default class StartSequence {
                 }, 3000);
             }, 500);
 
-            await this._application.hud.dialog.writeText(...DialogConstants.MENU_TEXT_QUEUE);
+            await this._application.hud.dialog.writeText(
+                ...DialogConstants.MENU_TEXT_QUEUE
+            );
 
-            await this._application.hud.dialog.writeText(...DialogConstants.HAVE_FUN_TEXT_QUEUE);
+            await this._application.hud.dialog.writeText(
+                ...DialogConstants.HAVE_FUN_TEXT_QUEUE
+            );
 
             this.enableMovement();
+        })();
 
-            resolve();
-        });
+        return Promise.race([waitForSkip, waitForDialog]);
     }
 
     private enableMovement(): void {

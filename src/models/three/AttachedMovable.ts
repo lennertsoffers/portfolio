@@ -1,5 +1,5 @@
-import { ArrowHelper, Mesh, Raycaster, Vector3 } from "three";
-import Application from "../../Application";
+import { Mesh, Raycaster, Vector3 } from "three";
+
 import Attachable from "../../types/interfaces/Attachable";
 import Movable from "../../types/interfaces/Movable";
 import Tickable from "../../types/interfaces/Tickable";
@@ -7,7 +7,9 @@ import AttachableConstants from "../constants/AttachableConstants";
 import CollisionConstants from "../constants/CollisionConstants";
 import MovableObject3D from "./MovableObject3D";
 
-export default abstract class AttachedMovable implements Movable, Attachable, Tickable {
+export default abstract class AttachedMovable
+    implements Movable, Attachable, Tickable
+{
     private _attachedTo: MovableObject3D | null;
     private _pausedAttachment: boolean;
     private _distanceModifier: number;
@@ -96,7 +98,9 @@ export default abstract class AttachedMovable implements Movable, Attachable, Ti
             this._attachedTo.getCenterPosition(),
             this.getPosition()
         );
-        const attachedToThisDirection = thisToAttachedDirection.clone().negate();
+        const attachedToThisDirection = thisToAttachedDirection
+            .clone()
+            .negate();
 
         const rayFromThisToAttached = new Raycaster(
             this.getPosition(),
@@ -107,23 +111,27 @@ export default abstract class AttachedMovable implements Movable, Attachable, Ti
             attachedToThisDirection.clone().normalize()
         );
 
-        const intersectionsThisToAttached = rayFromThisToAttached.intersectObjects(
-            this._collisionMeshes
-        );
-        const intersectionsAttachedToThis = rayFromAttachedToThis.intersectObjects(
-            this._collisionMeshes
-        );
+        const intersectionsThisToAttached =
+            rayFromThisToAttached.intersectObjects(this._collisionMeshes);
+        const intersectionsAttachedToThis =
+            rayFromAttachedToThis.intersectObjects(this._collisionMeshes);
 
         const toDistance = thisToAttachedDirection.length();
 
-        const filteredIntersectionsThisToAttached = intersectionsThisToAttached.filter(
-            (intersection) =>
-                intersection.distance - CollisionConstants.COLLISION_DISTANCE <= toDistance
-        );
-        const filteredIntersectionsAttachedToThis = intersectionsAttachedToThis.filter(
-            (intersection) =>
-                intersection.distance - CollisionConstants.COLLISION_DISTANCE <= toDistance
-        );
+        const filteredIntersectionsThisToAttached =
+            intersectionsThisToAttached.filter(
+                (intersection) =>
+                    intersection.distance -
+                        CollisionConstants.COLLISION_DISTANCE <=
+                    toDistance
+            );
+        const filteredIntersectionsAttachedToThis =
+            intersectionsAttachedToThis.filter(
+                (intersection) =>
+                    intersection.distance -
+                        CollisionConstants.COLLISION_DISTANCE <=
+                    toDistance
+            );
 
         if (
             filteredIntersectionsThisToAttached.length > 0 ||

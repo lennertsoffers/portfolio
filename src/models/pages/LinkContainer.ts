@@ -94,21 +94,24 @@ export default class LinkContainer {
 
         if (this._leftInnerHtmlReference.value.length > 0) {
             this._linkContainerLeft.classList.remove(ClassConstants.HIDDEN);
-            this._linkContainerLeft.innerHTML = this._leftInnerHtmlReference.value;
+            this._linkContainerLeft.innerHTML =
+                this._leftInnerHtmlReference.value;
             this._linkContainerLeft.classList.remove("fadeOut");
             this._linkContainerLeft.classList.add("fadeIn");
         }
 
         if (this._centerInnerHtmlReference.value.length > 0) {
             this._linkContainerCenter.classList.remove(ClassConstants.HIDDEN);
-            this._linkContainerCenter.innerHTML = this._centerInnerHtmlReference.value;
+            this._linkContainerCenter.innerHTML =
+                this._centerInnerHtmlReference.value;
             this._linkContainerCenter.classList.remove("fadeOut");
             this._linkContainerCenter.classList.add("fadeIn");
         }
 
         if (this._rightInnerHtmlReference.value.length > 0) {
             this._linkContainerRight.classList.remove(ClassConstants.HIDDEN);
-            this._linkContainerRight.innerHTML = this._rightInnerHtmlReference.value;
+            this._linkContainerRight.innerHTML =
+                this._rightInnerHtmlReference.value;
             this._linkContainerRight.classList.remove("fadeOut");
             this._linkContainerRight.classList.add("fadeIn");
         }

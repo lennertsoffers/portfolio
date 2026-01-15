@@ -35,7 +35,7 @@ export default class BookManager {
         });
 
         this._application.linkContainer.show();
-        this._activeBook && this._activeBook.book.update();
+        this._activeBook?.book.update();
         this.updateNavigation();
     }
 
@@ -52,7 +52,7 @@ export default class BookManager {
     }
 
     public resize(): void {
-        this._activeBook && this._activeBook.book.update();
+        this._activeBook?.book.update();
         this.updateNavigation();
     }
 
@@ -66,24 +66,24 @@ export default class BookManager {
 
     private addFlipListener(): void {
         this._application.touchControls.addEventListener("swipeLeft", () => {
-            this._activeBook && this._activeBook.book.flipUp();
+            this._activeBook?.book.flipUp();
             this.updateNavigation();
-            this._activeBook && this._activeBook.book.showLinks();
+            this._activeBook?.book.showLinks();
         });
         this._application.touchControls.addEventListener("swipeRight", () => {
-            this._activeBook && this._activeBook.book.flipDown();
+            this._activeBook?.book.flipDown();
             this.updateNavigation();
-            this._activeBook && this._activeBook.book.showLinks();
+            this._activeBook?.book.showLinks();
         });
         this._application.bookControls.addEventListener("left", () => {
-            this._activeBook && this._activeBook.book.flipDown();
+            this._activeBook?.book.flipDown();
             this.updateNavigation();
-            this._activeBook && this._activeBook.book.showLinks();
+            this._activeBook?.book.showLinks();
         });
         this._application.bookControls.addEventListener("right", () => {
-            this._activeBook && this._activeBook.book.flipUp();
+            this._activeBook?.book.flipUp();
             this.updateNavigation();
-            this._activeBook && this._activeBook.book.showLinks();
+            this._activeBook?.book.showLinks();
         });
         this._application.touchControls.addEventListener("swipeUp", () => {
             document.querySelectorAll(".page").forEach((page) => {
@@ -128,6 +128,8 @@ export default class BookManager {
 
         document
             .querySelectorAll(".page__link")
-            .forEach((pageLink) => pageLink.classList.add(ClassConstants.HIDDEN));
+            .forEach((pageLink) =>
+                pageLink.classList.add(ClassConstants.HIDDEN)
+            );
     }
 }

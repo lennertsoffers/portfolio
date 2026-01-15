@@ -1,7 +1,7 @@
+import Application from "../../Application";
 import EventEmitter from "../../utils/EventEmitter";
 import PageConstants from "../constants/PageConstants";
 import PageOverlayType from "../enum/PageOverlayType";
-import Application from "../../Application";
 import Page from "./Page";
 
 export default class PageManager extends EventEmitter {

@@ -1,14 +1,14 @@
-import sources from "../../sources";
-import LoadCycleEntry from "../../types/entries/LoadCycleEntry";
-import Loaders from "../../types/Loaders";
-import EventEmitter from "../../utils/EventEmitter";
+import { sRGBEncoding, TextureLoader } from "three";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import { sRGBEncoding, TextureLoader } from "three";
-import SourceEntry from "../../types/entries/SourceEntry";
-import LoadedResourceEntry from "./LoadedResourceEntry";
-import ResourceNotLoadedError from "../error/ResourceNotLoadedError";
 
+import sources from "../../sources";
+import LoadCycleEntry from "../../types/entries/LoadCycleEntry";
+import SourceEntry from "../../types/entries/SourceEntry";
+import Loaders from "../../types/Loaders";
+import EventEmitter from "../../utils/EventEmitter";
+import ResourceNotLoadedError from "../error/ResourceNotLoadedError";
+import LoadedResourceEntry from "./LoadedResourceEntry";
 
 export default class ResourceManager extends EventEmitter {
     private _sources: LoadCycleEntry[];
@@ -37,9 +37,15 @@ export default class ResourceManager extends EventEmitter {
     }
 
     public getLoadedResource(name: string): LoadedResourceEntry {
-        const loadedResourceEntry = this._loadedResources.find((loadedResourceEntry) => loadedResourceEntry.name === name);
+        const loadedResourceEntry = this._loadedResources.find(
+            (loadedResourceEntry) => loadedResourceEntry.name === name
+        );
 
-        if (!loadedResourceEntry) throw new ResourceNotLoadedError(name, this._loadedResources.map((entry) => entry.name));
+        if (!loadedResourceEntry)
+            throw new ResourceNotLoadedError(
+                name,
+                this._loadedResources.map((entry) => entry.name)
+            );
 
         return loadedResourceEntry as LoadedResourceEntry;
     }
@@ -65,25 +71,35 @@ export default class ResourceManager extends EventEmitter {
         }
     }
 
-    private async loadLoadCycleEntry(loadCycleEntry: LoadCycleEntry): Promise<void> {
+    private async loadLoadCycleEntry(
+        loadCycleEntry: LoadCycleEntry
+    ): Promise<void> {
         for (const sourceEntry of loadCycleEntry.sourceEntries) {
             await this.loadSourceEntry(sourceEntry);
-        };
+        }
     }
 
     private async loadSourceEntry(sourceEntry: SourceEntry): Promise<void> {
         if (sourceEntry.type === "texture") {
-            const texture = await this._loaders.textureLoader.loadAsync(sourceEntry.path);
+            const texture = await this._loaders.textureLoader.loadAsync(
+                sourceEntry.path
+            );
 
             texture.flipY = false;
             texture.encoding = sRGBEncoding;
 
-            this._loadedResources.push(new LoadedResourceEntry(sourceEntry.name, texture, undefined));
+            this._loadedResources.push(
+                new LoadedResourceEntry(sourceEntry.name, texture, undefined)
+            );
             this._loaded++;
         } else if (sourceEntry.type === "gltf") {
-            const gltf = await this._loaders.gltfLoader.loadAsync(sourceEntry.path);
+            const gltf = await this._loaders.gltfLoader.loadAsync(
+                sourceEntry.path
+            );
 
-            this._loadedResources.push(new LoadedResourceEntry(sourceEntry.name, undefined, gltf));
+            this._loadedResources.push(
+                new LoadedResourceEntry(sourceEntry.name, undefined, gltf)
+            );
             this._loaded++;
         }
 

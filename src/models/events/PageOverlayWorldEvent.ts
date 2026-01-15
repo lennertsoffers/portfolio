@@ -1,6 +1,5 @@
 import Application from "../../Application";
 import PageOverlayType from "../enum/PageOverlayType";
-import PageManager from "../pages/PageManager";
 import WorldEvent from "./WorldEvent";
 
 export default class PageOverlayWorldEvent extends WorldEvent {
